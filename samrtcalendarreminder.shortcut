@@ -1,0 +1,64 @@
+Smart Calendar Reminder (14 actions, 5 KB)
+"WFQuickActionSurfaces": [],
+"WFWorkflowClientVersion": "3303.0.4",
+"WFWorkflowHasOutputFallback": false,
+"WFWorkflowHasShortcutInputVariables": true,
+"WFWorkflowIcon": {
+   "WFWorkflowIconStartColor": 431817727,
+   "WFWorkflowIconGlyphNumber": 61701
+},
+"WFWorkflowImportQuestions": [],
+"WFWorkflowInputContentItemClasses": [
+   "WFAppContentItem",
+   "WFAppStoreAppContentItem",
+   "WFArticleContentItem",
+   "WFContactContentItem",
+   "WFDateContentItem",
+   "WFEmailAddressContentItem",
+   "WFFolderContentItem",
+   "WFGenericFileContentItem",
+   "WFImageContentItem",
+   "WFiTunesProductContentItem",
+   "WFLocationContentItem",
+   "WFDCMapsLinkContentItem",
+   "WFAVAssetContentItem",
+   "WFPDFContentItem",
+   "WFPhoneNumberContentItem",
+   "WFRichTextContentItem",
+   "WFSafariWebPageContentItem",
+   "WFStringContentItem",
+   "WFURLContentItem"
+],
+"WFWorkflowMinimumClientVersion": 900,
+"WFWorkflowMinimumClientVersionString": "900",
+"WFWorkflowOutputContentItemClasses": [],
+"WFWorkflowTypes": []
+0 Comment
+Inspired by [Schedule Shortcut or Alarm] but designed to work smarter for my needs! Instead of manually inputting each trigger or alarm, this shortcut leverages my Calendar as the ultimate data source. Every hour, it automatically scans for upcoming events, then:
+
+• Speaks out the event details
+• Sets a tailored alarm—accounting for travel and prep time—right when you need it
+
+No more early, forgettable reminders. It keeps your schedule perfectly in sync. Give it a try and let your Calendar do the heavy lifting!
+1 If [Shortcut Input] does not have any value
+2 Dictionary　»
+{  "Setup": "Find easy to follow instructions for setting up the required automations",
+   "Update": "Check for updates to this shortcut"
+}
+3 Choose from List [2 Dictionary]　»
+ChooseFromListActionPrompt
+Choose what you'd like to do?
+4 If [3 Selected Item’s Name] is Setup
+5 Get File at Path SmartCalendarReminder/aboutme.text from Folder　»
+6 If [5 File’s File Size] does not have any value
+7 Dictionary
+{  "Always Using Current Location": "Find easy to follow instructions for setting up the required automations",
+   "Set a Base/Home Location": "Check for updates to this shortcut",
+   "Using Costumized Location in Canlendar": "you can customized each event/schedule in calendar. Since calenar don't have a departure address you need to put your designed departure location in [Notes] instead."
+}
+8 Otherwise
+9 End If
+10 Otherwise　▵4
+11 End If
+12 Otherwise　▵1
+13 End If
