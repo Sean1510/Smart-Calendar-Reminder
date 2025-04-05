@@ -122,7 +122,6 @@
         <!-- Success message container -->
         <div class="success-message" id="successMessage">
             <p>Data collected successfully!</p>
-            <button onclick="window.location.href='shortcuts://'">Tap to Exit</button>
         </div>
     </div>
 
@@ -142,9 +141,6 @@ function sendToShortcut() {
             // Show success message and hide form
             document.getElementById('addressForm').style.display = 'none';
             document.getElementById('successMessage').classList.add('show');
-
-            // Optional: Auto-close after 3 seconds
-            setTimeout(() => window.location.href = 'shortcuts://', 3000);
 }
 </script>
 </body>
