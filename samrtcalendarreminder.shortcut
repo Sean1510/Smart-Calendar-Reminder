@@ -1,4 +1,4 @@
-Smart Calendar Reminder (14 actions, 5 KB)
+Smart Calendar Reminder (88 actions, 43 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.4",
 "WFWorkflowHasOutputFallback": false,
@@ -8,57 +8,241 @@ Smart Calendar Reminder (14 actions, 5 KB)
    "WFWorkflowIconGlyphNumber": 61701
 },
 "WFWorkflowImportQuestions": [],
-"WFWorkflowInputContentItemClasses": [
-   "WFAppContentItem",
-   "WFAppStoreAppContentItem",
-   "WFArticleContentItem",
-   "WFContactContentItem",
-   "WFDateContentItem",
-   "WFEmailAddressContentItem",
-   "WFFolderContentItem",
-   "WFGenericFileContentItem",
-   "WFImageContentItem",
-   "WFiTunesProductContentItem",
-   "WFLocationContentItem",
-   "WFDCMapsLinkContentItem",
-   "WFAVAssetContentItem",
-   "WFPDFContentItem",
-   "WFPhoneNumberContentItem",
-   "WFRichTextContentItem",
-   "WFSafariWebPageContentItem",
-   "WFStringContentItem",
-   "WFURLContentItem"
-],
-"WFWorkflowMinimumClientVersion": 900,
-"WFWorkflowMinimumClientVersionString": "900",
+"WFWorkflowInputContentItemClasses": [],
+"WFWorkflowMinimumClientVersion": 1106,
+"WFWorkflowMinimumClientVersionString": "1106",
 "WFWorkflowOutputContentItemClasses": [],
 "WFWorkflowTypes": []
-0 Comment
-Inspired by [Schedule Shortcut or Alarm] but designed to work smarter for my needs! Instead of manually inputting each trigger or alarm, this shortcut leverages my Calendar as the ultimate data source. Every hour, it automatically scans for upcoming events, then:
+0 If [Shortcut Input] does not have any value
+1 Comment
+Inspired by [Schedule Shortcut or Alarm] but designed to work smarter for my needs! Instead of manually inputting each trigger or alarm, this shortcut leverages my Calendar as the ultimate data source. It automatically scans for upcoming events, then:
 
 • Speaks out the event details
 • Sets a tailored alarm—accounting for travel and prep time—right when you need it
 
 No more early, forgettable reminders. It keeps your schedule perfectly in sync. Give it a try and let your Calendar do the heavy lifting!
-1 If [Shortcut Input] does not have any value
-2 Dictionary　»
-{  "Setup": "Find easy to follow instructions for setting up the required automations",
-   "Update": "Check for updates to this shortcut"
+2 Dictionary　» 3 4 6 8 9 10 11 20
+{  "Name": "Smart Calendar Reminder",
+   "Version": "1.1",
+   "RH ID": "21959",
+   "Icons": {
+      "Update": "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",
+      "Skip": "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",
+      "Not Now": "iVBORw0KGgoAAAANSUhEUgAAAD4AAAA+CAYAAABzwahEAAABYWlDQ1BrQ0dDb2xvclNwYWNlRGlzcGxheVAzAAAokWNgYFJJLCjIYWFgYMjNKykKcndSiIiMUmB/yMAOhLwMYgwKicnFBY4BAT5AJQwwGhV8u8bACKIv64LMOiU1tUm1XsDXYqbw1YuvRJsw1aMArpTU4mQg/QeIU5MLikoYGBhTgGzl8pICELsDyBYpAjoKyJ4DYqdD2BtA7CQI+whYTUiQM5B9A8hWSM5IBJrB+API1klCEk9HYkPtBQFul8zigpzESoUAYwKuJQOUpFaUgGjn/ILKosz0jBIFR2AopSp45iXr6SgYGRiaMzCAwhyi+nMgOCwZxc4gxJrvMzDY7v////9uhJjXfgaGjUCdXDsRYhoWDAyC3AwMJ3YWJBYlgoWYgZgpLY2B4dNyBgbeSAYG4QtAPdHFacZGYHlGHicGBtZ7//9/VmNgYJ/MwPB3wv//vxf9//93MVDzHQaGA3kAFSFl7jXH0fsAAADkZVhJZk1NACoAAAAIAAcBEgADAAAAAQABAAABGgAFAAAAAQAAAGIBGwAFAAAAAQAAAGoBKAADAAAAAQACAAABMQACAAAAHwAAAHIBMgACAAAAFAAAAJKHaQAEAAAAAQAAAKYAAAAAAAABLAAAAAEAAAEsAAAAAUFkb2JlIFBob3Rvc2hvcCAyMS4wIChXaW5kb3dzKQAAMjAyMDowMzoxNiAxNToyODowNgAAA5AEAAIAAAAUAAAA0KACAAQAAAABAAAAPqADAAQAAAABAAAAPgAAAAAyMDIwOjAzOjE2IDE1OjI4OjA2AMhh/aMAAAAJcEhZcwAALiMAAC4jAXilP3YAAAJVaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJYTVAgQ29yZSA2LjAuMCI+CiAgIDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8eG1wOkNyZWF0ZURhdGU+MjAyMC0wMy0xNlQxNToyODowNjwveG1wOkNyZWF0ZURhdGU+CiAgICAgICAgIDx4bXA6Q3JlYXRvclRvb2w+QWRvYmUgUGhvdG9zaG9wIDIxLjAgKFdpbmRvd3MpPC94bXA6Q3JlYXRvclRvb2w+CiAgICAgICAgIDx4bXA6TW9kaWZ5RGF0ZT4yMDIwLTAzLTE2VDE1OjI4OjA2PC94bXA6TW9kaWZ5RGF0ZT4KICAgICAgICAgPHRpZmY6T3JpZW50YXRpb24+MTwvdGlmZjpPcmllbnRhdGlvbj4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+Ch8J5twAAASuSURBVGgF7ZhdaFxFFMdn7kdM2wTZxFoChWIjYkBNW5eA1EoKii1iIFYo+LF3K2nSR8EHWz9ehIIPPuiT/bDYDYRCEUSt5EEkIC1YjZZ+2SqEWAzWhXRL7bbc3Xtnxv+5yTXZEPBKZvZphiUny86de37/c87MuZcxO6wCVgGrgFXAKmAVsApYBawCVgGrgFXAKmAVsApYBawCRhTgule989YLXaEndkihLq49+OXkStYv7+7rjYXs8Xx3Yt2Js+WVrLX0Wq3gBF3zxKXc2vYOdrfGbt4J93W899XhpTfN8v36i/mCYupYm+961UhcdX2vXye8k8WJrHNCr74jgQ4jxnyX5dpXH6q8O7Av6/XpvJldjweALrkO925HggH+YRXL/vR3HVYruBTORVYNGaM8imVic+2tH1feeX4kq7MEzbk67mCNSEjmwv4dxVEcx1ezrpFlnlZwqumb1foIi8Xcvedtrq31UOXAf8PP7NoUMAZoXI3aTqBjoRgTamj95+fOZwHKOkdrjac3rbz93HBudevhxHMJxyl8sKj5kY6DXx9J5y221wY3BQA+7nLOYqWYBytgOeMBoEcXz9XxvxFwcqyyf+dwbg3g56FTm8C/P94Af23wsYArjvSegyV4CWjFnWCDAWjyzxg4LX7jzZ17O1a1HEmhU1up1oc7Pxg/SnOmBwDNEWm4QhEm6CTSnAUbvrigPdJ0TxpGwekGN954dii3quUoR+QV0j2xALwVRnsql/+oO64zRklBpUwbGVWGUjzYeMocdFPAE/jXnxm6F/A4nrDZo35hw1rE/vrtT8GkdAl2caQ3nrpsLNLkDw3sJ+ZH54fffHLrbjhUr8eMS8kinM18LrQu7d4cGUBHl5ISkTYPTcRNAacbdX707bHbYS0IazFTgBQ46gREUICOJRpcKV9+cPyK8UiTLzS8OdOkv5FEmctkx5aAl4g61T0yHdb4dtMA2bSIz+7dVrzHcUY9YMbo6ijqDB8BcI7NHPhjvzz9UKHBO4NfmgI++9q2ou84n1JdJ/UN6DrqHKkuAI0uTTEHKY9P6dL25sAbB5/dszXAMbUAPQ/POH81qskC7fKU5KgCijzyQTUF3mhhzQZPFDh3SnQ+p+c0WSVF8b7R70uUyef7uwO0pejPFxoYFALVfrH3u6lkjomMNwZefqWv4HB3GWhVvH9sDjoFOvdUd9KnN7astAWo4mZD8EbAyy/1YZPiJWpUkoYFbSg9eKD/Lnad+GHZKBI8Ao2HlMbsQCIYgdcOfn13HunNEemF1KXeG8dVsevk8tD/Rn5rd6DwLL70WogYbDk9pfWM1wo+M7i51/XdH+G4v/jRUiBl15/8adlIp9CpnQQ8uvqGyMc4AR2u8ltOT2t7Jte6q3OX9axxHT95iQASsijUICs0wefPTJVQFEU638k5KpU21/GYdHrod11DK7hXjyboxSDekdGjZYQuPOj6bPJ/p2j+zO8l8AY4AeI212XVWPzqCzmhC5rW0ZrqtGB54JF1cYu/XQl2ZaWvi35+8oFeijRBP3p2WuvrZfLVDquAVcAqYBWwClgFrAJWAauAVcAqYBWwClgFrAJWAauAAQX+AYUgO5ZuoSfPAAAAAElFTkSuQmCC"
+   }
 }
-3 Choose from List [2 Dictionary]　»
+3 Get Contents of URL https://routinehub.co/api/v1/shortcuts/[2 Dictionary.RH ID]/versions/latest 　➔ RH Server　» 5 7 10 15 19
+4 Get File at Path [2 Dictionary.Name]/Skip.txt from Folder　»
+File
+{  "fileLocation": {
+      "crossDeviceItemID": "docs.icloud.com:com.apple.CloudDocs/documents/95d6214c39557e3de40d802073a860c04f3aed5b",
+      "fileProviderDomainID": "com.apple.CloudDocs.iCloudDriveFileProvider/38059A1C-DC76-4B89-B62F-250A61DBFC73",
+      "appContainerBundleIdentifier": "com.apple.shortcuts",
+      "relativeSubpath": "",
+      "WFFileLocationType": "Shortcuts"
+   },
+   "filename": "Documents",
+   "displayName": "Shortcuts"
+}
+FileErrorIfNotFound
+false
+ShowFilePicker
+false
+GetFolderContents
+true
+5 If [4 File as Text] is not [3 RH Server as Dictionary.Version]
+6 Get Dictionary Value for Version in [2 Dictionary]　»
+7 If [6 Dictionary Value as Text] is not [3 RH Server as Dictionary.Version]
+8 Base64 Decode [2 Dictionary.Icons.Update]
+9 Show Alert A new version of [2 Dictionary.Name] is available to download!
+10 Text　» 13
+⬆️ Update ⬆️
+
+A new version of [2 Dictionary.Name] is available to download!
+
+[2 Dictionary.Version] ↗ [3 RH Server as Dictionary.Version]   —   [3 RH Server as Dictionary.Release]
+
+[3 RH Server as Dictionary.Notes]
+11 Text　»
+BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=utf-8:Update;;;;
+PHOTO;ENCODING=b:[2 Dictionary.Icons.Update]
+END:VCARD
+
+BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=utf-8:Skip;;;;
+PHOTO;ENCODING=b:[2 Dictionary.Icons.Skip]
+END:VCARD
+
+BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=utf-8:Not Now;;;;
+PHOTO;ENCODING=b:[2 Dictionary.Icons.Not Now]
+END:VCARD
+12 Set Name of [11 Text] to updateprompt.vcf　»
+13 Choose from List [12 Renamed Item as Contact]　» 14 18
 ChooseFromListActionPrompt
-Choose what you'd like to do?
-4 If [3 Selected Item’s Name] is Setup
-5 Get File at Path SmartCalendarReminder/aboutme.text from Folder　»
-6 If [5 File’s File Size] does not have any value
-7 Dictionary
-{  "Always Using Current Location": "Find easy to follow instructions for setting up the required automations",
-   "Set a Base/Home Location": "Check for updates to this shortcut",
-   "Using Costumized Location in Canlendar": "you can customized each event/schedule in calendar. Since calenar don't have a departure address you need to put your designed departure location in [Notes] instead."
+[10 Text]
+14 If [13 Chosen Item as Text] is Update
+15 Open URL [3 RH Server as Dictionary.URL]
+Show-WFInput
+true
+16 Stop This Shortcut
+17 End If
+18 If [13 Chosen Item as Text] is Skip
+19 Save File [3 RH Server as Dictionary.Version]
+AskWhereToSave
+false
+SaveFileOverwrite
+true
+FileDestinationPath
+[? Dictionary.Name]/Skip.txt
+20 Show Alert This version of [2 Dictionary.Name] has been skipped!
+AlertActionTitle
+✅ Done ✅
+AlertActionCancelButtonShown
+false
+21 End If
+22 End If　▵7
+23 End If　▵5
+24 Dictionary 　➔ menus　»
+{  "mainMenu": {
+      "Setup": {
+         "title": "Setup",
+         "sub": "Find easy to follow instructions for setting up the required automations",
+         "icon": "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"
+      }
+   }
 }
-8 Otherwise
-9 End If
-10 Otherwise　▵4
-11 End If
-12 Otherwise　▵1
-13 End If
+25 Get Dictionary from [24 menus.mainMenu]　»
+26 Repeat with Each in [25 Dictionary]
+27 Get Dictionary All Values in [Repeat Item as Dictionary] 　➔ Options　»
+DictionaryKey
+[Repeat Item as Dictionary’s Keys].title
+28 Repeat[2] with Each in [27 Options as Dictionary]
+29 Text
+BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=utf-8:[Repeat Item 2 as Dictionary.title];
+ORG:[Repeat Item 2 as Dictionary.sub];
+PHOTO;ENCODING=b:[Repeat Item 2 as Dictionary.icon];
+END:VCARD
+30 End Repeat[2] with Each
+31 End Repeat with Each　»
+32 Text　»
+[31 Repeat Results]
+33 Set Name of [32 Text] to mainMenu.vcf　»
+34 Get Contacts from [33 Renamed Item]　»
+35 Choose from List [34 Contacts]　»
+ChooseFromListActionPrompt
+☀️Welcome to Smart Calendar Reminder☀️
+36 If [35 Selected Item’s Name] is Setup
+37 Get File at Path SmartCalendarReminder/aboutme.txt from Folder　»
+FileErrorIfNotFound
+false
+38 If [37 File’s File Size] does not have any value
+39 Comment
+All the information is stored in iCloud. The shortcut isn’t collecting anything.
+40 Text　»
+Choose Travel Time Calculation Method
+
+1️⃣ Notes 🗓️ / Current 📍\u000D
+Uses the address in the Calendar event Notes if available (routing via Notes if you're not already there), otherwise calculates directly from your current location to the event.\u000D
+\u000D
+2️⃣ Notes 🗓️ / Home 🏡\u000D
+Uses the Notes address if available (same as 1️⃣), but if Notes are empty, routes via your home address if you're not already there, or directly from home if you are.\u000D
+\u000D
+41 Choose from Menu
+MenuPrompt
+[40 Text]
+MenuItems
+[1️⃣ Notes 🗓️ / Current 📍,
+2️⃣ Notes 🗓️ / Home 🏡]
+42 Menu Item 1️⃣ Notes 🗓️ / Current 📍
+43 Text　»
+""
+44 Set Variable HomeAddress to [43 Text]
+45 Menu Item 2️⃣ Notes 🗓️ / Home 🏡
+46 Text　»
+Please provide your home address.
+For accurate travel time calculations via Apple Maps, you can copy it directly from the app and paste here.
+47 Ask for Text Input 　➔ Home Address　»
+AllowsMultilineText
+false
+AskActionPrompt
+[46 Text]
+48 Set Variable HomeAddress to [47 Home Address]
+49 End Menu
+50 List　» 52
+[🚙Driving,
+🚶‍♀️Walking,
+🚊Transit,
+🚵‍♀️Biking]
+51 Text　»
+Select Travel Method (It will apply to all the events)
+52 Choose from List [50 List] 　➔ Travel Method Selected　»
+ChooseFromListActionPrompt
+[51 Text]
+53 Set Variable TravelMethod to [52 Travel Method Selected]
+54 Text　»
+Besides travel time, how many Extra Minutes Needed (e.g., '15 mins buffer')
+55 Ask for Number Input 　➔ Extra Time Needed　»
+AskActionPrompt
+[54 Text]
+56 Set Variable ExtraTime to [55 Extra Time Needed]
+57 Dictionary　»
+{  "HomeAddress": "[HomeAddress]",
+   "TravelMethod": "[TravelMethod]",
+   "ExtraTime": "[ExtraTime]"
+}
+58 Text　»
+[57 Dictionary]
+59 Save File [58 Text]
+AskWhereToSave
+false
+SaveFileOverwrite
+true
+FileDestinationPath
+SmartCalendarReminder/aboutme.txt
+60 End If　▵38
+61 Otherwise　▵36
+62 End If
+63 Otherwise　▵0
+64 Comment
+Find all calendar events in the next day and set alarm automatically. Recommend set up automation at 12:00 am daily.
+65 If [Shortcut Input as Number] is 1
+66 Find Calendar Events [Shortcut Input] where　» 67 68
+ContentItemSortProperty
+Start Date
+ContentItemSortOrder
+Oldest First
+ContentItemFilter
+• All the following are true
+Start Date is in the next 1 days
+Is All Day
+Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutableState"}}
+67 If [66 Calendar Events] has any value
+68 Repeat with Each in [66 Calendar Events]
+69 If [Repeat Item’s Notes] has any value
+70 Get Current Location　»
+Accuracy
+Best
+71 If [70 Current Location’s Country] is
+72 Otherwise
+73 End If
+74 Otherwise
+75 End If
+76 End Repeat with Each　▵68
+77 End If　▵67
+78 Otherwise　▵65
+79 Comment
+80 If [Shortcut Input as Number] is 2
+81 Otherwise
+82 End If
+83 End If
+84 End If　▵63　»
+85 If [84 If Result] has any value
+86 Otherwise
+87 End If
