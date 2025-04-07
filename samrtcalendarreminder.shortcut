@@ -1,4 +1,4 @@
-Smart Calendar Reminder 2 (138 actions, 66 KB)
+Smart Calendar Reminder 2 (222 actions, 96 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.4",
 "WFWorkflowHasOutputFallback": false,
@@ -15,13 +15,15 @@ Smart Calendar Reminder 2 (138 actions, 66 KB)
 "WFWorkflowTypes": []
 0 If [Shortcut Input] does not have any value
 1 Comment
+Input has no value: for setup and update
+2 Comment
 Inspired by [Schedule Shortcut or Alarm] but designed to work smarter for my needs! Instead of manually inputting each trigger or alarm, this shortcut leverages my Calendar as the ultimate data source. It automatically scans for upcoming events, then:
 
 • Speaks out the event details
 • Sets a tailored alarm—accounting for travel and prep time—right when you need it
 
 No more early, forgettable reminders. It keeps your schedule perfectly in sync. Give it a try and let your Calendar do the heavy lifting!
-2 Dictionary　» 3 4 6 8 9 10 11 20
+3 Dictionary　» 4 5 7 9 10 11 12 21
 {  "Name": "Smart Calendar Reminder",
    "Version": "1.1",
    "RH ID": "21959",
@@ -31,8 +33,8 @@ No more early, forgettable reminders. It keeps your schedule perfectly in sync. 
       "Not Now": "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"
    }
 }
-3 Get Contents of URL https://routinehub.co/api/v1/shortcuts/[2 Dictionary.RH ID]/versions/latest 　➔ RH Server　» 5 7 10 15 19
-4 Get File at Path [2 Dictionary.Name]/Skip.txt from Folder　»
+4 Get Contents of URL https://routinehub.co/api/v1/shortcuts/[3 Dictionary.RH ID]/versions/latest 　➔ RH Server　» 6 8 11 16 20
+5 Get File at Path [3 Dictionary.Name]/Skip.txt from Folder　»
 File
 {  "fileLocation": {
       "crossDeviceItemID": "docs.icloud.com:com.apple.CloudDocs/documents/95d6214c39557e3de40d802073a860c04f3aed5b",
@@ -50,64 +52,64 @@ ShowFilePicker
 false
 GetFolderContents
 true
-5 If [4 File as Text] is not [3 RH Server as Dictionary.Version]
-6 Get Dictionary Value for Version in [2 Dictionary]　»
-7 If [6 Dictionary Value as Text] is not [3 RH Server as Dictionary.Version]
-8 Base64 Decode [2 Dictionary.Icons.Update]
-9 Show Alert A new version of [2 Dictionary.Name] is available to download!
-10 Text　» 13
+6 If [5 File as Text] is not [4 RH Server as Dictionary.Version]
+7 Get Dictionary Value for Version in [3 Dictionary]　»
+8 If [7 Dictionary Value as Text] is not [4 RH Server as Dictionary.Version]
+9 Base64 Decode [3 Dictionary.Icons.Update]
+10 Show Alert A new version of [3 Dictionary.Name] is available to download!
+11 Text　» 14
 ⬆️ Update ⬆️
 
-A new version of [2 Dictionary.Name] is available to download!
+A new version of [3 Dictionary.Name] is available to download!
 
-[2 Dictionary.Version] ↗ [3 RH Server as Dictionary.Version]   —   [3 RH Server as Dictionary.Release]
+[3 Dictionary.Version] ↗ [4 RH Server as Dictionary.Version]   —   [4 RH Server as Dictionary.Release]
 
-[3 RH Server as Dictionary.Notes]
-11 Text　»
+[4 RH Server as Dictionary.Notes]
+12 Text　»
 BEGIN:VCARD
 VERSION:3.0
 N;CHARSET=utf-8:Update;;;;
-PHOTO;ENCODING=b:[2 Dictionary.Icons.Update]
+PHOTO;ENCODING=b:[3 Dictionary.Icons.Update]
 END:VCARD
 
 BEGIN:VCARD
 VERSION:3.0
 N;CHARSET=utf-8:Skip;;;;
-PHOTO;ENCODING=b:[2 Dictionary.Icons.Skip]
+PHOTO;ENCODING=b:[3 Dictionary.Icons.Skip]
 END:VCARD
 
 BEGIN:VCARD
 VERSION:3.0
 N;CHARSET=utf-8:Not Now;;;;
-PHOTO;ENCODING=b:[2 Dictionary.Icons.Not Now]
+PHOTO;ENCODING=b:[3 Dictionary.Icons.Not Now]
 END:VCARD
-12 Set Name of [11 Text] to updateprompt.vcf　»
-13 Choose from List [12 Renamed Item as Contact]　» 14 18
+13 Set Name of [12 Text] to updateprompt.vcf　»
+14 Choose from List [13 Renamed Item as Contact]　» 15 19
 ChooseFromListActionPrompt
-[10 Text]
-14 If [13 Chosen Item as Text] is Update
-15 Open URL [3 RH Server as Dictionary.URL]
+[11 Text]
+15 If [14 Chosen Item as Text] is Update
+16 Open URL [4 RH Server as Dictionary.URL]
 Show-WFInput
 true
-16 Stop This Shortcut
-17 End If
-18 If [13 Chosen Item as Text] is Skip
-19 Save File [3 RH Server as Dictionary.Version]
+17 Stop This Shortcut
+18 End If
+19 If [14 Chosen Item as Text] is Skip
+20 Save File [4 RH Server as Dictionary.Version]
 AskWhereToSave
 false
 SaveFileOverwrite
 true
 FileDestinationPath
 [? Dictionary.Name]/Skip.txt
-20 Show Alert This version of [2 Dictionary.Name] has been skipped!
+21 Show Alert This version of [3 Dictionary.Name] has been skipped!
 AlertActionTitle
 ✅ Done ✅
 AlertActionCancelButtonShown
 false
-21 End If
-22 End If　▵7
-23 End If　▵5
-24 Dictionary 　➔ menus　»
+22 End If
+23 End If　▵8
+24 End If　▵6
+25 Dictionary 　➔ menus　»
 {  "mainMenu": {
       "Setup": {
          "title": "Setup",
@@ -116,36 +118,36 @@ false
       }
    }
 }
-25 Get Dictionary from [24 menus.mainMenu]　»
-26 Repeat with Each in [25 Dictionary]
-27 Get Dictionary All Values in [Repeat Item as Dictionary] 　➔ Options　»
+26 Get Dictionary from [25 menus.mainMenu]　»
+27 Repeat with Each in [26 Dictionary]
+28 Get Dictionary All Values in [Repeat Item as Dictionary] 　➔ Options　»
 DictionaryKey
 [Repeat Item as Dictionary’s Keys].title
-28 Repeat[2] with Each in [27 Options as Dictionary]
-29 Text
+29 Repeat[2] with Each in [28 Options as Dictionary]
+30 Text
 BEGIN:VCARD
 VERSION:3.0
 N;CHARSET=utf-8:[Repeat Item 2 as Dictionary.title];
 ORG:[Repeat Item 2 as Dictionary.sub];
 PHOTO;ENCODING=b:[Repeat Item 2 as Dictionary.icon];
 END:VCARD
-30 End Repeat[2] with Each
-31 End Repeat with Each　»
-32 Text　»
-[31 Repeat Results]
-33 Set Name of [32 Text] to mainMenu.vcf　»
-34 Get Contacts from [33 Renamed Item]　»
-35 Choose from List [34 Contacts]　»
+31 End Repeat[2] with Each
+32 End Repeat with Each　»
+33 Text　»
+[32 Repeat Results]
+34 Set Name of [33 Text] to mainMenu.vcf　»
+35 Get Contacts from [34 Renamed Item]　»
+36 Choose from List [35 Contacts]　»
 ChooseFromListActionPrompt
 ☀️Welcome to Smart Calendar Reminder☀️
-36 If [35 Selected Item’s Name] is Setup
-37 Get File at Path SmartCalendarReminder/aboutme.txt from Folder　»
+37 If [36 Selected Item’s Name] is Setup
+38 Get File at Path SmartCalendarReminder/aboutme.txt from Folder　»
 FileErrorIfNotFound
 false
-38 If [37 File’s File Size] does not have any value
-39 Comment
+39 If [38 File’s File Size] does not have any value
+40 Comment
 All the information is stored in iCloud. The shortcut isn’t collecting anything.
-40 Text　»
+41 Text　»
 Choose Travel Time Calculation Method
 
 1️⃣ Notes 🗓️ / Current 📍\u000D
@@ -154,25 +156,25 @@ Uses the address in the Calendar event Notes if available (routing via Notes if 
 2️⃣ Notes 🗓️ / Home 🏡\u000D
 Uses the Notes address if available (same as 1️⃣), but if Notes are empty, routes via your home address if you're not already there, or directly from home if you are.\u000D
 \u000D
-41 Choose from Menu
+42 Choose from Menu
 MenuPrompt
-[40 Text]
+[41 Text]
 MenuItems
 [1️⃣ Notes 🗓️ / Current 📍,
 2️⃣ Notes 🗓️ / Home 🏡]
-42 Menu Item 1️⃣ Notes 🗓️ / Current 📍
-43 Dictionary　»
+43 Menu Item 1️⃣ Notes 🗓️ / Current 📍
+44 Dictionary　»
 {  "state": "\"\"",
    "street": "\"\"",
    "city": "\"\"",
    "country": "\"\"",
    "postcode": "\"\""
 }
-44 Set Variable HomeAddress to [43 Dictionary]
-45 Menu Item 2️⃣ Notes 🗓️ / Home 🏡
-46 Text　»
-Please provide your home address for accurate travel time calculations via Apple Maps.
+45 Set Variable HomeAddress to [44 Dictionary]
+46 Menu Item 2️⃣ Notes 🗓️ / Home 🏡
 47 Text　»
+Please provide your home address for accurate travel time calculations via Apple Maps.
+48 Text　»
 <!DOCTYPE html>
 <html>
 <head>
@@ -264,7 +266,7 @@ Please provide your home address for accurate travel time calculations via Apple
 </head>
 <body>
     <div class="form-container">
-        <h2>[46 Text]</h2>
+        <h2>[47 Text]</h2>
         <form id="addressForm">
             <div class="form-group">
                 <label>Street Address</label>
@@ -320,60 +322,60 @@ function sendToShortcut() {
 </script>
 </body>
 </html>
-48 Set Name of [47 Text] to Address.html　»
-49 Show Web View at [48 Renamed Item]
-50 Get Clipboard　»
-51 Get Dictionary from [50 Clipboard]　»
-52 Set Variable HomeAddress to [51 Dictionary]
-53 End Menu　▵45
-54 List　» 56
+49 Set Name of [48 Text] to Address.html　»
+50 Show Web View at [49 Renamed Item]
+51 Get Clipboard　»
+52 Get Dictionary from [51 Clipboard]　»
+53 Set Variable HomeAddress to [52 Dictionary]
+54 End Menu　▵46
+55 List　» 57
 [🚙Driving,
 🚶‍♀️Walking,
 🚊Transit,
 🚵‍♀️Biking]
-55 Text　»
+56 Text　»
 Select Travel Method (It will apply to all the events)
-56 Choose from List [54 List] 　➔ Travel Method Selected　»
+57 Choose from List [55 List] 　➔ Travel Method Selected　»
 ChooseFromListActionPrompt
-[55 Text]
-57 Set Variable TravelMethod to [56 Travel Method Selected]
-58 Text　»
+[56 Text]
+58 Set Variable TravelMethod to [57 Travel Method Selected]
+59 Text　»
 Besides travel time, how many Extra Minutes Needed (e.g., '15 mins buffer')
-59 Ask for Number Input 　➔ Extra Time Needed　»
+60 Ask for Number Input 　➔ Extra Time Needed　»
 AskActionPrompt
-[58 Text]
+[59 Text]
 AskActionAllowsNegativeNumbers
 false
 AskActionAllowsDecimalNumbers
 false
-60 Set Variable ExtraTime to [59 Extra Time Needed]
-61 Dictionary　»
+61 Set Variable ExtraTime to [60 Extra Time Needed]
+62 Dictionary　»
 {  "HomeAddress": "[HomeAddress as Dictionary]",
    "TravelMethod": "[TravelMethod]",
    "ExtraTime": "[ExtraTime]"
 }
-62 Save File [61 Dictionary]
+63 Save File [62 Dictionary]
 AskWhereToSave
 false
 SaveFileOverwrite
 true
 FileDestinationPath
 SmartCalendarReminder/aboutme.txt
-63 End If　▵38
-64 Otherwise　▵36
-65 End If
-66 Otherwise　▵0
-67 Comment
-Find all calendar events in the next day and set alarm automatically. Recommend set up automation at 12:00 am daily.
+64 End If　▵39
+65 Otherwise　▵37
+66 End If
+67 Otherwise　▵0
 68 If [Shortcut Input as Number] is 1
-69 Get File at Path SmartCalendarReminder/aboutme.txt from Folder　»
+69 Comment
+Find all calendar events in the next day and set alarm automatically. Recommend set up automation at 12:00 am daily.
+70 Get File at Path SmartCalendarReminder/aboutme.txt from Folder　»
 File
 [Shortcut Input]
-70 Get Dictionary from [69 File]　» 71 72 73
-71 Set Variable HomeAddress to [70 Dictionary.HomeAddress]
-72 Set Variable HomeAddress to [70 Dictionary.TravelMethod]
-73 Set Variable ExtraTime to [70 Dictionary.ExtraTime]
-74 Find Calendar Events [Shortcut Input] where　» 75 76
+71 Get Dictionary from [70 File]　» 72 73 74
+72 Set Variable HomeAddress to [71 Dictionary.HomeAddress]
+73 Set Variable HomeAddress to [71 Dictionary.TravelMethod]
+74 Set Variable ExtraTime to [71 Dictionary.ExtraTime]
+75 Find Calendar Events [Shortcut Input] where　» 76 77
 ContentItemSortProperty
 Start Date
 ContentItemSortOrder
@@ -383,112 +385,279 @@ ContentItemFilter
 Start Date is in the next 1 days
 Is All Day
 Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutableState"}}
-75 If [74 Calendar Events] has any value
-76 Repeat with Each in [74 Calendar Events]
-77 Get Current Location　» 86 92 108
+76 If [75 Calendar Events] has any value
+77 Repeat with Each in [75 Calendar Events]
+78 Get Current Location　» 87 93 109
 Accuracy
 Best
-78 If All are true
+79 If All are true
 　[Repeat Item’s Notes] has any value
 　[Repeat Item’s Notes] begins with {
 　[Repeat Item’s Notes] ends with }
-79 Comment
+80 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
-80 Get Dictionary from [Repeat Item’s Notes]　» 81 82 83 84 85 92 95
-81 Set Variable Street to [80 Dictionary.street]
-82 Set Variable City to [80 Dictionary.city]
-83 Set Variable State to [80 Dictionary.state]
-84 Set Variable Region to [80 Dictionary.country]
-85 Set Variable ZIP Code to [80 Dictionary.postcode]
-86 If All are true
-　[77 Current Location’s Street] is [Street]
-　[77 Current Location’s City] is [City]
-　[77 Current Location’s State] is [State]
-　[77 Current Location’s Country] is [Region]
-　[77 Current Location’s ZIP Code] is [ZIP Code]
-87 Comment
+81 Get Dictionary from [Repeat Item’s Notes]　» 82 83 84 85 86 93 96
+82 Set Variable Street to [81 Dictionary.street]
+83 Set Variable City to [81 Dictionary.city]
+84 Set Variable State to [81 Dictionary.state]
+85 Set Variable Region to [81 Dictionary.country]
+86 Set Variable ZIP Code to [81 Dictionary.postcode]
+87 If All are true
+　[78 Current Location’s Street] is [Street]
+　[78 Current Location’s City] is [City]
+　[78 Current Location’s State] is [State]
+　[78 Current Location’s Country] is [Region]
+　[78 Current Location’s ZIP Code] is [ZIP Code]
+88 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
-88 Number 0　»
-89 Set Variable CurrentToDeparture to [88 Number]
-90 Otherwise
-91 Comment
+89 Number 0　»
+90 Set Variable CurrentToDeparture to [89 Number]
+91 Otherwise
+92 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
-92 Get [TravelMethod] Time　»
+93 Get [TravelMethod] Time　»
 GetDirectionsCustomLocation
-[77 Current Location]
+[78 Current Location]
 Destination
-[80 Dictionary]
-93 Set Variable CurrentToDeparture to [92 Travel Time]
-94 End If
-95 Get [TravelMethod] Time 　➔ DepartureToDestination　»
+[81 Dictionary]
+94 Set Variable CurrentToDeparture to [93 Travel Time]
+95 End If
+96 Get [TravelMethod] Time 　➔ DepartureToDestination　»
 GetDirectionsCustomLocation
-[80 Dictionary]
+[81 Dictionary]
 Destination
 [Repeat Item’s Location]
-96 Calculate [95 DepartureToDestination] + [CurrentToDeparture]　»
-97 Set Variable TravelTime to [96 Calculation Result]
-98 Otherwise　▵78
-99 Comment
+97 Calculate [96 DepartureToDestination] + [CurrentToDeparture]　»
+98 Set Variable TravelTime to [97 Calculation Result]
+99 Otherwise　▵79
+100 Comment
 CALENDER EVENT NOTES IS BLANK
-100 Get Dictionary from [HomeAddress]　» 101 102 103 104 105
-101 Get Dictionary Value for street in [100 Dictionary] 　➔ street　» 106 108
-102 Get Dictionary Value for city in [100 Dictionary] 　➔ city　» 106 108
-103 Get Dictionary Value for state in [100 Dictionary] 　➔ state　» 106 108
-104 Get Dictionary Value for country in [100 Dictionary] 　➔ country　» 106 108
-105 Get Dictionary Value for postcode in [100 Dictionary] 　➔ postcode　» 106 108
-106 If All are true
-　[101 street] has any value
-　[102 city] has any value
-　[103 state] has any value
-　[104 country] has any value
-　[105 postcode] has any value
-107 Comment
+101 Get Dictionary from [HomeAddress]　» 102 103 104 105 106
+102 Get Dictionary Value for street in [101 Dictionary] 　➔ street　» 107 109
+103 Get Dictionary Value for city in [101 Dictionary] 　➔ city　» 107 109
+104 Get Dictionary Value for state in [101 Dictionary] 　➔ state　» 107 109
+105 Get Dictionary Value for country in [101 Dictionary] 　➔ country　» 107 109
+106 Get Dictionary Value for postcode in [101 Dictionary] 　➔ postcode　» 107 109
+107 If All are true
+　[102 street] has any value
+　[103 city] has any value
+　[104 state] has any value
+　[105 country] has any value
+　[106 postcode] has any value
+108 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
-108 If All are true
-　[77 Current Location’s Street] is [101 street]
-　[77 Current Location’s City] is [102 city]
-　[77 Current Location’s State] is [103 state]
-　[77 Current Location’s Country] is [104 country]
-　[77 Current Location’s ZIP Code] is [105 postcode]
-109 Comment
+109 If All are true
+　[78 Current Location’s Street] is [102 street]
+　[78 Current Location’s City] is [103 city]
+　[78 Current Location’s State] is [104 state]
+　[78 Current Location’s Country] is [105 country]
+　[78 Current Location’s ZIP Code] is [106 postcode]
+110 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
-110 Number 0　»
-111 Set Variable CurrentToDeparture to [110 Number]
-112 Otherwise
-113 Comment
+111 Number 0　»
+112 Set Variable CurrentToDeparture to [111 Number]
+113 Otherwise
+114 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
-114 Get [TravelMethod] Time　»
+115 Get [TravelMethod] Time　»
 Destination
 [HomeAddress]
-115 Set Variable CurrentToDeparture to [114 Travel Time]
-116 End If
-117 Get [TravelMethod] Time 　➔ DepartureToDestination　»
+116 Set Variable CurrentToDeparture to [115 Travel Time]
+117 End If
+118 Get [TravelMethod] Time 　➔ DepartureToDestination　»
 GetDirectionsCustomLocation
 [HomeAddress]
 Destination
 [Repeat Item’s Location]
-118 Calculate [117 DepartureToDestination] + [CurrentToDeparture]　»
-119 Set Variable TravelTime to [118 Calculation Result]
-120 Otherwise　▵106
-121 Text
+119 Calculate [118 DepartureToDestination] + [CurrentToDeparture]　»
+120 Set Variable TravelTime to [119 Calculation Result]
+121 Otherwise　▵107
+122 Text
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
-122 Get [TravelMethod] Time　»
+123 Get [TravelMethod] Time　»
 Destination
 [Repeat Item’s Location]
-123 Set Variable TravelTime to [122 Travel Time]
-124 End If
-125 End If　▵98
-126 Calculate [TravelTime] + [ExtraTime]　»
-127 Adjust Subtract Date [Repeat Item’s Start Date]　»
+124 Set Variable TravelTime to [123 Travel Time]
+125 End If
+126 End If　▵99
+127 Calculate [TravelTime] + [ExtraTime]　»
+128 Adjust Subtract Date [Repeat Item’s Start Date]　»
 Duration
-[126 Calculation Result] min
-128 Add Alarm for [127 Adjusted Date] called [Repeat Item]
-129 End Repeat with Each　▵76
-130 End If　▵75
-131 Otherwise　▵68
-132 Comment
-133 If [Shortcut Input as Number] is 2
-134 Otherwise
-135 End If
-136 End If
-137 End If　▵66
+[127 Calculation Result] min
+129 Add Alarm for [128 Adjusted Date] called [Repeat Item]
+130 End Repeat with Each　▵77
+131 End If　▵76
+132 Otherwise　▵68
+133 Comment
+134 If [Shortcut Input as Number] is 2
+135 Comment
+when input is 1 set up alarm for next 24 hours, at that time (recommended at 12:00 am) the travel time is not as accurate as recently. So, suggest to check up event in next 1 hour.
+136 Get File at Path SmartCalendarReminder/aboutme.txt from Folder　»
+File
+[Shortcut Input]
+137 Get Dictionary from [136 File]　» 138 139 140
+138 Set Variable HomeAddress to [137 Dictionary.HomeAddress]
+139 Set Variable HomeAddress to [137 Dictionary.TravelMethod]
+140 Set Variable ExtraTime to [137 Dictionary.ExtraTime]
+141 Find Calendar Events [Shortcut Input] where　» 142 143 206
+ContentItemSortProperty
+Start Date
+ContentItemSortOrder
+Oldest First
+ContentItemFilter
+• All the following are true
+Start Date is in the next 1 hours
+Is All Day
+Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutableState"}}
+142 If [141 Calendar Events] has any value
+143 Repeat with Each in [141 Calendar Events]
+144 Get Current Location　» 153 159 175
+Accuracy
+Best
+145 If All are true
+　[Repeat Item’s Notes] has any value
+　[Repeat Item’s Notes] begins with {
+　[Repeat Item’s Notes] ends with }
+146 Comment
+CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
+147 Get Dictionary from [Repeat Item’s Notes]　» 148 149 150 151 152 159 162
+148 Set Variable Street to [147 Dictionary.street]
+149 Set Variable City to [147 Dictionary.city]
+150 Set Variable State to [147 Dictionary.state]
+151 Set Variable Region to [147 Dictionary.country]
+152 Set Variable ZIP Code to [147 Dictionary.postcode]
+153 If All are true
+　[144 Current Location’s Street] is [Street]
+　[144 Current Location’s City] is [City]
+　[144 Current Location’s State] is [State]
+　[144 Current Location’s Country] is [Region]
+　[144 Current Location’s ZIP Code] is [ZIP Code]
+154 Comment
+CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
+155 Number 0　»
+156 Set Variable CurrentToDeparture to [155 Number]
+157 Otherwise
+158 Comment
+CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
+159 Get [TravelMethod] Time　»
+GetDirectionsCustomLocation
+[144 Current Location]
+Destination
+[147 Dictionary]
+160 Set Variable CurrentToDeparture to [159 Travel Time]
+161 End If
+162 Get [TravelMethod] Time 　➔ DepartureToDestination　»
+GetDirectionsCustomLocation
+[147 Dictionary]
+Destination
+[Repeat Item’s Location]
+163 Calculate [162 DepartureToDestination] + [CurrentToDeparture]　»
+164 Set Variable TravelTime to [163 Calculation Result]
+165 Otherwise　▵145
+166 Comment
+CALENDER EVENT NOTES IS BLANK
+167 Get Dictionary from [HomeAddress]　» 168 169 170 171 172
+168 Get Dictionary Value for street in [167 Dictionary] 　➔ street　» 173 175
+169 Get Dictionary Value for city in [167 Dictionary] 　➔ city　» 173 175
+170 Get Dictionary Value for state in [167 Dictionary] 　➔ state　» 173 175
+171 Get Dictionary Value for country in [167 Dictionary] 　➔ country　» 173 175
+172 Get Dictionary Value for postcode in [167 Dictionary] 　➔ postcode　» 173 175
+173 If All are true
+　[168 street] has any value
+　[169 city] has any value
+　[170 state] has any value
+　[171 country] has any value
+　[172 postcode] has any value
+174 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
+175 If All are true
+　[144 Current Location’s Street] is [168 street]
+　[144 Current Location’s City] is [169 city]
+　[144 Current Location’s State] is [170 state]
+　[144 Current Location’s Country] is [171 country]
+　[144 Current Location’s ZIP Code] is [172 postcode]
+176 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
+177 Number 0　»
+178 Set Variable CurrentToDeparture to [177 Number]
+179 Otherwise
+180 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
+181 Get [TravelMethod] Time　»
+Destination
+[HomeAddress]
+182 Set Variable CurrentToDeparture to [181 Travel Time]
+183 End If
+184 Get [TravelMethod] Time 　➔ DepartureToDestination　»
+GetDirectionsCustomLocation
+[HomeAddress]
+Destination
+[Repeat Item’s Location]
+185 Calculate [184 DepartureToDestination] + [CurrentToDeparture]　»
+186 Set Variable TravelTime to [185 Calculation Result]
+187 Otherwise　▵173
+188 Text
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
+189 Get [TravelMethod] Time　»
+Destination
+[Repeat Item’s Location]
+190 Set Variable TravelTime to [189 Travel Time]
+191 End If
+192 End If　▵165
+193 Calculate [TravelTime] + [ExtraTime]　»
+194 Adjust Subtract Date [Repeat Item’s Start Date]　»
+Duration
+[193 Calculation Result] min
+195 Add Alarm for [194 Adjusted Date] called [Repeat Item]
+196 End Repeat with Each　▵143
+197 Dictionary　»
+{  "stop": "no" }
+198 Save File [197 Dictionary]
+AskWhereToSave
+false
+SaveFileOverwrite
+true
+FileDestinationPath
+SmartCalendarReminder/stop.txt
+199 Number 10000　»
+200 Repeat [199 Number] Times
+201 Get File at Path SmartCalendarReminder/stop.txt from Folder　»
+FileErrorIfNotFound
+false
+File
+[Shortcut Input]
+202 Get Dictionary from [201 File]　»
+203 If [202 Dictionary’s Values] is yes
+204 Stop This Shortcut
+205 End If
+206 Repeat[2] with Each in [141 Calendar Events]
+207 Format Date [Repeat Item 2’s Start Date]　» 209
+DateFormatStyle
+None
+208 Format Date [Repeat Item 2’s End Date]　»
+DateFormatStyle
+None
+209 Text　»
+[Repeat Item 2] from [207 Formatted Date] to [208 Formatted Date] at [Repeat Item 2’s Location]
+210 Speak Text
+Text
+[209 Text]
+211 Wait 1 seconds
+212 End Repeat[2] with Each　▵206
+213 End Repeat Times　▵200
+214 End If　▵142
+215 Otherwise　▵134
+216 Comment
+input is 3: stop repeating speaking text
+217 Dictionary　»
+{  "stop": "yes" }
+218 Save File [217 Dictionary]
+AskWhereToSave
+false
+SaveFileOverwrite
+true
+FileDestinationPath
+SmartCalendarReminder/stop.txt
+219 End If
+220 End If　▵132
+221 End If　▵67
