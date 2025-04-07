@@ -1,4 +1,4 @@
-Smart Calendar Reminder (88 actions, 43 KB)
+Smart Calendar Reminder 2 (132 actions, 64 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.4",
 "WFWorkflowHasOutputFallback": false,
@@ -9,8 +9,8 @@ Smart Calendar Reminder (88 actions, 43 KB)
 },
 "WFWorkflowImportQuestions": [],
 "WFWorkflowInputContentItemClasses": [],
-"WFWorkflowMinimumClientVersion": 1106,
-"WFWorkflowMinimumClientVersionString": "1106",
+"WFWorkflowMinimumClientVersion": 3010,
+"WFWorkflowMinimumClientVersionString": "3010",
 "WFWorkflowOutputContentItemClasses": [],
 "WFWorkflowTypes": []
 0 If [Shortcut Input] does not have any value
@@ -161,59 +161,219 @@ MenuItems
 [1️⃣ Notes 🗓️ / Current 📍,
 2️⃣ Notes 🗓️ / Home 🏡]
 42 Menu Item 1️⃣ Notes 🗓️ / Current 📍
-43 Text　»
-""
-44 Set Variable HomeAddress to [43 Text]
+43 Dictionary　»
+{  "state": "\"\"",
+   "street": "\"\"",
+   "city": "\"\"",
+   "country": "\"\"",
+   "postcode": "\"\""
+}
+44 Set Variable HomeAddress to [43 Dictionary]
 45 Menu Item 2️⃣ Notes 🗓️ / Home 🏡
 46 Text　»
-Please provide your home address.
-For accurate travel time calculations via Apple Maps, you can copy it directly from the app and paste here.
-47 Ask for Text Input 　➔ Home Address　»
-AllowsMultilineText
-false
-AskActionPrompt
-[46 Text]
-48 Set Variable HomeAddress to [47 Home Address]
-49 End Menu
-50 List　» 52
+Please provide your home address for accurate travel time calculations via Apple Maps.
+47 Text　»
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Address Collector</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Modern CSS styling */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 20px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 0; /* Equal left/right margins */
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        /* New success message styling */
+        .success-message {
+            display: none;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>[46 Text]</h2>
+        <form id="addressForm">
+            <div class="form-group">
+                <label>Street Address</label>
+                <input type="text" id="street" placeholder="" required>
+            </div>
+
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" id="city" placeholder="" required>
+            </div>
+
+            <div class="form-group">
+                <label>State/Province</label>
+                <input type="text" id="state" placeholder="" required>
+            </div>
+
+            <div class="form-group">
+                <label>Country/Region</label>
+                <input type="text" id="country" placeholder="" required>
+            </div>
+
+            <div class="form-group">
+                <label>Postal Code</label>
+                <input type="text" id="postcode" placeholder="" required>
+            </div>
+
+            <button type="button" onclick="sendToShortcut()">Submit Address</button>
+        </form>
+
+        <!-- Success message container -->
+        <div class="success-message" id="successMessage">
+            <p>Data collected successfully!</p>
+        </div>
+    </div>
+
+<script>
+function sendToShortcut() {
+  const addressData = {
+    street: document.getElementById('street').value,
+    city: document.getElementById('city').value,
+    state: document.getElementById('state').value,
+    country: document.getElementById('country').value,
+    postcode: document.getElementById('postcode').value
+  };
+\u{space}\u{space}
+  // Copy data to clipboard
+  navigator.clipboard.writeText(JSON.stringify(addressData));
+\u{space}\u{space}
+  // Show success message and hide form
+  document.getElementById('addressForm').style.display = 'none';
+  document.getElementById('successMessage').classList.add('show');
+}
+</script>
+</body>
+</html>
+48 Set Name of [47 Text] to Address.html　»
+49 Show Web View at [48 Renamed Item]
+50 Get Clipboard　»
+51 Get Dictionary from [50 Clipboard]　»
+52 Set Variable HomeAddress to [51 Dictionary]
+53 End Menu　▵45
+54 List　» 56
 [🚙Driving,
 🚶‍♀️Walking,
 🚊Transit,
 🚵‍♀️Biking]
-51 Text　»
+55 Text　»
 Select Travel Method (It will apply to all the events)
-52 Choose from List [50 List] 　➔ Travel Method Selected　»
+56 Choose from List [54 List] 　➔ Travel Method Selected　»
 ChooseFromListActionPrompt
-[51 Text]
-53 Set Variable TravelMethod to [52 Travel Method Selected]
-54 Text　»
+[55 Text]
+57 Set Variable TravelMethod to [56 Travel Method Selected]
+58 Text　»
 Besides travel time, how many Extra Minutes Needed (e.g., '15 mins buffer')
-55 Ask for Number Input 　➔ Extra Time Needed　»
+59 Ask for Number Input 　➔ Extra Time Needed　»
 AskActionPrompt
-[54 Text]
-56 Set Variable ExtraTime to [55 Extra Time Needed]
-57 Dictionary　»
-{  "HomeAddress": "[HomeAddress]",
+[58 Text]
+AskActionAllowsNegativeNumbers
+false
+AskActionAllowsDecimalNumbers
+false
+60 Set Variable ExtraTime to [59 Extra Time Needed]
+61 Dictionary　»
+{  "HomeAddress": "[HomeAddress as Dictionary]",
    "TravelMethod": "[TravelMethod]",
    "ExtraTime": "[ExtraTime]"
 }
-58 Text　»
-[57 Dictionary]
-59 Save File [58 Text]
+62 Save File [61 Dictionary]
 AskWhereToSave
 false
 SaveFileOverwrite
 true
 FileDestinationPath
 SmartCalendarReminder/aboutme.txt
-60 End If　▵38
-61 Otherwise　▵36
-62 End If
-63 Otherwise　▵0
-64 Comment
+63 End If　▵38
+64 Otherwise　▵36
+65 End If
+66 Otherwise　▵0
+67 Comment
 Find all calendar events in the next day and set alarm automatically. Recommend set up automation at 12:00 am daily.
-65 If [Shortcut Input as Number] is 1
-66 Find Calendar Events [Shortcut Input] where　» 67 68
+68 If [Shortcut Input as Number] is 1
+69 Get File at Path SmartCalendarReminder/aboutme.txt from Folder　»
+File
+[Shortcut Input]
+70 Get Dictionary from [69 File]　» 71 72 73
+71 Set Variable HomeAddress to [70 Dictionary.HomeAddress]
+72 Set Variable HomeAddress to [70 Dictionary.TravelMethod]
+73 Set Variable ExtraTime to [70 Dictionary.ExtraTime]
+74 Find Calendar Events [Shortcut Input] where　» 75 76
 ContentItemSortProperty
 Start Date
 ContentItemSortOrder
@@ -223,26 +383,97 @@ ContentItemFilter
 Start Date is in the next 1 days
 Is All Day
 Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutableState"}}
-67 If [66 Calendar Events] has any value
-68 Repeat with Each in [66 Calendar Events]
-69 If [Repeat Item’s Notes] has any value
-70 Get Current Location　»
+75 If [74 Calendar Events] has any value
+76 Repeat with Each in [74 Calendar Events]
+77 Get Current Location　» 86 92 110
 Accuracy
 Best
-71 If [70 Current Location’s Country] is
-72 Otherwise
-73 End If
-74 Otherwise
-75 End If
-76 End Repeat with Each　▵68
-77 End If　▵67
-78 Otherwise　▵65
+78 If All are true
+　[Repeat Item’s Notes] has any value
+　[Repeat Item’s Notes] begins with {
+　[Repeat Item’s Notes] ends with }
 79 Comment
-80 If [Shortcut Input as Number] is 2
-81 Otherwise
-82 End If
-83 End If
-84 End If　▵63　»
-85 If [84 If Result] has any value
-86 Otherwise
-87 End If
+CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
+80 Get Dictionary from [Repeat Item’s Notes]　» 81 82 83 84 85 92 95
+81 Set Variable Street to [80 Dictionary.street]
+82 Set Variable City to [80 Dictionary.city]
+83 Set Variable State to [80 Dictionary.state]
+84 Set Variable Region to [80 Dictionary.country]
+85 Set Variable ZIP Code to [80 Dictionary.postcode]
+86 If All are true
+　[77 Current Location’s Street] is [Street]
+　[77 Current Location’s City] is [City]
+　[77 Current Location’s State] is [State]
+　[77 Current Location’s Country] is [Region]
+　[77 Current Location’s ZIP Code] is [ZIP Code]
+87 Comment
+CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
+88 Number 0　»
+89 Set Variable CurrentToDeparture to [88 Number]
+90 Otherwise
+91 Comment
+CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
+92 Get [TravelMethod] Time　»
+GetDirectionsCustomLocation
+[77 Current Location]
+Destination
+[80 Dictionary]
+93 Set Variable CurrentToDeparture to [92 Travel Time]
+94 End If
+95 Get [TravelMethod] Time 　➔ DepartureToDestination　»
+GetDirectionsCustomLocation
+[80 Dictionary]
+Destination
+[Repeat Item’s Location]
+96 Calculate [95 DepartureToDestination] + [CurrentToDeparture]　»
+97 Calculate [96 Calculation Result] + [ExtraTime]　»
+98 Adjust Subtract Date [Repeat Item’s Start Date]　»
+Duration
+[97 Calculation Result] min
+99 Set Variable alarmtime to [98 Adjusted Date]
+100 Otherwise　▵78
+101 Comment
+CALENDER EVENT NOTES IS BLANK
+102 Get Dictionary from [HomeAddress]　» 103 104 105 106 107
+103 Get Dictionary Value for street in [102 Dictionary] 　➔ street　» 108 110
+104 Get Dictionary Value for city in [102 Dictionary] 　➔ city　» 108 110
+105 Get Dictionary Value for state in [102 Dictionary] 　➔ state　» 108 110
+106 Get Dictionary Value for country in [102 Dictionary] 　➔ country　» 108 110
+107 Get Dictionary Value for postcode in [102 Dictionary] 　➔ postcode　» 108 110
+108 If All are true
+　[103 street] has any value
+　[104 city] has any value
+　[105 state] has any value
+　[106 country] has any value
+　[107 postcode] has any value
+109 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
+110 If All are true
+　[77 Current Location’s Street] is [103 street]
+　[77 Current Location’s City] is [104 city]
+　[77 Current Location’s State] is [105 state]
+　[77 Current Location’s Country] is [106 country]
+　[77 Current Location’s ZIP Code] is [107 postcode]
+111 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
+112 Number 0　»
+113 Set Variable CurrentToDeparture to [112 Number]
+114 Otherwise
+115 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
+116 End If
+117 Otherwise　▵108
+118 End If
+119 End If　▵100
+120 End Repeat with Each　▵76
+121 End If　▵75
+122 Otherwise　▵68
+123 Comment
+124 If [Shortcut Input as Number] is 2
+125 Otherwise
+126 End If
+127 End If
+128 End If　▵66　»
+129 If [128 If Result] has any value
+130 Otherwise
+131 End If
