@@ -1,4 +1,4 @@
-Smart Calendar Reminder 2 (132 actions, 64 KB)
+Smart Calendar Reminder 2 (138 actions, 66 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.4",
 "WFWorkflowHasOutputFallback": false,
@@ -385,7 +385,7 @@ Is All Day
 Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutableState"}}
 75 If [74 Calendar Events] has any value
 76 Repeat with Each in [74 Calendar Events]
-77 Get Current Location　» 86 92 110
+77 Get Current Location　» 86 92 108
 Accuracy
 Best
 78 If All are true
@@ -426,54 +426,69 @@ GetDirectionsCustomLocation
 Destination
 [Repeat Item’s Location]
 96 Calculate [95 DepartureToDestination] + [CurrentToDeparture]　»
-97 Calculate [96 Calculation Result] + [ExtraTime]　»
-98 Adjust Subtract Date [Repeat Item’s Start Date]　»
-Duration
-[97 Calculation Result] min
-99 Set Variable alarmtime to [98 Adjusted Date]
-100 Otherwise　▵78
-101 Comment
+97 Set Variable TravelTime to [96 Calculation Result]
+98 Otherwise　▵78
+99 Comment
 CALENDER EVENT NOTES IS BLANK
-102 Get Dictionary from [HomeAddress]　» 103 104 105 106 107
-103 Get Dictionary Value for street in [102 Dictionary] 　➔ street　» 108 110
-104 Get Dictionary Value for city in [102 Dictionary] 　➔ city　» 108 110
-105 Get Dictionary Value for state in [102 Dictionary] 　➔ state　» 108 110
-106 Get Dictionary Value for country in [102 Dictionary] 　➔ country　» 108 110
-107 Get Dictionary Value for postcode in [102 Dictionary] 　➔ postcode　» 108 110
-108 If All are true
-　[103 street] has any value
-　[104 city] has any value
-　[105 state] has any value
-　[106 country] has any value
-　[107 postcode] has any value
-109 Comment
+100 Get Dictionary from [HomeAddress]　» 101 102 103 104 105
+101 Get Dictionary Value for street in [100 Dictionary] 　➔ street　» 106 108
+102 Get Dictionary Value for city in [100 Dictionary] 　➔ city　» 106 108
+103 Get Dictionary Value for state in [100 Dictionary] 　➔ state　» 106 108
+104 Get Dictionary Value for country in [100 Dictionary] 　➔ country　» 106 108
+105 Get Dictionary Value for postcode in [100 Dictionary] 　➔ postcode　» 106 108
+106 If All are true
+　[101 street] has any value
+　[102 city] has any value
+　[103 state] has any value
+　[104 country] has any value
+　[105 postcode] has any value
+107 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
-110 If All are true
-　[77 Current Location’s Street] is [103 street]
-　[77 Current Location’s City] is [104 city]
-　[77 Current Location’s State] is [105 state]
-　[77 Current Location’s Country] is [106 country]
-　[77 Current Location’s ZIP Code] is [107 postcode]
-111 Comment
+108 If All are true
+　[77 Current Location’s Street] is [101 street]
+　[77 Current Location’s City] is [102 city]
+　[77 Current Location’s State] is [103 state]
+　[77 Current Location’s Country] is [104 country]
+　[77 Current Location’s ZIP Code] is [105 postcode]
+109 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
-112 Number 0　»
-113 Set Variable CurrentToDeparture to [112 Number]
-114 Otherwise
-115 Comment
+110 Number 0　»
+111 Set Variable CurrentToDeparture to [110 Number]
+112 Otherwise
+113 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
+114 Get [TravelMethod] Time　»
+Destination
+[HomeAddress]
+115 Set Variable CurrentToDeparture to [114 Travel Time]
 116 End If
-117 Otherwise　▵108
-118 End If
-119 End If　▵100
-120 End Repeat with Each　▵76
-121 End If　▵75
-122 Otherwise　▵68
-123 Comment
-124 If [Shortcut Input as Number] is 2
-125 Otherwise
-126 End If
-127 End If
-128 End If　▵66　»
-129 If [128 If Result] has any value
-130 Otherwise
-131 End If
+117 Get [TravelMethod] Time 　➔ DepartureToDestination　»
+GetDirectionsCustomLocation
+[HomeAddress]
+Destination
+[Repeat Item’s Location]
+118 Calculate [117 DepartureToDestination] + [CurrentToDeparture]　»
+119 Set Variable TravelTime to [118 Calculation Result]
+120 Otherwise　▵106
+121 Text
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
+122 Get [TravelMethod] Time　»
+Destination
+[Repeat Item’s Location]
+123 Set Variable TravelTime to [122 Travel Time]
+124 End If
+125 End If　▵98
+126 Calculate [TravelTime] + [ExtraTime]　»
+127 Adjust Subtract Date [Repeat Item’s Start Date]　»
+Duration
+[126 Calculation Result] min
+128 Add Alarm for [127 Adjusted Date] called [Repeat Item]
+129 End Repeat with Each　▵76
+130 End If　▵75
+131 Otherwise　▵68
+132 Comment
+133 If [Shortcut Input as Number] is 2
+134 Otherwise
+135 End If
+136 End If
+137 End If　▵66
