@@ -417,6 +417,8 @@ Besides travel time, how many Extra Minutes Needed (e.g., '15 mins buffer')
 〔69〕 Comment
 Find all calendar events in the next day and set alarm automatically. Recommend set up automation at 12:00 am daily.
 
+This is useful\u{space}
+
 〔70〕 Get File at Path SmartCalendarReminder/aboutme.txt from Folder　»
 • File: 〔Shortcut Input〕
 
@@ -428,7 +430,7 @@ Find all calendar events in the next day and set alarm automatically. Recommend 
 
 〔74〕 Set Variable ExtraTime to 〔71 Dictionary.ExtraTime〕
 
-〔75〕 Find Calendar Events 〔Shortcut Input〕 where　» 76 77
+〔75〕 Find Calendar Events All Calendar Events where　» 76 77
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
@@ -710,7 +712,7 @@ when input is 1 set up alarm for next 24 hours, at that time (recommended at 12:
 
 〔191〕 Set Variable ExtraTime to 〔188 Dictionary.ExtraTime〕
 
-〔192〕 Find Calendar Events 〔Shortcut Input〕 where　» 193 194 286
+〔192〕 Find Calendar Events All Calendar Events where　» 193 194 286
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
@@ -850,8 +852,8 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 〔249〕 Find Alarm All Alarm　» 250 251
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -994,8 +996,8 @@ will be triggered when an alarm goes off
 〔307〕 Find Alarm All Alarm　» 308 316
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
