@@ -1,6 +1,6 @@
-Smart Calendar Reminder (352 actions, 128 KB)
+Smart Calendar Reminder (352 actions, 127 KB)
 "WFQuickActionSurfaces": [],
-"WFWorkflowClientVersion": "3303.0.4",
+"WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
 "WFWorkflowHasShortcutInputVariables": true,
 "WFWorkflowIcon": {
@@ -423,7 +423,7 @@ So this one can handle the scenario above.
 
 If some travel take more than one day, you may to adjust the search crteria, e.g. change form 1 day to 2\u{space}
 
-〔70〕 Get File at Path SmartCalendarReminder/aboutme.txt from Folder　»
+〔70〕 Get File at Path SmartCalendarReminder/aboutme.json from Folder　»
 • File: 〔Shortcut Input〕
 
 〔71〕 Get Dictionary from 〔70 File〕　» 72 73 74
@@ -731,7 +731,7 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
 〔193〕 Comment
 when input is 1 set up alarm for next 24 hours, at that time (recommended at 12:00 am) the travel time is not as accurate as recently. So, suggest to check up event in next 1 hour.
 
-〔194〕 Get File at Path SmartCalendarReminder/aboutme.txt from Folder　»
+〔194〕 Get File at Path SmartCalendarReminder/aboutme.json from Folder　»
 • File: 〔Shortcut Input〕
 
 〔195〕 Get Dictionary from 〔194 File〕　» 196 197 198
@@ -882,8 +882,8 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 〔256〕 Find Alarm All Alarm　» 257 258
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -1020,8 +1020,8 @@ will be triggered when an alarm goes off
 〔311〕 Find Alarm All Alarm　» 312 321
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
