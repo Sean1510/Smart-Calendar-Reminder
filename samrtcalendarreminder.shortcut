@@ -1,4 +1,4 @@
-Smart Calendar Reminder 2 (352 actions, 127 KB)
+Smart Calendar Reminder 2 (352 actions, 128 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.4",
 "WFWorkflowHasOutputFallback": false,
@@ -446,7 +446,7 @@ Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutable
 
 〔77〕 Repeat with Each in 〔75 Calendar Events〕
 
-〔78〕 If 〔Repeat Item as CalendarEvent’s Location〕 has any value
+〔78〕 If 〔Repeat Item’s Location〕 has any value
 
 〔79〕 Get Current Location　» 89 95 111
 • Accuracy: Best
@@ -479,9 +479,9 @@ CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
 
 〔87〕 Set Variable Calendar_Notes_Region to 〔83 Notes Address Dictionary.Country〕
 
-〔88〕 Set Variable Calendar_Notes_ZIP Code to 〔83 Notes Address Dictionary.Postcode〕
+〔88〕 Set Variable Calendar_Notes_ZIP_Code to 〔83 Notes Address Dictionary.Postcode〕
 
-〔89〕 If All are true　〔79 Current Location’s Street〕 is 〔Calendar_Notes_Street〕　〔79 Current Location’s City〕 is 〔Calendar_Notes_City〕　〔79 Current Location’s State〕 is 〔Calendar_Notes_State〕　〔79 Current Location’s Country〕 is 〔Calendar_Notes_Region〕　〔79 Current Location’s ZIP Code〕 is 〔Calendar_Notes_ZIP Code〕
+〔89〕 If All are true　〔79 Current Location’s Street〕 is 〔Calendar_Notes_Street〕　〔79 Current Location’s City〕 is 〔Calendar_Notes_City〕　〔79 Current Location’s State〕 is 〔Calendar_Notes_State〕　〔79 Current Location’s Country〕 is 〔Calendar_Notes_Region〕　〔79 Current Location’s ZIP Code〕 is 〔Calendar_Notes_ZIP_Code〕
 
 〔90〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
@@ -764,17 +764,17 @@ Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutable
 〔205〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
 
-〔206〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ Notes Address Dictionary　» 207 208 209 210 211 218 221
+〔206〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ NotesAddressDictionary　» 207 208 209 210 211 218 221
 
-〔207〕 Set Variable CalendarNotesStreet to 〔206 Notes Address Dictionary.street〕
+〔207〕 Set Variable CalendarNotesStreet to 〔206 NotesAddressDictionary.Street〕
 
-〔208〕 Set Variable CalendarNotesCity to 〔206 Notes Address Dictionary.city〕
+〔208〕 Set Variable CalendarNotesCity to 〔206 NotesAddressDictionary.City〕
 
-〔209〕 Set Variable CalendarNotesState to 〔206 Notes Address Dictionary.state〕
+〔209〕 Set Variable CalendarNotesState to 〔206 NotesAddressDictionary.State〕
 
-〔210〕 Set Variable CalendarNotesRegion to 〔206 Notes Address Dictionary.country〕
+〔210〕 Set Variable CalendarNotesRegion to 〔206 NotesAddressDictionary.Country〕
 
-〔211〕 Set Variable CalendarNotesZIPCode to 〔206 Notes Address Dictionary.postcode〕
+〔211〕 Set Variable CalendarNotesZIPCode to 〔206 NotesAddressDictionary.Postcode〕
 
 〔212〕 If All are true　〔203 Current Location’s Street〕 is 〔CalendarNotesStreet〕　〔203 Current Location’s City〕 is 〔CalendarNotesCity〕　〔203 Current Location’s State〕 is 〔CalendarNotesState〕　〔203 Current Location’s Country〕 is 〔CalendarNotesRegion〕　〔203 Current Location’s ZIP Code〕 is 〔CalendarNotesZIPCode〕
 
@@ -792,14 +792,14 @@ CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDR
 
 〔218〕 Get 〔Travel_Method〕 Time　»
 • GetDirectionsCustomLocation: 〔203 Current Location〕
-• Destination: 〔206 Notes Address Dictionary〕
+• Destination: 〔206 NotesAddressDictionary〕
 
 〔219〕 Set Variable CurrentToDeparture to 〔218 Travel Time〕
 
 〔220〕 End If
 
 〔221〕 Get 〔Travel_Method〕 Time 　➔ DepartureToDestination　»
-• GetDirectionsCustomLocation: 〔206 Notes Address Dictionary〕
+• GetDirectionsCustomLocation: 〔206 NotesAddressDictionary〕
 • Destination: 〔Repeat Item’s Location〕
 
 〔222〕 Calculate 〔221 DepartureToDestination〕 + 〔CurrentToDeparture〕　»
@@ -811,17 +811,17 @@ CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDR
 〔225〕 Comment
 CALENDER EVENT NOTES IS BLANK
 
-〔226〕 Get Dictionary from 〔Home_Address〕　» 227 228 229 230 231
+〔226〕 Get Dictionary from 〔Home_Address〕 　➔ home_address_dictionary　» 227 228 229 230 231
 
-〔227〕 Get Dictionary Value for street in 〔226 Dictionary〕 　➔ HomeStreet　» 232 234
+〔227〕 Get Dictionary Value for street in 〔226 home_address_dictionary〕 　➔ HomeStreet　» 232 234
 
-〔228〕 Get Dictionary Value for city in 〔226 Dictionary〕 　➔ HomeCity　» 232 234
+〔228〕 Get Dictionary Value for city in 〔226 home_address_dictionary〕 　➔ HomeCity　» 232 234
 
-〔229〕 Get Dictionary Value for state in 〔226 Dictionary〕 　➔ HomeState　» 232 234
+〔229〕 Get Dictionary Value for state in 〔226 home_address_dictionary〕 　➔ HomeState　» 232 234
 
-〔230〕 Get Dictionary Value for country in 〔226 Dictionary〕 　➔ HomeCountry　» 232 234
+〔230〕 Get Dictionary Value for country in 〔226 home_address_dictionary〕 　➔ HomeCountry　» 232 234
 
-〔231〕 Get Dictionary Value for postcode in 〔226 Dictionary〕 　➔ HomePostcode　» 232 234
+〔231〕 Get Dictionary Value for postcode in 〔226 home_address_dictionary〕 　➔ HomePostcode　» 232 234
 
 〔232〕 If All are true　〔227 HomeStreet〕 has any value　〔228 HomeCity〕 has any value　〔229 HomeState〕 has any value　〔230 HomeCountry〕 has any value　〔231 HomePostcode〕 has any value
 
@@ -1020,8 +1020,8 @@ will be triggered when an alarm goes off
 〔311〕 Find Alarm All Alarm　» 312 321
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
