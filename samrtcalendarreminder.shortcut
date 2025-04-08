@@ -1,4 +1,4 @@
-Smart Calendar Reminder 2 (232 actions, 98 KB)
+Smart Calendar Reminder 2 (248 actions, 102 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.4",
 "WFWorkflowHasOutputFallback": false,
@@ -555,19 +555,20 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 
 〔126〕 End If　▵99
 
-〔127〕 Dictionary　» 130
+〔127〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
+
+〔128〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕　» 129 130
+• Duration: 〔127 Calculation Result〕 min
+
+〔129〕 Dictionary　»
 {  "Event": "🗓️〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
-   "Location": "〔Repeat Item’s Location〕"
+   "Location": "〔Repeat Item’s Location〕",
+   "AlarmTime": "〔128 Adjusted Date〕"
 }
 
-〔128〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
-
-〔129〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕　»
-• Duration: 〔128 Calculation Result〕 min
-
-〔130〕 Add Alarm for 〔129 Adjusted Date〕 called 〔127 Dictionary〕
+〔130〕 Add Alarm for 〔128 Adjusted Date〕 called 〔129 Dictionary〕
 
 〔131〕 End Repeat with Each　▵77
 
@@ -593,7 +594,7 @@ when input is 1 set up alarm for next 24 hours, at that time (recommended at 12:
 
 〔141〕 Set Variable ExtraTime to 〔138 Dictionary.ExtraTime〕
 
-〔142〕 Find Calendar Events 〔Shortcut Input〕 where　» 143 144 212
+〔142〕 Find Calendar Events 〔Shortcut Input〕 where　» 143 144 221
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
@@ -720,102 +721,147 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 
 〔193〕 End If　▵166
 
-〔194〕 Dictionary　» 195 201
+〔194〕 Find Alarm All Alarm　» 195 196
+• ContentItemFilter: {  "Value": {
+      "WFActionParameterFilterPrefix": 1,
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
+   },
+   "WFSerializationType": "WFContentPredicateTableTemplate"
+}
+
+〔195〕 If 〔194 Alarms〕 has any value
+
+〔196〕 Repeat[2] with Each in 〔194 Alarms〕
+
+〔197〕 Get Dictionary from 〔Repeat Item 2’s label〕　» 198 199 200 201
+
+〔198〕 Get Dictionary Value for Event in 〔197 Dictionary〕 　➔ Event　» 202
+
+〔199〕 Get Dictionary Value for From in 〔197 Dictionary〕 　➔ From　» 202
+
+〔200〕 Get Dictionary Value for To in 〔197 Dictionary〕 　➔ To　» 202
+
+〔201〕 Get Dictionary Value for Location in 〔197 Dictionary〕 　➔ Location　»
+
+〔202〕 If All are true　〔198 Event’s Name〕 is 〔Repeat Item〕　〔199 From’s Name〕 is 〔Repeat Item’s Start Date〕　〔200 To’s Name〕 is 〔Repeat Item’s End Date〕　〔201 Location’s Name〕 is 〔Repeat Item’s Location〕
+
+〔203〕 Delete Alarms
+• entities: 〔Repeat Item 2〕
+
+〔204〕 End If
+
+〔205〕 End Repeat[2] with Each　▵196
+
+〔206〕 End If　▵195
+
+〔207〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
+
+〔208〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕　» 210
+• Duration: 〔207 Calculation Result〕 min
+
+〔209〕 Dictionary
 {  "Event": "🗓️〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
    "Location": "〔Repeat Item’s Location〕"
 }
 
-〔195〕 Find Alarm All Alarm　» 196 197
-• ContentItemFilter: label is 〔194 Dictionary〕
+〔210〕 Add Alarm for 〔208 Adjusted Date〕 called 〔? Dictionary〕
 
-〔196〕 If 〔195 Alarms〕 has any value
+〔211〕 End Repeat with Each　▵144
 
-〔197〕 Delete Alarms
-• entities: 〔195 Alarms〕
-
-〔198〕 End If
-
-〔199〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
-
-〔200〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕　»
-• Duration: 〔199 Calculation Result〕 min
-
-〔201〕 Add Alarm for 〔200 Adjusted Date〕 called 〔194 Dictionary〕
-
-〔202〕 End Repeat with Each　▵144
-
-〔203〕 Dictionary　»
+〔212〕 Dictionary　»
 {  "stop": "no" }
 
-〔204〕 Save File 〔203 Dictionary〕
+〔213〕 Save File 〔212 Dictionary〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: SmartCalendarReminder/stopflag.txt
 
-〔205〕 Number 10000　»
+〔214〕 Number 3　»
 
-〔206〕 Repeat 〔205 Number〕 Times
+〔215〕 Repeat 〔214 Number〕 Times
 
-〔207〕 Get File at Path SmartCalendarReminder/stopflag.txt from Folder　»
+〔216〕 Get File at Path SmartCalendarReminder/stopflag.txt from Folder　»
 • FileErrorIfNotFound: false
 • File: 〔Shortcut Input〕
 
-〔208〕 Get Dictionary from 〔207 File〕　»
+〔217〕 Get Dictionary from 〔216 File〕　»
 
-〔209〕 If 〔208 Dictionary’s Values〕 is yes
+〔218〕 If 〔217 Dictionary’s Values〕 is yes
 
-〔210〕 Stop This Shortcut
+〔219〕 Stop This Shortcut
 
-〔211〕 End If
+〔220〕 End If
 
-〔212〕 Repeat[2] with Each in 〔142 Calendar Events〕
+〔221〕 Repeat[2] with Each in 〔142 Calendar Events〕
 
-〔213〕 Format Date 〔Repeat Item 2’s Start Date〕　» 215
+〔222〕 Format Date 〔Repeat Item 2’s Start Date〕　» 224
 • DateFormatStyle: None
 
-〔214〕 Format Date 〔Repeat Item 2’s End Date〕　»
+〔223〕 Format Date 〔Repeat Item 2’s End Date〕　»
 • DateFormatStyle: None
 
-〔215〕 Text　»
-〔Repeat Item 2〕 from 〔213 Formatted Date〕 to 〔214 Formatted Date〕 at 〔Repeat Item 2’s Location〕
+〔224〕 Text　»
+〔Repeat Item 2〕 from 〔222 Formatted Date〕 to 〔223 Formatted Date〕 at 〔Repeat Item 2’s Location〕
 
-〔216〕 Speak Text
-• Text: 〔215 Text〕
+〔225〕 Speak Text
+• Text: 〔224 Text〕
 
-〔217〕 Wait 1 seconds
+〔226〕 Wait 1 seconds
 
-〔218〕 End Repeat[2] with Each　▵212
+〔227〕 End Repeat[2] with Each　▵221
 
-〔219〕 End Repeat Times　▵206
+〔228〕 End Repeat Times　▵215
 
-〔220〕 End If　▵143
+〔229〕 End If　▵143
 
-〔221〕 Otherwise　▵135
+〔230〕 Otherwise　▵135
 
-〔222〕 If 〔Shortcut Input as Number〕 is 3
+〔231〕 If 〔Shortcut Input as Number〕 is 3
 
-〔223〕 Comment
+〔232〕 Comment
 will be triggered when an alarm goes off
 
-〔224〕 Otherwise
+〔233〕 Date Current Date
 
-〔225〕 Comment
+〔234〕 Find Alarm All Alarm　»
+• ContentItemFilter: {  "Value": {
+      "WFActionParameterFilterPrefix": 1,
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
+   },
+   "WFSerializationType": "WFContentPredicateTableTemplate"
+}
+
+〔235〕 Repeat with Each in 〔234 Alarms〕
+
+〔236〕 Get Dictionary from 〔Repeat Item’s label〕　»
+
+〔237〕 If 〔236 Dictionary〕 has any value
+
+〔238〕 End If
+
+〔239〕 End Repeat with Each
+
+〔240〕 Otherwise　▵231
+
+〔241〕 Comment
 input is 4, will be triggered when an alarm is stopped ->  stop repeating speaking text
 
-〔226〕 Dictionary　»
+〔242〕 Dictionary　»
 {  "stop": "yes" }
 
-〔227〕 Save File 〔226 Dictionary〕
+〔243〕 Save File 〔242 Dictionary〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: SmartCalendarReminder/stopflag.txt
 
-〔228〕 End If
+〔244〕 End If
 
-〔229〕 End If　▵221
+〔245〕 End If　▵230
 
-〔230〕 End If　▵133
+〔246〕 End If　▵133
 
-〔231〕 End If　▵67
+〔247〕 End If　▵67
