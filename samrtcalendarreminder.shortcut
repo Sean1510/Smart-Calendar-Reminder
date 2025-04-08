@@ -518,22 +518,22 @@ CALENDER EVENT NOTES IS BLANK
 
 〔103〕 Get Dictionary from 〔HomeAddress〕 　➔ Home Address Dictionary　» 104 105 106 107 108
 
-〔104〕 Get Dictionary Value for street in 〔103 Home Address Dictionary〕 　➔ home_street　» 109 111
+〔104〕 Get Dictionary Value for street in 〔103 Home Address Dictionary〕 　➔ home_Street　» 109 111
 
-〔105〕 Get Dictionary Value for city in 〔103 Home Address Dictionary〕 　➔ home_city　» 109 111
+〔105〕 Get Dictionary Value for city in 〔103 Home Address Dictionary〕 　➔ home_City　» 109 111
 
-〔106〕 Get Dictionary Value for state in 〔103 Home Address Dictionary〕 　➔ home_state　» 109 111
+〔106〕 Get Dictionary Value for state in 〔103 Home Address Dictionary〕 　➔ home_State　» 109 111
 
-〔107〕 Get Dictionary Value for country in 〔103 Home Address Dictionary〕 　➔ home_country　» 109 111
+〔107〕 Get Dictionary Value for country in 〔103 Home Address Dictionary〕 　➔ home_Country　» 109 111
 
-〔108〕 Get Dictionary Value for postcode in 〔103 Home Address Dictionary〕 　➔ home_postcode　» 109 111
+〔108〕 Get Dictionary Value for postcode in 〔103 Home Address Dictionary〕 　➔ home_Postcode　» 109 111
 
-〔109〕 If All are true　〔104 home_street〕 has any value　〔105 home_city〕 has any value　〔106 home_state〕 has any value　〔107 home_country〕 has any value　〔108 home_postcode〕 has any value
+〔109〕 If All are true　〔104 home_Street〕 has any value　〔105 home_City〕 has any value　〔106 home_State〕 has any value　〔107 home_Country〕 has any value　〔108 home_Postcode〕 has any value
 
 〔110〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
 
-〔111〕 If All are true　〔79 Current Location’s Street〕 is 〔104 home_street〕　〔79 Current Location’s City〕 is 〔105 home_city〕　〔79 Current Location’s State〕 is 〔106 home_state〕　〔79 Current Location’s Country〕 is 〔107 home_country〕　〔79 Current Location’s ZIP Code〕 is 〔108 home_postcode〕
+〔111〕 If All are true　〔79 Current Location’s Street〕 is 〔104 home_Street〕　〔79 Current Location’s City〕 is 〔105 home_City〕　〔79 Current Location’s State〕 is 〔106 home_State〕　〔79 Current Location’s Country〕 is 〔107 home_Country〕　〔79 Current Location’s ZIP Code〕 is 〔108 home_Postcode〕
 
 〔112〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
@@ -586,15 +586,15 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 
 〔133〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
 
-〔134〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕　» 135 138 140 142 144 147 153 156 162 165 277
+〔134〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed Alarm Time　» 135 138 140 142 144 147 153 156 162 165 277
 • Duration: 〔133 Calculation Result〕 min
 
-〔135〕 Dictionary　» 144 148 154 156
+〔135〕 Dictionary 　➔ Alarm Label Dictionary　» 144 148 154 156
 {  "Event": "🗓️〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
    "Location": "〔Repeat Item’s Location〕",
-   "AlarmTime": "〔134 Adjusted Date〕"
+   "AlarmTime": "〔134 Supposed Alarm Time〕"
 }
 
 〔136〕 Date Current Date　» 137 138 142 277
@@ -602,31 +602,31 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 〔137〕 Adjust Add Date 〔136 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM yyyy"}〕 　➔ 1 day　» 141 151
 • Duration: "1" days
 
-〔138〕 If 〔134 Adjusted Date〕 > 〔136 Date〕
+〔138〕 If 〔134 Supposed Alarm Time〕 > 〔136 Date〕
 
 〔139〕 Comment
 the supposed alrm date did not pass
 
-〔140〕 Adjust Add Date 〔134 Adjusted Date〕　» 141 151
+〔140〕 Adjust Add Date 〔134 Supposed Alarm Time{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM yyyy"}〕　» 141 151
 • Duration: "" days
 
 〔141〕 If 〔140 Adjusted Date〕 is 〔137 1 day〕
 
-〔142〕 If All are true　〔134 Adjusted Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕 is 〔136 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕　〔134 Adjusted Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕 is 〔136 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕
+〔142〕 If All are true　〔134 Supposed Alarm Time{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕 is 〔136 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕　〔134 Supposed Alarm Time{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕 is 〔136 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕
 
 〔143〕 Comment
-since this will be triggered at 12:00 am each day, when the supposed alarm time is 12:00 in the next day, you can set alarm now
+since this will be triggered at 12:00 am each day, when the supposed alarm time is 12:00 am in the next day, you can set alarm now
 
-〔144〕 Add Alarm for 〔134 Adjusted Date〕 called 〔135 Dictionary〕
+〔144〕 Add Alarm for 〔134 Supposed Alarm Time〕 called 〔135 Alarm Label Dictionary〕
 
 〔145〕 Otherwise
 
 〔146〕 Comment
 when the time is other than 12:00 am of then next day, you cannot set alarm yet. If set, it will be today. For example, triggering time 2025-4-8 12:00 am, the supposed alarm time is 2025-4-9 08:00 am, if you set an alarm at 08:00 at 2025-4-8 12:00 am, it will alarm at 2025-4-8 08:00 am instead. So we need to record the supposed alarm time and trigger next day.
 
-〔147〕 Set Variable SupposedAlarmTime to 〔134 Adjusted Date〕
+〔147〕 Set Variable SupposedAlarmTime to 〔134 Supposed Alarm Time〕
 
-〔148〕 Set Variable Event to 〔135 Dictionary〕
+〔148〕 Set Variable Event to 〔135 Alarm Label Dictionary〕
 
 〔149〕 End If
 
@@ -637,13 +637,13 @@ when the time is other than 12:00 am of then next day, you cannot set alarm yet.
 〔152〕 Comment
 likewise, we need to record the supposed alarm time and trigger next day.
 
-〔153〕 Set Variable SupposedAlarmTime to 〔134 Adjusted Date〕
+〔153〕 Set Variable SupposedAlarmTime to 〔134 Supposed Alarm Time〕
 
-〔154〕 Set Variable Event to 〔135 Dictionary〕
+〔154〕 Set Variable Event to 〔135 Alarm Label Dictionary〕
 
 〔155〕 Otherwise
 
-〔156〕 Add Alarm for 〔134 Adjusted Date〕 called 〔135 Dictionary〕
+〔156〕 Add Alarm for 〔134 Supposed Alarm Time〕 called 〔135 Alarm Label Dictionary〕
 
 〔157〕 End If
 
@@ -657,14 +657,14 @@ the supposed alarm time passed
 〔161〕 If 〔Repeat Item’s Location〕 has any value
 
 〔162〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item〕 which  was supposed to get ready at 〔134 Adjusted Date〕. Please check.
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item〕 which  was supposed to get ready at 〔134 Supposed Alarm Time〕. Please check.
 
 〔163〕 Set Variable Text to 〔162 Text〕
 
 〔164〕 Otherwise
 
 〔165〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔134 Adjusted Date〕. Please check.
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔134 Supposed Alarm Time〕. Please check.
 
 〔166〕 Set Variable Text to 〔165 Text〕
 
@@ -932,7 +932,7 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
 〔276〕 Speak Text
 • Text: 〔Text〕
 
-〔277〕 If 〔134 Adjusted Date〕 > 〔136 Date〕
+〔277〕 If 〔134 Supposed Alarm Time〕 > 〔136 Date〕
 
 〔278〕 Otherwise
 
