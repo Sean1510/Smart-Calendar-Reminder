@@ -1,4 +1,4 @@
-Smart Calendar Reminder 2 (348 actions, 124 KB)
+Smart Calendar Reminder 2 (348 actions, 125 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.4",
 "WFWorkflowHasOutputFallback": false,
@@ -455,12 +455,14 @@ Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutable
 Since apple calendar event does has departure field, if you need to set a specific departure, you need to input the departure in the Notes of the event, using format below:
 
 {
-“street”: “your departure street of the specific event”,
-“city”: “your departure city of the specific event”,
-“state”: “your departure state of the specific event”,
-“country”: “your departure country of the specific event”,
-“postcode”: “your departure postcode of the specific event”
+“Street”: “your departure street of the specific event”,
+“City”: “your departure city of the specific event”,
+“State”: “your departure state of the specific event”,
+“Country”: “your departure country of the specific event”,
+“Postcode”: “your departure postcode of the specific event”
 }
+
+For my own experience it’s seldomn used.
 
 〔81〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
 
@@ -469,17 +471,17 @@ CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
 
 〔83〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ Notes Address Dictionary　» 84 85 86 87 88 95 98
 
-〔84〕 Set Variable Street to 〔83 Notes Address Dictionary.street〕
+〔84〕 Set Variable Calendar_Notes_Street to 〔83 Notes Address Dictionary.Street〕
 
-〔85〕 Set Variable City to 〔83 Notes Address Dictionary.city〕
+〔85〕 Set Variable Calendar_Notes_City to 〔83 Notes Address Dictionary.City〕
 
-〔86〕 Set Variable State to 〔83 Notes Address Dictionary.state〕
+〔86〕 Set Variable Calendar_Notes_State to 〔83 Notes Address Dictionary.State〕
 
-〔87〕 Set Variable Region to 〔83 Notes Address Dictionary.country〕
+〔87〕 Set Variable Calendar_Notes_Region to 〔83 Notes Address Dictionary.Country〕
 
-〔88〕 Set Variable ZIP Code to 〔83 Notes Address Dictionary.postcode〕
+〔88〕 Set Variable Calendar_Notes_ZIP Code to 〔83 Notes Address Dictionary.Postcode〕
 
-〔89〕 If All are true　〔79 Current Location’s Street〕 is 〔Street〕　〔79 Current Location’s City〕 is 〔City〕　〔79 Current Location’s State〕 is 〔State〕　〔79 Current Location’s Country〕 is 〔Region〕　〔79 Current Location’s ZIP Code〕 is 〔ZIP Code〕
+〔89〕 If All are true　〔79 Current Location’s Street〕 is 〔Calendar_Notes_Street〕　〔79 Current Location’s City〕 is 〔Calendar_Notes_City〕　〔79 Current Location’s State〕 is 〔Calendar_Notes_State〕　〔79 Current Location’s Country〕 is 〔Calendar_Notes_Region〕　〔79 Current Location’s ZIP Code〕 is 〔Calendar_Notes_ZIP Code〕
 
 〔90〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
@@ -867,8 +869,8 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 〔250〕 Find Alarm All Alarm　» 251 252
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -1011,8 +1013,8 @@ will be triggered when an alarm goes off
 〔308〕 Find Alarm All Alarm　» 309 317
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
