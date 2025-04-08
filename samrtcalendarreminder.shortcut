@@ -1,4 +1,4 @@
-Smart Calendar Reminder 2 (352 actions, 128 KB)
+Smart Calendar Reminder (352 actions, 128 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.4",
 "WFWorkflowHasOutputFallback": false,
@@ -370,10 +370,10 @@ function sendToShortcut() {
 〔54〕 End Menu　▵46
 
 〔55〕 List　» 57
-[🚙Driving,
-🚶‍♀️Walking,
-🚊Transit,
-🚵‍♀️Biking]
+[Driving,
+Walking,
+Transit,
+Biking]
 
 〔56〕 Text　»
 Select Travel Method (It will apply to all the events)
