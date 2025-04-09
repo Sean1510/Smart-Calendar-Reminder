@@ -1,4 +1,4 @@
-Smart Calendar Reminder (352 actions, 127 KB)
+Smart Calendar Reminder 2 (352 actions, 127 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -402,7 +402,7 @@ Besides travel time, how many Extra Minutes Needed (e.g., '15 mins buffer')
 〔63〕 Save File 〔62 Dictionary〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
-• FileDestinationPath: SmartCalendarReminder/aboutme.txt
+• FileDestinationPath: SmartCalendarReminder/aboutme.json
 
 〔64〕 End If　▵39
 
@@ -731,7 +731,7 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
 〔193〕 Comment
 when input is 1 set up alarm for next 24 hours, at that time (recommended at 12:00 am) the travel time is not as accurate as recently. So, suggest to check up event in next 1 hour.
 
-〔194〕 Get File at Path SmartCalendarReminder/aboutme.txt from Folder　»
+〔194〕 Get File at Path SmartCalendarReminder/aboutme.json from Folder　»
 • File: 〔Shortcut Input〕
 
 〔195〕 Get Dictionary from 〔194 File〕　» 196 197 198
