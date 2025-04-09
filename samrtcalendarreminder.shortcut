@@ -1,4 +1,4 @@
-Smart Calendar Reminder 2 (352 actions, 127 KB)
+Smart Calendar Reminder New (352 actions, 127 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -168,7 +168,7 @@ END:VCARD
 
 〔37〕 If 〔36 Selected Item’s Name〕 is Setup
 
-〔38〕 Get File at Path SmartCalendarReminder/aboutme.txt from Folder　»
+〔38〕 Get File at Path SmartCalendarReminder/aboutme.json from Folder　»
 • FileErrorIfNotFound: false
 
 〔39〕 If 〔38 File’s File Size〕 does not have any value
@@ -424,7 +424,7 @@ So this one can handle the scenario above.
 If some travel take more than one day, you may to adjust the search crteria, e.g. change form 1 day to 2\u{space}
 
 〔70〕 Get File at Path SmartCalendarReminder/aboutme.json from Folder　»
-• File: 〔Shortcut Input〕
+• FileErrorIfNotFound: false
 
 〔71〕 Get Dictionary from 〔70 File〕　» 72 73 74
 
@@ -732,7 +732,6 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
 when input is 1 set up alarm for next 24 hours, at that time (recommended at 12:00 am) the travel time is not as accurate as recently. So, suggest to check up event in next 1 hour.
 
 〔194〕 Get File at Path SmartCalendarReminder/aboutme.json from Folder　»
-• File: 〔Shortcut Input〕
 
 〔195〕 Get Dictionary from 〔194 File〕　» 196 197 198
 
@@ -1020,8 +1019,8 @@ will be triggered when an alarm goes off
 〔311〕 Find Alarm All Alarm　» 312 321
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
