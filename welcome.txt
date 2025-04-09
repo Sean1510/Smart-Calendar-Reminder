@@ -1,0 +1,19 @@
+
+Welcome to Smart Calendar Reminder. Don’t worry, you won’t see this every time you run the shortcut — only the very first time.
+What this Shortcut Does
+Based on my experience, calendar is the most popular app for managing your schedule on iOS. 
+But even though it has a built-in alert for reminders, sometimes it's easy to miss them. So you may set up additional alarm manully.
+For the alarm sound, it will take you lots of effort to cuomize it. And you need to calculate travel time sapaterly to count the alarm time.
+So I built this shortcut to automate these hassle.
+
+It can get all the data directly from Calendar no additional input.
+It calculate travel time (additioal preparation time configuring in the setup process) automatically based on Apple maps and then set up alarm automatically.
+
+When it's 
+
+
+Before You Use It
+To make this work, you need to set up two automations in the Shortcuts app.
+Full instructions can be found by selecting Setup from the main menu.
+
+Once you've set up those automations, you're ready to go!
