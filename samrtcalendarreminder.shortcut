@@ -1655,7 +1655,7 @@ Besides travel time, how many Extra Minutes Needed (e.g., '15 mins buffer')
 〔71〕 Save File 〔70 Dictionary〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
-• FileDestinationPath: SmartCalendarReminder/aboutme.json
+• FileDestinationPath: SmartCalendarReminder/aboutme.txt
 
 〔72〕 End If　▵47
 
