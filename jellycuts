@@ -1,0 +1,1301 @@
+import Shortcuts
+#Color: teal, #Icon: Shortcuts
+
+if(ShortcutInput == nil) { >> IFResult
+// Initial setup and version update check when no input is provided
+/*
+Inspired by [Schedule Shortcut or Alarm] but designed to work smarter for my needs! Instead of manually inputting each trigger or alarm, this shortcut leverages my Calendar as the ultimate data source. It automatically scans for upcoming events, then:
+
+• Speaks out the event details
+• Sets a tailored alarm—accounting for travel and prep time—right when you need it
+
+No more early, forgettable reminders. It keeps your schedule perfectly in sync. Give it a try and let your Calendar do the heavy lifting!
+*/
+	dictionary({"Name":"Smart Calendar Reminder","Version":"1.8","RH ID":"21959","Icons":{"Update":"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","Skip":"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","Not Now":"iVBORw0KGgoAAAANSUhEUgAAAHsAAAB7CAYAAABUx/9/AAAAAXNSR0IArs4c6QAAB79JREFUeF7tnb1uHDcQx2+fxgYE6BUclalcyY1T5SGi0qdSfghXSWNXqVJGegUBApynWWvWywuXt7szQ86QQx4PCOz4+P3jf2aW5HGHQ0OfcRx/8boDf38XdM//3n31GKR5mv//cRiG8LuqR2uoufUz3E9zH9ZASnUPoE+TYBiGo1ShucupCnZGuBiHKuGbh+0B1lQuBhf7/v5wOJg3+2Zhj+MI5hJ8rmXIa5Pg3qqpNwW7EhVjKnffm4NuAnZjkMPJACbeRGBXFHbjkM+glzbvxWDPPtk9NlFNYwvpipn37LAvTM17kzM79Kywx3H8t8LoWtOaZAWeBfasZgDdP+sjkAW6OuwL9s3cia0OXA12981c1lN6WIW7icpJyKQCu5ttwsjvJ7nR2HETh91BJ4N2BYgDF4Xd/bMYaJUlVzHYHbQ4aHHgIrA7aDXQosCTYUuAfn757/DXt7/VR6xEBddXb6ZqP96+T60++dEsCbZEMPbr7e+pg1BF/uurt4eH4x+pbU0K2qJhS4AGNf/5tU1Fr1H97cN7CYVHA0+BPaZO00tRtT9O/3z7kjpskD8KeBRsqQ2NDjuae9RKGxu2REDmunh3/Hx4fvke3ePaMgr57egInQVbEjS0GKLwu+NDbcyi2/twvDu46Dy6kGVGljnnwk7202En3SNXy4EaKBoevYRBT0M5vJ51ok4cckJpVWMNxCJ1BZVgTZq+x6yRUMRNasuciOy/SbBzg4ZOdNgc3rTonApb3HxjXemwsRFafE9SNwq7hKq7slmgydE5BXZ2VXfYUbDRxZZd2KVU3WFHw94155uwS4LusKNh76q7w2aOq8FHr7AHm+reg13EV7uW92icOQsJK2ursEub8G7Gk0BD5lV1b8EuquoOOxn26jLqGWwLqu6w02G/LpufHWNag11c1ZQ16L42jk6IM1O+gC1x1AhtAjEBFvWWgm01cNwY1sUWaAgbLq0x8wN57CRLCeBYm4SOHRElgSZbqDuEbcKEuy5gJ1mET36gI2etPWiDg/3uE2wrgZnfAWxwIW0u4JS2FNjLpvA+mXLTsKEnmNnMAZwCGtphzIS7iXAy5T5sk1dgYIGa65GWwqmgjap6scDiwzblr7nmXEPhDYCehtGdU5tgW/TXoTOiDryUwnPXR3G+CWkmv10NbOhoLgC56kmAx806+W0H26S/XuuRNgjt8rmUhNIvYJv11zmBNwr65LedsquCrWHSWwY9C+ZmsLQezjVZUoCkyuG2P3P6Cbap9XDuAKSCSs3PbW/B9PXDTjHpFwQahukelF1NJL6nCi44bvqCipSq+rEZ2ByFU0dPaoGGWp9yurZgSwJvDDQMTXuwJYA3CPoEu7pnbIq5o/rksKxGQf9cWBlfn70og1djGi7wlkE3Dxs6SDn84Cay0cMHYjrryvaGsitbbF7lLYhrwl3rWgbe1HO2AxYLunHg7T16pYJuGHhbsKVANwq8HdhU0M4nc9PnjThUaptgV73FyVkxC4OvCwM+7XrBy8irfZteKrDU/Coa1Cm0bthSoKTK0WEkVmq9x5KkAUmXJ4ZIqCD4oUCVBw61wGiVK8QrqRgfdjWnVbSBaJefRCw+c30/EsgFIlc98ezYOaf7VZwZNx+R5waQuz42Pl6G/2FDPsv72tg9JlorXq0AX/yKc4Zt0m+XAs3dVClxvwtR3PX8GJ9y+EB7W5KqcKOHH073ofk/xjfntymq1gbNUXiuthAV7ZKdw7botzFF5R5ca+2hQPffDhRejWXKb2MmPLfZpNzvkrtNCPDFlZbV3nBY6sIaDLixQG37hkNLUTnmr0sNak2wwxe89VuJKY7PS4PBLmVxVrqB30psJVCrVdlWYK+9tnHrcvnigVqHzTQ5y+Rnqoavt2AXf+busONhb72Mde+FMEXV3WFHw15V9aayZ79dVN0ddkbYpR/DOuwo2Juq3lV2aXV32HzY2IvTKS9eLXKuvMNmw95VNapsV12JG5U6bB5sTNUc2NmDtQ6bBRtVNRl2iWCtwybDJoFmwdZaRoW1ZgD7/PKd3LvaEsISKnw+3v78U/JDMd+uPjRA8xsm/bswbFNBclAslKWwU0dWNVvZs7rFonPs5IcFQJJtED5ZwwIdBVvSf2MnUSQH2kpZQidZNl+IvtdPlhn3HsVEovMOO24Kcvy0X0MU7FndycCxiDtuKOzmEtrrXhw14vQ2GrYU8Evy2wImPBp0tM8OIvTkgA0UDh+Izlv8wCPX9dWb1K6xA7KwwiRlez48GXjqSDSePxm0iLI7cPVpJgJaFLb0M7j6ENZRgRhocdhSQVsdHNRbmRSMrbVOxGeHBUsvq6oPq70KxEGrKDuI1IseWrTHEG3R4/RKpmGAP8U/KsoOgPdInYZN1D9nM+MrZr0D3weuYrZVnrNpE7eOl7JT+yKULmpDI7ZudTPeVb6KRtU3b02G7LBdQ1q4DTlSYeq+2RzsC4ReRM0++GLKXonY4Z8+RarFcrbikN3gmIDd6KOaGchmYVdu3gHwE9wTatHUmFP2SvQOJ2LgP8sm3pyKiy2qSM3yOYKH4t7NE0CqaG45bjlTbWmT2yBKevPK3utERvhVwi26gkaZfalp5h03MPvOAvhFun/3/y3cdHiCF4ufghqlTYnUfsbk/wG0cJf+RXCQ1AAAAABJRU5ErkJggg=="}}) >> Version Dictionary 
+	downloadURL(url: "https://routinehub.co/api/v1/shortcuts/${Version Dictionary .key(RH ID)}/versions/latest") >> RH Server
+	getFile(picker: false, path: "${Version Dictionary .key(Name)}/Skip.txt", error: false) >> getFile
+	if(File != ""${RH Server.as(Dictionary).key(Version)}"") { >> IFResult 1
+		keysFrom(dictionary: Version Dictionary ) >> keysFrom
+		if(Dictionary Value != ""${RH Server.as(Dictionary).key(Version)}"") {
+			encode(input: Version Dictionary ) >> encode
+			alert(alert: "A new version of ${Version Dictionary .key(Name)} is available to download!")
+var E579E1D4-B6D8-4505-A270-C6F5923DDE0A = """⬆️ Update ⬆️
+
+A new version of  is available to download!
+
+ ↗    —   
+
+"""
+text("${E579E1D4-B6D8-4505-A270-C6F5923DDE0A}")
+var 38D3D49C-300F-49D1-9F83-4BF21CB607B0 = """BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=utf-8:Update;;;;
+PHOTO;ENCODING=b:
+END:VCARD
+
+BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=utf-8:Skip;;;;
+PHOTO;ENCODING=b:
+END:VCARD
+
+BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=utf-8:Not Now;;;;
+PHOTO;ENCODING=b:
+END:VCARD"""
+text("${38D3D49C-300F-49D1-9F83-4BF21CB607B0}")
+			setName(input: Text, name: "updateprompt.vcf") >> setName
+			choose(list: Renamed Item, prompt: "${Text}") >> choose
+			if(Chosen Item == "Update") {
+				openURL(url: RH Server) >> openURL
+				exit()
+			} >> IFResult 2
+			if(Chosen Item == "Skip") {
+				saveFile(input: RH Server, ask: false, path: "${Version Dictionary .key(Name)}/Skip.txt", overwrite: true) >> saveFile
+				alert(alert: "This version of ${Version Dictionary .key(Name)} has been skipped!", title: "✅ Done ✅", cancel: false)
+			}
+		}
+	} >> IFResult 3
+	getFile(path: "${Version Dictionary .key(Name)}/Welcome.pdf", error: false) >> getFile 1
+	if(File == nil) { >> IFResult 4
+var 88E05474-27E5-4E56-B24C-8A87CE2240E5 = """<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Smart Calendar Reminder: Your Intelligent Schedule Assistant</title><style>
+    /* cspell:disable-file */
+    /* webkit printing magic: print all background colors */
+    html {
+        -webkit-print-color-adjust: exact;
+    }
+    * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    @media only screen {
+        body {
+            margin: 2em auto;
+            max-width: 900px;
+            color: rgb(55, 53, 47);
+        }
+    }
+    
+    body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+    }
+    
+    a,
+    a.visited {
+        color: inherit;
+        text-decoration: underline;
+    }
+    
+    .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+    }
+    
+    h1,
+    h2,
+    h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+    
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+    }
+    
+    h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+    }
+    
+    .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+    }
+    
+    .callout {
+        border-radius: 3px;
+        padding: 1rem;
+    }
+    
+    figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+    }
+    
+    figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+    }
+    
+    mark {
+        background-color: transparent;
+    }
+    
+    .indented {
+        padding-left: 1.5em;
+    }
+    
+    hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+    }
+    
+    img {
+        max-width: 100%;
+    }
+    
+    @media only print {
+        img {
+            max-height: 100vh;
+            object-fit: contain;
+        }
+    }
+    
+    @page {
+        margin: 1in;
+    }
+    
+    .collection-content {
+        font-size: 0.875rem;
+    }
+    
+    .column-list {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .column {
+        padding: 0 1em;
+    }
+    
+    .column:first-child {
+        padding-left: 0;
+    }
+    
+    .column:last-child {
+        padding-right: 0;
+    }
+    
+    .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+    }
+    
+    .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+    }
+    
+    .table_of_contents-indent-2 {
+        margin-left: 3rem;
+    }
+    
+    .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+    }
+    
+    .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+    }
+    
+    table,
+    th,
+    td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+    }
+    
+    table {
+        border-left: none;
+        border-right: none;
+    }
+    
+    th,
+    td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+    }
+    
+    th {
+        color: rgba(55, 53, 47, 0.6);
+    }
+    
+    ol,
+    ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+    }
+    
+    li > ol:first-child,
+    li > ul:first-child {
+        margin-block-start: 0.6em;
+    }
+    
+    ul > li {
+        list-style: disc;
+    }
+    
+    ul.to-do-list {
+        padding-inline-start: 0;
+    }
+    
+    ul.to-do-list > li {
+        list-style: none;
+    }
+    
+    .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+    }
+    
+    ul.toggle > li {
+        list-style: none;
+    }
+    
+    ul {
+        padding-inline-start: 1.7em;
+    }
+    
+    ul > li {
+        padding-left: 0.1em;
+    }
+    
+    ol {
+        padding-inline-start: 1.6em;
+    }
+    
+    ol > li {
+        padding-left: 0.2em;
+    }
+    
+    .mono ol {
+        padding-inline-start: 2em;
+    }
+    
+    .mono ol > li {
+        text-indent: -0.4em;
+    }
+    
+    .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+    }
+    
+    /* Indent toggle children */
+    .toggle > li > details {
+        padding-left: 1.7em;
+    }
+    
+    .toggle > li > details > summary {
+        margin-left: -1.1em;
+    }
+    
+    .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+    }
+    
+    .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+    }
+    
+    .page-description {
+        margin-bottom: 2em;
+    }
+    
+    .simple-table {
+        margin-top: 1em;
+        font-size: 0.875rem;
+        empty-cells: show;
+    }
+    .simple-table td {
+        height: 29px;
+        min-width: 120px;
+    }
+    
+    .simple-table th {
+        height: 29px;
+        min-width: 120px;
+    }
+    
+    .simple-table-header-color {
+        background: rgb(247, 246, 243);
+        color: black;
+    }
+    .simple-table-header {
+        font-weight: 500;
+    }
+    
+    time {
+        opacity: 0.5;
+    }
+    
+    .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+    }
+    
+    img.icon {
+        border-radius: 3px;
+    }
+    
+    .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+    }
+    
+    .user-icon-inner {
+        font-size: 0.8em;
+    }
+    
+    .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+    }
+    
+    .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        max-height: 30vh;
+    }
+    
+    .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+    }
+    
+    .page-header-icon img {
+        border-radius: 3px;
+    }
+    
+    .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+    }
+    
+    p > .user {
+        opacity: 0.5;
+    }
+    
+    td > .user,
+    td > time {
+        white-space: nowrap;
+    }
+    
+    input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+    }
+    
+    p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+    
+    .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+    }
+    
+    .code,
+    code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+    }
+    
+    code {
+        color: #eb5757;
+    }
+    
+    .code {
+        padding: 1.5em 1em;
+    }
+    
+    .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+    
+    .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+    }
+    
+    blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+    }
+    
+    .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+    }
+    
+    .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+    }
+    
+    .bookmark-text {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+    }
+    
+    .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+    }
+    
+    .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+    }
+    
+    .sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+    .code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+    .serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+    .mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+    .pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+    .pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+    .pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+    .pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+    .pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+    .pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+    .pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+    .pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+    .pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+    .pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+    .pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+    .pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+    .pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+    .pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+    .pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+    .pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+    .highlight-default {
+        color: rgba(55, 53, 47, 1);
+    }
+    .highlight-gray {
+        color: rgba(120, 119, 116, 1);
+        fill: rgba(120, 119, 116, 1);
+    }
+    .highlight-brown {
+        color: rgba(159, 107, 83, 1);
+        fill: rgba(159, 107, 83, 1);
+    }
+    .highlight-orange {
+        color: rgba(217, 115, 13, 1);
+        fill: rgba(217, 115, 13, 1);
+    }
+    .highlight-yellow {
+        color: rgba(203, 145, 47, 1);
+        fill: rgba(203, 145, 47, 1);
+    }
+    .highlight-teal {
+        color: rgba(68, 131, 97, 1);
+        fill: rgba(68, 131, 97, 1);
+    }
+    .highlight-blue {
+        color: rgba(51, 126, 169, 1);
+        fill: rgba(51, 126, 169, 1);
+    }
+    .highlight-purple {
+        color: rgba(144, 101, 176, 1);
+        fill: rgba(144, 101, 176, 1);
+    }
+    .highlight-pink {
+        color: rgba(193, 76, 138, 1);
+        fill: rgba(193, 76, 138, 1);
+    }
+    .highlight-red {
+        color: rgba(212, 76, 71, 1);
+        fill: rgba(212, 76, 71, 1);
+    }
+    .highlight-default_background {
+        color: rgba(55, 53, 47, 1);
+    }
+    .highlight-gray_background {
+        background: rgba(248, 248, 247, 1);
+    }
+    .highlight-brown_background {
+        background: rgba(244, 238, 238, 1);
+    }
+    .highlight-orange_background {
+        background: rgba(251, 236, 221, 1);
+    }
+    .highlight-yellow_background {
+        background: rgba(251, 243, 219, 1);
+    }
+    .highlight-teal_background {
+        background: rgba(237, 243, 236, 1);
+    }
+    .highlight-blue_background {
+        background: rgba(231, 243, 248, 1);
+    }
+    .highlight-purple_background {
+        background: rgba(248, 243, 252, 1);
+    }
+    .highlight-pink_background {
+        background: rgba(252, 241, 246, 1);
+    }
+    .highlight-red_background {
+        background: rgba(253, 235, 236, 1);
+    }
+    .block-color-default {
+        color: inherit;
+        fill: inherit;
+    }
+    .block-color-gray {
+        color: rgba(120, 119, 116, 1);
+        fill: rgba(120, 119, 116, 1);
+    }
+    .block-color-brown {
+        color: rgba(159, 107, 83, 1);
+        fill: rgba(159, 107, 83, 1);
+    }
+    .block-color-orange {
+        color: rgba(217, 115, 13, 1);
+        fill: rgba(217, 115, 13, 1);
+    }
+    .block-color-yellow {
+        color: rgba(203, 145, 47, 1);
+        fill: rgba(203, 145, 47, 1);
+    }
+    .block-color-teal {
+        color: rgba(68, 131, 97, 1);
+        fill: rgba(68, 131, 97, 1);
+    }
+    .block-color-blue {
+        color: rgba(51, 126, 169, 1);
+        fill: rgba(51, 126, 169, 1);
+    }
+    .block-color-purple {
+        color: rgba(144, 101, 176, 1);
+        fill: rgba(144, 101, 176, 1);
+    }
+    .block-color-pink {
+        color: rgba(193, 76, 138, 1);
+        fill: rgba(193, 76, 138, 1);
+    }
+    .block-color-red {
+        color: rgba(212, 76, 71, 1);
+        fill: rgba(212, 76, 71, 1);
+    }
+    .block-color-default_background {
+        color: inherit;
+        fill: inherit;
+    }
+    .block-color-gray_background {
+        background: rgba(248, 248, 247, 1);
+    }
+    .block-color-brown_background {
+        background: rgba(244, 238, 238, 1);
+    }
+    .block-color-orange_background {
+        background: rgba(251, 236, 221, 1);
+    }
+    .block-color-yellow_background {
+        background: rgba(251, 243, 219, 1);
+    }
+    .block-color-teal_background {
+        background: rgba(237, 243, 236, 1);
+    }
+    .block-color-blue_background {
+        background: rgba(231, 243, 248, 1);
+    }
+    .block-color-purple_background {
+        background: rgba(248, 243, 252, 1);
+    }
+    .block-color-pink_background {
+        background: rgba(252, 241, 246, 1);
+    }
+    .block-color-red_background {
+        background: rgba(253, 235, 236, 1);
+    }
+    .select-value-color-uiBlue { background-color: undefined; }
+    .select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+    .select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+    .select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+    .select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+    .select-value-color-transparentGray { background-color: undefined; }
+    .select-value-color-translucentGray { background-color: undefined; }
+    .select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+    .select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+    .select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+    .select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+    .select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+    .select-value-color-pageGlass { background-color: undefined; }
+    .select-value-color-washGlass { background-color: undefined; }
+    
+    .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+    }
+    
+    .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+    }
+    
+    .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+    }
+        
+    </style></head><body><article id="1d1604ef-9b4b-8020-9a43-e475a43661a0" class="page sans"><header><h1 class="page-title">Smart Calendar Reminder: Your Intelligent Schedule Assistant</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="1d1604ef-9b4b-80b2-927b-ddb2d55d6032"><div style="width:100%">👋 Welcome to Smart Calendar Reminder! This welcome message appears only during your first use.</div></figure><h1 id="1d1604ef-9b4b-80c5-a289-d2aedc69317d" class="block-color-yellow_background">Transform Your Calendar Experience</h1><p id="1d1604ef-9b4b-80f7-ac48-d98bc2a805e6" class="">While iOS Calendar is fantastic for basic scheduling, we all know those built-in reminders can be easy to miss. Adding manual alarms, calculating travel times, and customizing notifications with event details can become tedious and time-consuming. That&#x27;s where Smart Calendar Reminder comes in - your automated solution for intelligent schedule management!</p><h2 id="1d1604ef-9b4b-800f-9752-cb68ca87b1cf" class="">Powerful Features at Your Fingertips</h2><ul id="0ecdba52-af59-410f-9efb-321f8e2d4ba6" class="bulleted-list"><li style="list-style-type:disc">Seamless Calendar Integration - No manual input needed</li></ul><ul id="1d1604ef-9b4b-80b9-8d0d-fe7b3c28115b" class="bulleted-list"><li style="list-style-type:disc">Intelligent Travel Time Calculations powered by Apple Maps</li></ul><ul id="4f6b7aca-7c92-458d-9996-e8f891a3775d" class="bulleted-list"><li style="list-style-type:disc">Spoken Event Details - Hear your schedule clearly</li></ul><ul id="1d1604ef-9b4b-80f5-9fe9-ee50fd3e7795" class="bulleted-list"><li style="list-style-type:disc">Smart Preparation Time Management</li></ul><h2 id="fa2195d7-f08f-4058-a00a-18e2b562b5b2" class="">Smart Location Intelligence</h2><p id="1d1604ef-9b4b-80d3-9799-dd97b27a3773" class="">Our advanced travel time calculation system uses three methods to determine your departure location, in order of priority:</p><ol type="1" id="667c5bbb-f94c-480b-bccd-c84948a3c40f" class="numbered-list" start="1"><li>Custom Departure Address - Add this JSON format in your calendar event notes for specific departure points:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1d1604ef-9b4b-80d1-9d4b-dfb42d06c7b8" class="code"><code class="language-JSON">{
+        &quot;Street&quot;: &quot;your departure street&quot;,
+        &quot;City&quot;: &quot;your departure city&quot;,
+        &quot;State&quot;: &quot;your departure state&quot;,
+        &quot;Country&quot;: &quot;your departure country&quot;,
+        &quot;Postcode&quot;: &quot;your departure postcode&quot;
+    }</code></pre></li></ol><ol type="1" id="1d1604ef-9b4b-80c6-b468-d002dd94b75d" class="numbered-list" start="2"><li>Home Address - Uses your pre-configured home address - perfect for regular schedules</li></ol><ol type="1" id="aba3d861-a84a-48f6-a163-ac441f18b1b3" class="numbered-list" start="3"><li>Current Location - Automatically uses your current position as a fallback</li></ol><figure class="block-color-yellow_background callout" style="white-space:pre-wrap;display:flex" id="1d1604ef-9b4b-80ed-a48d-f0cad158ed60"><div style="width:100%">Smart Travel Planning: The system automatically calculates additional travel time if you&#x27;re not at your departure location!</div></figure><h2 id="efb3fa4e-d05f-4bd3-bd94-b9b991e29ce4" class="">Voice Announcements</h2><ul id="1d1604ef-9b4b-8076-9c50-fcefa4c4903c" class="bulleted-list"><li style="list-style-type:disc">Hourly Schedule Updates: Hear upcoming events at the start of each hour</li></ul><ul id="a0eb2cf6-1637-4d13-94c8-356fd19cd78a" class="bulleted-list"><li style="list-style-type:disc">Smart Reminders: Get spoken alerts at perfectly timed intervals</li></ul><h2 id="1d1604ef-9b4b-80dd-9df1-d8fae003cae6" class="">Intelligent Automation System</h2><p id="15ce45ed-b4fa-4b81-bbd0-2fa585b5c7ce" class="">Our sophisticated automation system ensures you never miss an important event:</p><ul id="1d1604ef-9b4b-80c5-a181-f10518e7e73d" class="bulleted-list"><li style="list-style-type:disc">Daily Planning: 12:00 AM check of your next 24 hours</li></ul><ul id="f54bf941-4703-4cc3-9f61-408f1eed72ee" class="bulleted-list"><li style="list-style-type:disc">Real-time Updates: Hourly recalculation of travel times</li></ul><ul id="1d1604ef-9b4b-800d-b8f8-e85831f4b0ee" class="bulleted-list"><li style="list-style-type:disc">Dynamic Adjustments: Automatic alarm optimization</li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1d1604ef-9b4b-8075-9657-ed6135b16d17"><div style="width:100%">Example: For a 10:30 AM meeting with 3 hours total travel time, the system ensures your 7:30 AM alarm is set and continuously optimized based on real-time conditions.</div></figure><h1 id="1d1604ef-9b4b-803a-8fbf-c89822dbca0a" class="block-color-blue">Setup Guide</h1><p id="1d1604ef-9b4b-80a7-ae75-c35724896e17" class="">Let&#x27;s get your Smart Calendar Reminder configured with four essential automations:</p><h2 id="1d1604ef-9b4b-8072-ab56-d0757b2435ef" class="block-color-gray_background">Automation 1: Daily 12:00 AM Check</h2><p id="1d1604ef-9b4b-80c9-9b4a-ee2712524a0d" class="block-color-blue">Step 1. Open Shortcuts and tap [Automation], then tap [+] at the top right corner</p><figure id="1d1604ef-9b4b-8043-b390-ff859889379f" class="image"><a href="gZWfH4Kler-left.png"><img style="width:709.984375px" src="https://i.imgur.com/za6VDMA.jpeg"/></a></figure><p id="1d1604ef-9b4b-804a-9cb1-f487991237c6" class="">Step 2. Tap [Time of Day]</p><figure id="1d1604ef-9b4b-8085-99bb-e3d90115d5dd" class="image"><a href="NDyjdrLrYZ-left.png"><img style="width:709.984375px" src="https://i.imgur.com/z7aJ0OB.jpeg"/></a></figure><p id="1d1604ef-9b4b-806d-a7eb-f652a480cbc6" class="">Step 3. Follow the sequence shown in the image</p><figure id="1d1604ef-9b4b-80cd-9ca5-fc076df31898" class="image"><a href="6KJEFinDm6-left.png"><img style="width:709.984375px" src="https://i.imgur.com/u6C2AR9.jpeg"/></a></figure><p id="1d1604ef-9b4b-8050-b817-f0e2368f43ca" class="block-color-gray_background">Step 4. Tap [New Blank Automation]</p><figure id="1d1604ef-9b4b-8028-b872-eed1a3f6701a" class="image"><a href="XblW6TFHek-left.png"><img style="width:709.984375px" src="https://i.imgur.com/nrTr7Np.jpeg"/></a></figure><p id="b8f8c3cf-7fdc-4a99-b2ba-60e18fef34c7" class="">Step 5. Search for the [Number] action</p><figure id="1d1604ef-9b4b-80d0-ad58-f7a1dc1d1c48" class="image"><a href="4XgUTG3h3E-left.png"><img style="width:709.984375px" src="https://i.imgur.com/F6jogMJ.jpeg"/></a></figure><p id="1d1604ef-9b4b-804e-9fe3-c5b6fc8701fa" class="">Step 6. Input number 1</p><figure id="1d1604ef-9b4b-8056-be0b-c4cfaebae0f7" class="image"><a href="n0XhfXtA03-left.png"><img style="width:709.984375px" src="https://i.imgur.com/HUMvkry.jpeg"/></a></figure><p id="1d1604ef-9b4b-8004-b82f-c5b6250d69c0" class="">Step 7. Search for [Run Shortcut] action</p><figure id="1d1604ef-9b4b-801d-a2d0-e444c55bbdb1" class="image"><a href="BUB7V9ITn8-left.png"><img style="width:709.984375px" src="https://i.imgur.com/IbHA9Jf.jpeg"/></a></figure><p id="1d1604ef-9b4b-8031-a595-d6b268bb5bfc" class="">Step 8. Search and select [Smart Calendar Reminder] in [Run Shortcut] action’s shortcut field.</p><figure id="1d1604ef-9b4b-804c-8be0-d6060e3b5a73" class="image"><a href="b50xsbc2QT-left.png"><img style="width:709.984375px" src="https://i.imgur.com/41WbF2A.png"/></a></figure><p id="1d1604ef-9b4b-805d-96d8-c871e0493bdb" class="block-color-default_background">Step 9. Tap [Done] in the top right corner to complete setup</p><figure id="1d1604ef-9b4b-8024-864a-d9002a94e719" class="image"><a href="LjO11dxjS3-left.png"><img style="width:709.984375px" src="https://i.imgur.com/tmrW6r8.jpeg"/></a></figure><h2 id="1d1604ef-9b4b-8045-9247-e3afd799f547" class="">Automation 2: Hourly Check</h2><p id="1d1604ef-9b4b-809c-900e-e425d52b7a0a" class="">Follow the same steps as Automation 1, with these modifications:</p><ul id="1d1604ef-9b4b-80a8-9819-cfd9961eb078" class="bulleted-list"><li style="list-style-type:disc">In step 3, select all <em><strong><span style="border-bottom:0.05em solid">24 hourly times</span></strong></em></li></ul><ul id="1d1604ef-9b4b-80b3-b766-ed9c851957a5" class="bulleted-list"><li style="list-style-type:disc">In step 6, input number <strong>2</strong> instead of 1</li></ul><h2 id="1d1604ef-9b4b-80ad-a1ea-e247f84f2063" class="">Automation 3: Alarm Trigger</h2><p id="1d1604ef-9b4b-8044-9254-f9d3912d6d6c" class="">Follow the same steps as Automation 1, with these changes:</p><ul id="1d1604ef-9b4b-802e-98b3-c8202e4f8765" class="bulleted-list"><li style="list-style-type:disc">In step 2, tap [<strong>Alarm</strong>] instead of [Time of Day]</li></ul><ul id="1d1604ef-9b4b-80a5-9ccc-d6a2906a3429" class="bulleted-list"><li style="list-style-type:disc">Configure settings as shown:</li></ul><figure id="1d1604ef-9b4b-8014-b883-f88df7a348e1" class="image"><a href="fIF3p3ttC0-left.png"><img style="width:709.984375px" src="https://i.imgur.com/MTyZ3km.png"/></a></figure><ul id="1d1604ef-9b4b-80dc-a6f8-edc73fc17118" class="bulleted-list"><li style="list-style-type:disc">In step 6, input number <strong>3</strong> instead of 1</li></ul><h2 id="1d1604ef-9b4b-8025-9db9-e83367a64cdb" class="">Automation 4: Alarm Stop</h2><p id="1d1604ef-9b4b-805f-afe2-f2de398e695a" class="">Follow the same steps as Automation 1, with these changes:</p><ul id="10aa2fe6-80f0-4850-93c0-4fe14b146190" class="bulleted-list"><li style="list-style-type:disc">In step 2, tap [<strong>Alarm</strong>] instead of [Time of Day]</li></ul><ul id="1d1604ef-9b4b-80aa-baad-e6dd7acf4ad9" class="bulleted-list"><li style="list-style-type:disc">Configure settings as shown:</li></ul><figure id="1d1604ef-9b4b-8068-a490-e601bfafcfe7" class="image"><a href="E24uC2vV2j-left.png"><img style="width:709.984375px" src="https://i.imgur.com/2LbJK9D.png"/></a></figure><ul id="1d1604ef-9b4b-804f-bcba-f64ec9bd67f1" class="bulleted-list"><li style="list-style-type:disc">In step 6, input number <strong>4</strong> instead of 1</li></ul><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="1d1604ef-9b4b-8031-8b44-ddb00fab6dee"><div style="width:100%">🎉 Congratulations! Once you&#x27;ve completed these automations, your Smart Calendar Reminder is ready to revolutionize your schedule management!</div></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>"""
+text("${88E05474-27E5-4E56-B24C-8A87CE2240E5}")
+		setName(input: Text, name: "Welcome.html") >> setName 1
+		showWebPage(url: "${Renamed Item}") >> showWebPage
+		createPDF(input: Renamed Item) >> createPDF
+		saveFile(input: PDF, ask: false, path: "${Version Dictionary .key(Name)}/Welcome.pdf", overwrite: true) >> saveFile 1
+	} >> IFResult 5
+	dictionary({"mainMenu":{"Setup":{"title":"Setup","sub":"Set Personal Preferences","icon":"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"},"Change":{"title":"Change","sub":"Change Personal Preferences","icon":"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"}}}) >> menus
+	getDictionaryFrom(input: menus) >> getDictionaryFrom
+	repeatEach(Dictionary) { >> RepeatResult
+		keysFrom(dictionary: Repeat Item) >> Options
+		repeatEach(Options) {
+var D6A1FA5A-FD98-476F-904B-2B6E420933A1 = """BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=utf-8:;
+ORG:;
+PHOTO;ENCODING=b:;
+END:VCARD"""
+text("${D6A1FA5A-FD98-476F-904B-2B6E420933A1}")
+		}
+	} >> RepeatResult 1
+	text(text: "${Repeat Results}") >> text
+	setName(input: Text, name: "mainMenu.vcf") >> setName 2
+	getContactsFrom(input: Renamed Item) >> getContactsFrom
+	choose(list: Contacts, prompt: "☀️Welcome to Smart Calendar Reminder☀️", mul: $3) >> choose 1
+	if(Selected Item == "Setup") {
+		getFile(path: "${Version Dictionary .key(Name)}/aboutme.txt", error: false) >> getFile 2
+		if(File == nil) {
+// All the information is stored in iCloud. The shortcut isn’t collecting anything.
+var 541DB542-C2B2-4F6E-96A9-40BB46ABA933 = """Choose Travel Time Calculation Method
+
+1️⃣ Notes 🗓️ / Current 📍
+Uses the address in the Calendar event Notes if available (routing via Notes if you're not already there), otherwise calculates directly from your current location to the event.
+
+2️⃣ Notes 🗓️ / Home 🏡
+Uses the Notes address if available (same as 1️⃣), but if Notes are empty, routes via your home address if you're not already there, or directly from home if you are.
+
+"""
+text("${541DB542-C2B2-4F6E-96A9-40BB46ABA933}")
+			menu(, [1️⃣ Notes 🗓️ / Current 📍, 2️⃣ Notes 🗓️ / Home 🏡]) {
+			case("1️⃣ Notes 🗓️ / Current 📍"):
+				dictionary({"state":"""","street":"""","city":"""","country":"""","postcode":""""})
+var HomeAddress = Dictionary
+			case("2️⃣ Notes 🗓️ / Home 🏡"):
+				text(text: "Please provide your home address for accurate travel time calculations via Apple Maps.") >> text 1
+var B8BC21A7-7767-4170-8FCA-E3764126210C = """<!DOCTYPE html>
+<html>
+<head>
+    <title>Address Collector</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Modern CSS styling */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 20px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 0; /* Equal left/right margins */
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        /* New success message styling */
+        .success-message {
+            display: none;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2></h2>
+        <form id="addressForm">
+            <div class="form-group">
+                <label>Street Address</label>
+                <input type="text" id="street" placeholder="" required>
+            </div>
+
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" id="city" placeholder="" required>
+            </div>
+
+            <div class="form-group">
+                <label>State/Province</label>
+                <input type="text" id="state" placeholder="" required>
+            </div>
+
+            <div class="form-group">
+                <label>Country/Region</label>
+                <input type="text" id="country" placeholder="" required>
+            </div>
+
+            <div class="form-group">
+                <label>Postal Code</label>
+                <input type="text" id="postcode" placeholder="" required>
+            </div>
+
+            <button type="button" onclick="sendToShortcut()">Submit Address</button>
+        </form>
+
+        <!-- Success message container -->
+        <div class="success-message" id="successMessage">
+            <p>Data collected successfully!</p>
+        </div>
+    </div>
+
+<script>
+function sendToShortcut() {
+  const addressData = {
+    street: document.getElementById('street').value,
+    city: document.getElementById('city').value,
+    state: document.getElementById('state').value,
+    country: document.getElementById('country').value,
+    postcode: document.getElementById('postcode').value
+  };
+  
+  // Convert to unescaped JSON string
+  const unescapedJSON = JSON.stringify(addressData)
+    .replace(/\\"/g, '"') // Remove escape characters
+    .replace(/"{/g, '{')   // Fix opening brace
+    .replace(/}"/g, '}');  // Fix closing brace
+
+  navigator.clipboard.writeText(unescapedJSON);
+  
+  // Show success message and hide form
+  document.getElementById('addressForm').style.display = 'none';
+  document.getElementById('successMessage').classList.add('show');
+}
+</script>
+</body>
+</html>"""
+text("${B8BC21A7-7767-4170-8FCA-E3764126210C}")
+				setName(input: Text, name: "Address.html") >> setName 3
+				showWebPage(url: "${Renamed Item}") >> showWebPage 1
+				getClipboard() >> getClipboard
+				getDictionaryFrom(input: Clipboard) >> getDictionaryFrom 1
+var HomeAddress = Dictionary
+			} >> MenuResult
+			list(items: (
+    Driving,
+    Walking,
+    Transit,
+    Biking
+)) >> list
+			text(text: "Select Travel Method (It will apply to all the events)") >> text 2
+			choose(list: List, prompt: "${Text}") >> Travel Method Selected
+var TravelMethod = Travel Method Selected
+			text(text: "Besides travel time, how many Extra Minutes Needed (e.g., '15 mins buffer')") >> text 3
+			askForInput(prompt: "${Text}", type: Number, allowDecimal: false, allowNegative: false) >> Extra Time Needed
+var ExtraTime = Extra Time Needed
+			dictionary({"HomeAddress":"${HomeAddress.as(Dictionary)}","TravelMethod":"${TravelMethod}","ExtraTime":"${ExtraTime}"})
+			text(text: "${Dictionary}") >> text 4
+			saveFile(input: Text, ask: false, path: "${Version Dictionary .key(Name)}/aboutme.txt", overwrite: true) >> saveFile 2
+		} else {
+			alert(alert: "You have set up. If you want to modify, please tap [Change] instead.")
+			runShortcut(name: "Smart Calendar Reminder")
+		} >> IFResult 6
+	} else {
+	} >> IFResult 7
+} else {
+	if(ShortcutInput == 1) { >> IFResult 8
+/*
+*Revolutionizing event management by integrating calendar data with intelligent automation:
+
+Voice announcements for upcoming events
+
+Dynamic alarm calculation (travel + prep time)
+
+Calendar-driven scheduling system
+Eliminates manual reminders and ensures perfect timing synchronization*
+*/
+		getFile(path: "${Version Dictionary .key(Name)}/aboutme.txt", error: false) >> getFile 3
+		getDictionaryFrom(input: File) >> getDictionaryFrom 2
+var HomeAddress = Dictionary
+var TravelMethod = Dictionary
+var ExtraTime = Dictionary
+		filterCalendar() >> filterCalendar
+		if(Calendar Events != nil) {
+			repeatEach(Calendar Events) { >> RepeatResult 2
+				if(Repeat Item != nil) { >> IFResult 9
+					getLocation() >> getLocation
+/*
+*To specify event-specific departure locations:
+
+1. Create calendar event notes with JSON structure:
+{
+“Street”: “your departure street”,
+“City”: “your departure city”,
+“State”: “your departure state”,
+“Country”: “your departure country”,
+“Postcode”: “your departure postcode”
+}
+2. System prioritizes these over default locations*
+*/
+					if($0 $1) { >> IFResult 10
+// CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
+						getDictionaryFrom(input: Repeat Item) >> Notes Address Dictionary
+var Calendar_Notes_Street = Notes Address Dictionary
+var Calendar_Notes_City = Notes Address Dictionary
+var Calendar_Notes_State = Notes Address Dictionary
+var Calendar_Notes_Region = Notes Address Dictionary
+var Calendar_Notes_ZIP_Code = Notes Address Dictionary
+						if($0 $1) { >> IFResult 11
+// CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
+							number(value: 0) >> number
+var CurrentToDeparture = Number
+						} else {
+// CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
+//Unable to get shortcuts action is.workflow.actions.gettraveltime
+var CurrentToDeparture = Travel Time
+						}
+//Unable to get shortcuts action is.workflow.actions.gettraveltime
+						math(input: DepartureToDestination, operand: CurrentToDeparture) >> math
+var TravelTime = Calculation Result
+					} else { >>  1
+// CALENDER EVENT NOTES IS BLANK
+						getDictionaryFrom(input: HomeAddress) >> Home Address Dictionary
+						keysFrom(dictionary: Home Address Dictionary) >> home_Street
+						keysFrom(dictionary: Home Address Dictionary) >> home_City
+						keysFrom(dictionary: Home Address Dictionary) >> home_State
+						keysFrom(dictionary: Home Address Dictionary) >> home_Country
+						keysFrom(dictionary: Home Address Dictionary) >> home_Postcode
+						if($0 $1) { >> IFResult 12
+// CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
+							if($0 $1) {
+// CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
+								number(value: 0) >> number 1
+var CurrentToDeparture = Number
+							} else {
+// CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
+//Unable to get shortcuts action is.workflow.actions.gettraveltime
+var CurrentToDeparture = Travel Time
+							} >> IFResult 13
+//Unable to get shortcuts action is.workflow.actions.gettraveltime
+							math(input: DepartureToDestination, operand: CurrentToDeparture) >> math 1
+var TravelTime = Calculation Result
+						} else {
+							text(text: "CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED") >> text 5
+//Unable to get shortcuts action is.workflow.actions.gettraveltime
+var TravelTime = Travel Time
+						}
+					} >> IFResult 14
+				} else {
+					number(value: 0) >> number 2
+var TravelTime = Number
+				}
+				math(input: TravelTime, operand: ExtraTime) >> math 2
+				adjustDate(operation: Subtract, duration: , date: "${Repeat Item.get(Start Date)}") >> Supposed Alarm Time
+				dictionary({"Event":"🗓️","From":"${Repeat Item.get(Start Date)}","To":"${Repeat Item.get(End Date)}","Location":"${Repeat Item.get(Location)}","AlarmTime":"${Supposed Alarm Time}"}) >> Alarm Label Dictionary
+				date() >> Current Date
+				adjustDate(operation: Add, duration: , date: "${Current Date}") >> 1 day after
+				if(Supposed Alarm Time ==) { >> IFResult 15
+// supposed alarm time is exactly 12:00am
+					if(Repeat Item != nil) {
+						text(text: "Event ${Repeat Item} from ${Variable} to ${Repeat Item.get(End Date)} at ${Variable.get(End Date)} which  was supposed to get ready at ${Repeat Item.get(Start Date)}. Please check.") >> text 6
+var Text = Text
+					} else {
+						text(text: "Event ${Repeat Item.get(End Date)} from ${Variable.get(End Date)} to ${Repeat Item.get(Start Date)} which  was supposed to get ready at ${Variable.get(Start Date)}. Please check.") >> text 7
+var Text = Text
+					} >> IFResult 16
+					alert(alert: "${Text}")
+					sendNotification(body: "${Text}") >> sendNotification
+					speakText(text: "${Text}")
+				} else {
+					if(Supposed Alarm Time ==) { >> IFResult 17
+// since this will be triggered at 12:00 am each day, when the supposed alarm time is 12:00 am in the next day, you can set alarm now
+//Unable to get shortcuts action com.apple.mobiletimer-framework.MobileTimerIntents.MTCreateAlarmIntent
+					} else {
+						if(Supposed Alarm Time >) { >> IFResult 18
+							if(Supposed Alarm Time >) {
+// when the time is other than 12:00 am of then next day, you cannot set alarm yet. If set, it will be today. For example, triggering time 2025-4-8 12:00 am, the supposed alarm time is 2025-4-9 08:00 am, if you set an alarm at 08:00 at 2025-4-8 12:00 am, it will alarm at 2025-4-8 08:00 am instead. So we need to record the supposed alarm time and trigger next day.
+var SupposedAlarmTime = Supposed Alarm Time
+var Event = Alarm Label Dictionary
+							} else {
+//Unable to get shortcuts action com.apple.mobiletimer-framework.MobileTimerIntents.MTCreateAlarmIntent
+							}
+						} else { >>  19
+// the supposed alarm time passed
+							if(Repeat Item != nil) {
+								text(text: "Event ${Repeat Item} from ${Variable} to ${Repeat Item.get(End Date)} at ${Variable.get(End Date)} which  was supposed to get ready at ${Repeat Item.get(Start Date)}. Please check.") >> text 8
+var Text = Text
+							} else {
+								text(text: "Event ${Repeat Item.get(End Date)} from ${Variable.get(End Date)} to ${Repeat Item.get(Start Date)} which  was supposed to get ready at ${Variable.get(Start Date)}. Please check.") >> text 9
+var Text = Text
+							} >> IFResult 19
+							alert(alert: "${Text}")
+							sendNotification(body: "${Text}") >> sendNotification 1
+							speakText(text: "${Text}")
+						}
+					}
+				}
+				dictionary({"Supposed Alarm Time":"${SupposedAlarmTime}","Event":"${Event}"})
+				if($0 $1) {
+					prependFile(path: "${Version Dictionary .key(Name)}/Future Alarms.txt") >> prependFile
+				}
+			} >> RepeatResult 3
+		} >> IFResult 20
+		getFile(path: "${Version Dictionary .key(Name)}/Future Alarm.txt", error: false) >> getFile 4
+		if(File != nil) {
+			splitText(text: File) >> splitText
+			repeatEach(Split Text) {
+				getDictionaryFrom(input: Repeat Item) >> getDictionaryFrom 3
+				getDateFrom(input: Dictionary) >> getDateFrom
+				if(Dates 1002) {
+//Unable to get shortcuts action com.apple.mobiletimer-framework.MobileTimerIntents.MTCreateAlarmIntent
+				}
+			}
+		}
+	} else {
+		if(ShortcutInput == 2) { >> IFResult 21
+/*
+1-Hour Event Processor
+*Real-time event handler for immediate notifications:
+
+Processes events within next 60 minutes
+
+Provides most accurate travel estimates
+
+Recommended for hourly automation*
+*/
+			getFile(path: "${Version Dictionary .key(Name)}/aboutme.txt", error: false) >> getFile 5
+			getDictionaryFrom(input: File) >> getDictionaryFrom 4
+var Home_Address = Dictionary
+var Travel_Method = Dictionary
+var Extra_Time = Dictionary
+			filterCalendar() >> filterCalendar 1
+			if(Calendar Events != nil) {
+				repeatEach(Calendar Events) {
+					if(Repeat Item != nil) {
+						getLocation() >> getLocation 1
+						if($0 $1) {
+// CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
+							getDictionaryFrom(input: Repeat Item) >> NotesAddressDictionary
+var CalendarNotesStreet = NotesAddressDictionary
+var CalendarNotesCity = NotesAddressDictionary
+var CalendarNotesState = NotesAddressDictionary
+var CalendarNotesRegion = NotesAddressDictionary
+var CalendarNotesZIPCode = NotesAddressDictionary
+							if($0 $1) {
+// CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
+								number(value: 0) >> number 3
+var CurrentToDeparture = Number
+							} else {
+// CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
+//Unable to get shortcuts action is.workflow.actions.gettraveltime
+var CurrentToDeparture = Travel Time
+							}
+//Unable to get shortcuts action is.workflow.actions.gettraveltime
+							math(input: DepartureToDestination, operand: CurrentToDeparture) >> math 3
+var TravelTime = Calculation Result
+						} else {
+// CALENDER EVENT NOTES IS BLANK
+							getDictionaryFrom(input: Home_Address) >> home_address_dictionary
+							keysFrom(dictionary: home_address_dictionary) >> HomeStreet
+							keysFrom(dictionary: home_address_dictionary) >> HomeCity
+							keysFrom(dictionary: home_address_dictionary) >> HomeState
+							keysFrom(dictionary: home_address_dictionary) >> HomeCountry
+							keysFrom(dictionary: home_address_dictionary) >> HomePostcode
+							if($0 $1) {
+// CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
+								if($0 $1) {
+// CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
+									number(value: 0) >> number 4
+var CurrentToDeparture = Number
+								} else {
+// CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
+//Unable to get shortcuts action is.workflow.actions.gettraveltime
+var CurrentToDeparture = Travel Time
+								} >> IFResult 22
+//Unable to get shortcuts action is.workflow.actions.gettraveltime
+								math(input: DepartureToDestination, operand: CurrentToDeparture) >> math 4
+var TravelTime = Calculation Result
+							} else {
+								text(text: "CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED") >> text 10
+//Unable to get shortcuts action is.workflow.actions.gettraveltime
+var TravelTime = Travel Time
+							}
+						} >> IFResult 23
+					} else {
+						number(value: 0) >> number 5
+var TravelTime = Number
+					}
+					getallalarms() >> getallalarms
+					if(Alarms != nil) {
+						repeatEach(Alarms) {
+							getDictionaryFrom(input: Repeat Item 2) >> AlarmLabelDictionary
+							keysFrom(dictionary: AlarmLabelDictionary) >> Event
+							keysFrom(dictionary: AlarmLabelDictionary) >> From
+							keysFrom(dictionary: AlarmLabelDictionary) >> To
+							keysFrom(dictionary: AlarmLabelDictionary) >> Location
+							if($0 $1) { >> IFResult 24
+//Unable to get shortcuts action com.apple.clock.DeleteAlarmIntent
+							}
+						}
+					} >> IFResult 25
+					math(input: TravelTime, operand: ExtraTime) >> math 5
+					adjustDate(operation: Subtract, duration: , date: "${Repeat Item.get(Start Date)}") >> Supposed_Alarm_Time
+					date() >> date
+					if($0 $1) {
+						if(Repeat Item != nil) {
+							text(text: "Event ${Repeat Item.get(Location)} from ${Variable.get(Location)} to ${Repeat Item.get(End Date)} at ${Variable.get(End Date)}  which  was supposed to get ready at ${Repeat Item.get(Start Date)}. Please check.") >> text 11
+var Text = Text
+						} else {
+							text(text: "Event ${Repeat Item.get(End Date)} from ${Variable.get(End Date)} to ${Repeat Item.get(Start Date)} which  was supposed to get ready at ${Variable.get(Start Date)}. Please check.") >> text 12
+var Text = Text
+						} >> IFResult 26
+						alert(alert: "${Text}")
+						sendNotification(body: "${Text}") >> sendNotification 2
+						speakText(text: "${Text}")
+					} else {
+						dictionary({"Location":"${Repeat Item.get(Location)}","Event":"🗓️","From":"${Repeat Item.get(Start Date)}","To":"${Repeat Item.get(End Date)}","AlarmTime":"${Supposed_Alarm_Time}"})
+//Unable to get shortcuts action com.apple.mobiletimer-framework.MobileTimerIntents.MTCreateAlarmIntent
+					}
+				} >> RepeatResult 4
+				number(value: 3) >> number 6
+				repeat(Number) {
+					repeatEach(Calendar Events) {
+						formatDate(date: "${Repeat Item 2.get(Start Date)}", dStyle: None) >> formatDate
+						formatDate(date: "${Repeat Item 2.get(End Date)}", dStyle: None) >> formatDate 1
+						if(Repeat Item 2 != nil) {
+							text(text: "Event ${Formatted Date} ${ActionOutput} from ${Repeat Item 2} to ${Variable} at ${Repeat Index 2}") >> text 13
+var Text = Text
+						} else {
+							text(text: "Event ${Formatted Date} ${ActionOutput} from ${Repeat Item 2} to ${Variable}") >> text 14
+var Text = Text
+						}
+						speakText(text: "${Text}")
+						wait()
+					}
+				}
+			} >> IFResult 27
+		} else {
+			if(ShortcutInput == 3) { >> IFResult 28
+/*
+Alarm Activation Handler
+Triggered by alarm events - manages notification flow
+*/
+				dictionary({"stop":"no"})
+				saveFile(input: Dictionary, ask: false, path: "${Version Dictionary .key(Name)}/stopflag.txt", overwrite: true) >> saveFile 3
+				date() >> date 1
+				getallalarms() >> getallalarms 1
+				if(Alarms != nil) {
+					number(value: 10000) >> number 7
+					repeat(Number) {
+						getFile(path: "${Version Dictionary .key(Name)}/stopflag.txt", error: false) >> getFile 6
+						getDictionaryFrom(input: File) >> getDictionaryFrom 5
+						keysFrom(dictionary: Dictionary) >> keysFrom 1
+						if(Dictionary Value == "yes") {
+							exit()
+						} >> IFResult 29
+						repeatEach(Alarms) {
+							getDictionaryFrom(input: Repeat Item 2) >> alarm_label_dictionary
+							keysFrom(dictionary: alarm_label_dictionary) >> keysFrom 2
+							getDateFrom(input: Dictionary Value) >> From
+							keysFrom(dictionary: alarm_label_dictionary) >> keysFrom 3
+							getDateFrom(input: Dictionary Value) >> To
+							keysFrom(dictionary: alarm_label_dictionary) >> keysFrom 4
+							getDateFrom(input: Dictionary Value) >> AlarmTime
+							if($0 $1) {
+								formatDate(date: "${From.get(Time)}") >> formatDate 2
+								formatDate(date: "${To.get(Time)}") >> Dictionary (Location)
+								if(alarm_label_dictionary != nil) {
+									text(text: "Prepare for ${Formatted Date} from ${ActionOutput} to ${alarm_label_dictionary.key(Location)} at ${ActionOutput.key(Location)}") >> text 15
+var Text = Text
+								} else {
+									text(text: "Prepare for ${alarm_label_dictionary.key(Event)} from ${ActionOutput.key(Event)} to ${Formatted Date}") >> text 16
+var Text = Text
+								}
+								speakText(text: "${Text}")
+							}
+						}
+					}
+				}
+			} else { >>  17
+/*
+input case 4:
+Notification Interrupt System
+Stop protocol for voice announcements when any alarm is stopped.
+*/
+				dictionary({"stop":"yes"})
+				saveFile(input: Dictionary, ask: false, path: "${Version Dictionary .key(Name)}/stopflag.txt", overwrite: true) >> saveFile 4
+			}
+		}
+	}
+} >> IFResult 30
