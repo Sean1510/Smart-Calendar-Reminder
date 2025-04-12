@@ -1,4 +1,4 @@
-Smart Calendar Reminder (361 actions, 181 KB)
+Smart Calendar Reminder (361 actions, 182 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -1168,8 +1168,8 @@ Eliminates manual reminders and ensures perfect timing synchronization*
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
 Start Date is in the next 1 days
-Is Not All Day
-Canceled is {"Bool":false}
+Is All Day
+Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutableState"}}
 
 〔85〕 If 〔84 Calendar Events〕 has any value
 
@@ -1467,6 +1467,7 @@ Provides most accurate travel estimates
 Recommended for hourly automation*
 
 〔203〕 Get File at Path 〔3 Version Dictionary .Name〕/aboutme.txt from Folder　»
+• FileErrorIfNotFound: false
 
 〔204〕 Get Dictionary from 〔203 File〕　» 205 206 207
 
@@ -1481,8 +1482,8 @@ Recommended for hourly automation*
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
 Start Date is in the next 1 hours
-Is Not All Day
-Canceled is {"Bool":false}
+Is All Day
+Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutableState"}}
 
 〔209〕 If 〔208 Calendar Events〕 has any value
 
@@ -1616,8 +1617,8 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 〔265〕 Find Alarm All Alarm　» 266 267
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -1769,7 +1770,6 @@ Triggered by alarm events - manages notification flow
 
 〔324〕 Get File at Path 〔3 Version Dictionary .Name〕/stopflag.txt from Folder　»
 • FileErrorIfNotFound: false
-• File: 〔Shortcut Input〕
 
 〔325〕 Get Dictionary from 〔324 File〕　»
 
