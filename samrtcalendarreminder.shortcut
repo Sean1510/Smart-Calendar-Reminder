@@ -1,4 +1,4 @@
-Smart Calendar Reminder (385 actions, 194 KB)
+Smart Calendar Reminder (386 actions, 194 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -1846,8 +1846,8 @@ Triggered by alarm events - manages notification flow
 〔342〕 Find Alarm All Alarm　» 343 352
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -1873,7 +1873,7 @@ Triggered by alarm events - manages notification flow
 
 〔352〕 Repeat[2] with Each in 〔342 Alarms〕
 
-〔353〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ alarm_label_dictionary　» 354 356 358 363 365 368
+〔353〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ alarm_label_dictionary　» 354 356 358 363 366 369
 
 〔354〕 Get Dictionary Value for From in 〔353 alarm_label_dictionary〕　»
 
@@ -1889,61 +1889,65 @@ Triggered by alarm events - manages notification flow
 
 〔360〕 If All are true　〔359 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕 is 〔341 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕　〔359 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕 is 〔341 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕
 
-〔361〕 Format Date 〔355 From’s Time〕　» 365 368
+〔361〕 Format Date 〔355 From’s Time〕　» 366 369
 
-〔362〕 Format Date 〔357 To’s Time〕 　➔ Dictionary (Location)　» 365 368
+〔362〕 Format Date 〔357 To’s Time〕　» 366 369
 
 〔363〕 Get Dictionary Value for Location in 〔353 alarm_label_dictionary〕　»
 
-〔364〕 If 〔363 Dictionary Value’s Name〕 is not ""
+〔364〕 Text　»
+〔363 Dictionary Value〕
 
-〔365〕 Text　»
-Prepare for 〔353 alarm_label_dictionary.Event〕 from 〔361 Formatted Date〕 to 〔362 Dictionary (Location)〕 at 〔353 alarm_label_dictionary.Location〕
+〔365〕 If 〔364 Text〕 has any value
+• ConditionalActionString: ""
 
-〔366〕 Set Variable Text to 〔365 Text〕
+〔366〕 Text　»
+Prepare for 〔353 alarm_label_dictionary.Event〕 from 〔361 Formatted Date〕 to  〔362 Formatted Date〕at 〔353 alarm_label_dictionary.Location〕
 
-〔367〕 Otherwise
+〔367〕 Set Variable Text to 〔366 Text〕
 
-〔368〕 Text　»
-Prepare for 〔353 alarm_label_dictionary.Event〕 from 〔361 Formatted Date〕 to 〔362 Dictionary (Location)〕
+〔368〕 Otherwise
 
-〔369〕 Set Variable Text to 〔368 Text〕
+〔369〕 Text　»
+Prepare for 〔353 alarm_label_dictionary.Event〕 from 〔361 Formatted Date〕 to 〔362 Formatted Date〕
 
-〔370〕 End If
+〔370〕 Set Variable Text to 〔369 Text〕
 
-〔371〕 Speak Text
+〔371〕 End If
+
+〔372〕 Speak Text
 • Text: 〔Text〕
 
-〔372〕 End If　▵360
+〔373〕 End If　▵360
 
-〔373〕 End Repeat[2] with Each　▵352
+〔374〕 End Repeat[2] with Each　▵352
 
-〔374〕 End Repeat Times　▵345
+〔375〕 End Repeat Times　▵345
 
-〔375〕 End If　▵343
+〔376〕 End If　▵343
 
-〔376〕 Otherwise　▵336
+〔377〕 Otherwise　▵336
 
-〔377〕 Comment
+〔378〕 Comment
 input case 4:
 Notification Interrupt System
 Stop protocol for voice announcements when any alarm is stopped.
 
-〔378〕 Dictionary　»
+〔379〕 Dictionary　»
 {  "stop": "yes" }
 
-〔379〕 Text　»
-〔378 Dictionary〕
+〔380〕 Text　»
+〔379 Dictionary〕
 
-〔380〕 Save File 〔379 Text〕
+〔381〕 Save File 〔380 Text〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: Smart Calendar Reminder/stopflag.txt
 
-〔381〕 End If
+〔382〕 End If
 
-〔382〕 End If　▵335
+〔383〕 End If　▵335
 
-〔383〕 End If　▵221
+〔384〕 End If　▵221
 
-〔384〕 End If　▵91
+〔385〕 End If　▵91
