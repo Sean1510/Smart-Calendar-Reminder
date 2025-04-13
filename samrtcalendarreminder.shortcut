@@ -1399,7 +1399,7 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 • Duration: 〔157 Calculation Result〕 min
 
 〔159〕 Dictionary 　➔ Alarm Label Dictionary　» 177 183 185
-{  "Event": "🗓️〔Repeat Item〕",
+{  "Event": "〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
    "Location": "〔Repeat Item’s Location〕",
@@ -1709,8 +1709,8 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 〔286〕 Find Alarm All Alarm　» 287 288
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -1776,7 +1776,7 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
 
 〔314〕 Dictionary　»
 {  "Location": "〔Repeat Item’s Location〕",
-   "Event": "🗓️〔Repeat Item〕",
+   "Event": "〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
    "AlarmTime": "〔300 Supposed_Alarm_Time〕"
