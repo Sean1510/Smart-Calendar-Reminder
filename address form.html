@@ -135,13 +135,8 @@ function sendToShortcut() {
     postcode: document.getElementById('postcode').value
   };
   
-  // Convert to unescaped JSON string
-  const unescapedJSON = JSON.stringify(addressData)
-    .replace(/\\"/g, '"') // Remove escape characters
-    .replace(/"{/g, '{')   // Fix opening brace
-    .replace(/}"/g, '}');  // Fix closing brace
-
-  navigator.clipboard.writeText(unescapedJSON);
+  // Copy data to clipboard
+  navigator.clipboard.writeText(JSON.stringify(addressData));
   
   // Show success message and hide form
   document.getElementById('addressForm').style.display = 'none';
