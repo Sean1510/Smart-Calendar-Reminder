@@ -1,4 +1,4 @@
-Smart Calendar Reminder (382 actions, 194 KB)
+Smart Calendar Reminder (384 actions, 194 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -28,9 +28,9 @@ Inspired by [Schedule Shortcut or Alarm] but designed to work smarter for my nee
 
 No more early, forgettable reminders. It keeps your schedule perfectly in sync. Give it a try and let your Calendar do the heavy lifting!
 
-〔3〕 Dictionary 　➔ Version Dictionary 　» 4 5 7 9 10 11 12 20 21 25 31 46 72 94 204 208 224 339 345 377
+〔3〕 Dictionary 　➔ Version Dictionary 　» 4 5 7 9 10 11 12 20 21 25 31 46 72 94 204 208 224 340 346 379
 {  "Name": "Smart Calendar Reminder",
-   "Version": "1.9",
+   "Version": "2.0",
    "RH ID": "21959",
    "Icons": {
       "Update": "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",
@@ -1709,8 +1709,8 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 〔286〕 Find Alarm All Alarm　» 287 288
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -1838,109 +1838,115 @@ Triggered by alarm events - manages notification flow
 〔338〕 Dictionary　»
 {  "stop": "no" }
 
-〔339〕 Save File 〔338 Dictionary〕
+〔339〕 Text　»
+〔338 Dictionary〕
+
+〔340〕 Save File 〔339 Text〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: 〔3 Version Dictionary .Name〕/stopflag.txt
 
-〔340〕 Date Current Date　» 359
+〔341〕 Date Current Date　» 360
 
-〔341〕 Find Alarm All Alarm　» 342 351
+〔342〕 Find Alarm All Alarm　» 343 352
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔342〕 If 〔341 Alarms〕 has any value
+〔343〕 If 〔342 Alarms〕 has any value
 
-〔343〕 Number 10000　»
+〔344〕 Number 10000　»
 
-〔344〕 Repeat 〔343 Number〕 Times
+〔345〕 Repeat 〔344 Number〕 Times
 
-〔345〕 Get File at Path 〔3 Version Dictionary .Name〕/stopflag.txt from Folder　»
+〔346〕 Get File at Path 〔3 Version Dictionary .Name〕/stopflag.txt from Folder　»
 • FileErrorIfNotFound: false
 
-〔346〕 Get Dictionary from 〔345 File〕　»
+〔347〕 Get Dictionary from 〔346 File〕　»
 
-〔347〕 Get Dictionary Value for stop in 〔346 Dictionary〕　»
+〔348〕 Get Dictionary Value for stop in 〔347 Dictionary〕　»
 
-〔348〕 If 〔347 Dictionary Value’s Name〕 is yes
+〔349〕 If 〔348 Dictionary Value’s Name〕 is yes
 
-〔349〕 Stop This Shortcut
+〔350〕 Stop This Shortcut
 
-〔350〕 End If
+〔351〕 End If
 
-〔351〕 Repeat[2] with Each in 〔341 Alarms〕
+〔352〕 Repeat[2] with Each in 〔342 Alarms〕
 
-〔352〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ alarm_label_dictionary　» 353 355 357 362 363 366
+〔353〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ alarm_label_dictionary　» 354 356 358 363 364 367
 
-〔353〕 Get Dictionary Value for From in 〔352 alarm_label_dictionary〕　»
+〔354〕 Get Dictionary Value for From in 〔353 alarm_label_dictionary〕　»
 
-〔354〕 Get Dates from 〔353 Dictionary Value〕 　➔ From　» 360
+〔355〕 Get Dates from 〔354 Dictionary Value〕 　➔ From　» 361
 
-〔355〕 Get Dictionary Value for To in 〔352 alarm_label_dictionary〕　»
+〔356〕 Get Dictionary Value for To in 〔353 alarm_label_dictionary〕　»
 
-〔356〕 Get Dates from 〔355 Dictionary Value〕 　➔ To　» 361
+〔357〕 Get Dates from 〔356 Dictionary Value〕 　➔ To　» 362
 
-〔357〕 Get Dictionary Value for AlarmTime in 〔352 alarm_label_dictionary〕　»
+〔358〕 Get Dictionary Value for AlarmTime in 〔353 alarm_label_dictionary〕　»
 
-〔358〕 Get Dates from 〔357 Dictionary Value〕 　➔ AlarmTime　»
+〔359〕 Get Dates from 〔358 Dictionary Value〕 　➔ AlarmTime　»
 
-〔359〕 If All are true　〔358 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕 is 〔340 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕　〔358 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕 is 〔340 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕
+〔360〕 If All are true　〔359 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕 is 〔341 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕　〔359 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕 is 〔341 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕
 
-〔360〕 Format Date 〔354 From’s Time〕　» 363 366
+〔361〕 Format Date 〔355 From’s Time〕　» 364 367
 
-〔361〕 Format Date 〔356 To’s Time〕 　➔ Dictionary (Location)　» 363 366
+〔362〕 Format Date 〔357 To’s Time〕 　➔ Dictionary (Location)　» 364 367
 
-〔362〕 If 〔352 alarm_label_dictionary.Location〕 has any value
+〔363〕 If 〔353 alarm_label_dictionary.Location〕 has any value
 
-〔363〕 Text　»
-Prepare for 〔352 alarm_label_dictionary.Event〕 from 〔360 Formatted Date〕 to 〔361 Dictionary (Location)〕 at 〔352 alarm_label_dictionary.Location〕
+〔364〕 Text　»
+Prepare for 〔353 alarm_label_dictionary.Event〕 from 〔361 Formatted Date〕 to 〔362 Dictionary (Location)〕 at 〔353 alarm_label_dictionary.Location〕
 
-〔364〕 Set Variable Text to 〔363 Text〕
+〔365〕 Set Variable Text to 〔364 Text〕
 
-〔365〕 Otherwise
+〔366〕 Otherwise
 
-〔366〕 Text　»
-Prepare for 〔352 alarm_label_dictionary.Event〕 from 〔360 Formatted Date〕 to 〔361 Dictionary (Location)〕
+〔367〕 Text　»
+Prepare for 〔353 alarm_label_dictionary.Event〕 from 〔361 Formatted Date〕 to 〔362 Dictionary (Location)〕
 
-〔367〕 Set Variable Text to 〔366 Text〕
+〔368〕 Set Variable Text to 〔367 Text〕
 
-〔368〕 End If
+〔369〕 End If
 
-〔369〕 Speak Text
+〔370〕 Speak Text
 • Text: 〔Text〕
 
-〔370〕 End If　▵359
+〔371〕 End If　▵360
 
-〔371〕 End Repeat[2] with Each　▵351
+〔372〕 End Repeat[2] with Each　▵352
 
-〔372〕 End Repeat Times　▵344
+〔373〕 End Repeat Times　▵345
 
-〔373〕 End If　▵342
+〔374〕 End If　▵343
 
-〔374〕 Otherwise　▵336
+〔375〕 Otherwise　▵336
 
-〔375〕 Comment
+〔376〕 Comment
 input case 4:
 Notification Interrupt System
 Stop protocol for voice announcements when any alarm is stopped.
 
-〔376〕 Dictionary　»
+〔377〕 Dictionary　»
 {  "stop": "yes" }
 
-〔377〕 Save File 〔376 Dictionary〕
+〔378〕 Text　»
+〔377 Dictionary〕
+
+〔379〕 Save File 〔378 Text〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: 〔3 Version Dictionary .Name〕/stopflag.txt
 
-〔378〕 End If
+〔380〕 End If
 
-〔379〕 End If　▵335
+〔381〕 End If　▵335
 
-〔380〕 End If　▵221
+〔382〕 End If　▵221
 
-〔381〕 End If　▵91
+〔383〕 End If　▵91
