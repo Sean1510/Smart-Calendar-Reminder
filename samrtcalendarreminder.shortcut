@@ -1230,7 +1230,7 @@ Eliminates manual reminders and ensures perfect timing synchronization*
 〔94〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
 • FileErrorIfNotFound: false
 
-〔95〕 Get Dictionary from 〔94 File〕　» 96 97 98 270
+〔95〕 Get Dictionary from 〔94 File〕　» 96 97 98
 
 〔96〕 Set Variable HomeAddress to 〔95 Dictionary.HomeAddress〕
 
@@ -1664,13 +1664,13 @@ Recommended for hourly automation*
 〔266〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
 • FileErrorIfNotFound: false
 
-〔267〕 Get Dictionary from 〔266 File〕　» 268 269
+〔267〕 Get Dictionary from 〔266 File〕　» 268 269 270
 
 〔268〕 Set Variable Home_Address to 〔267 Dictionary.HomeAddress〕
 
 〔269〕 Set Variable Travel_Method to 〔267 Dictionary.TravelMethod〕
 
-〔270〕 Get Dictionary Value for ExtraTime in 〔95 Dictionary〕　»
+〔270〕 Get Dictionary Value for ExtraTime in 〔267 Dictionary〕　»
 
 〔271〕 Get Numbers from 〔270 Dictionary Value〕　»
 
