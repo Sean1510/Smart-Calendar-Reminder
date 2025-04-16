@@ -1,4 +1,4 @@
-Smart Calendar Reminder (438 actions, 210 KB)
+Smart Calendar Reminder (442 actions, 211 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -1230,15 +1230,19 @@ Eliminates manual reminders and ensures perfect timing synchronization*
 〔94〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
 • FileErrorIfNotFound: false
 
-〔95〕 Get Dictionary from 〔94 File〕　» 96 97 98
+〔95〕 Get Dictionary from 〔94 File〕　» 96 97 98 270
 
 〔96〕 Set Variable HomeAddress to 〔95 Dictionary.HomeAddress〕
 
 〔97〕 Set Variable TravelMethod to 〔95 Dictionary.TravelMethod〕
 
-〔98〕 Set Variable ExtraTime to 〔95 Dictionary.ExtraTime〕
+〔98〕 Get Dictionary Value for ExtraTime in 〔95 Dictionary〕　»
 
-〔99〕 Find Calendar Events All Calendar Events where　» 100 101
+〔99〕 Get Numbers from 〔98 Dictionary Value〕　»
+
+〔100〕 Set Variable ExtraTime to 〔99 Numbers〕
+
+〔101〕 Find Calendar Events All Calendar Events where　» 102 103
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
@@ -1246,16 +1250,16 @@ Start Date is in the next 1 days
 Is All Day
 Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutableState"}}
 
-〔100〕 If 〔99 Calendar Events〕 has any value
+〔102〕 If 〔101 Calendar Events〕 has any value
 
-〔101〕 Repeat with Each in 〔99 Calendar Events〕
+〔103〕 Repeat with Each in 〔101 Calendar Events〕
 
-〔102〕 If 〔Repeat Item’s Location〕 has any value
+〔104〕 If 〔Repeat Item’s Location〕 has any value
 
-〔103〕 Get Current Location　» 113 119 135
+〔105〕 Get Current Location　» 115 121 137
 • Accuracy: Best
 
-〔104〕 Comment
+〔106〕 Comment
 *To specify event-specific departure locations:
 
 1. Create calendar event notes with JSON structure:
@@ -1268,177 +1272,231 @@ Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutable
 }
 2. System prioritizes these over default locations*
 
-〔105〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
+〔107〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
 
-〔106〕 Comment
+〔108〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
 
-〔107〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ Notes Address Dictionary　» 108 109 110 111 112 119 122
+〔109〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ Notes Address Dictionary　» 110 111 112 113 114 121 124
 
-〔108〕 Set Variable Calendar_Notes_Street to 〔107 Notes Address Dictionary.Street〕
+〔110〕 Set Variable Calendar_Notes_Street to 〔109 Notes Address Dictionary.Street〕
 
-〔109〕 Set Variable Calendar_Notes_City to 〔107 Notes Address Dictionary.City〕
+〔111〕 Set Variable Calendar_Notes_City to 〔109 Notes Address Dictionary.City〕
 
-〔110〕 Set Variable Calendar_Notes_State to 〔107 Notes Address Dictionary.State〕
+〔112〕 Set Variable Calendar_Notes_State to 〔109 Notes Address Dictionary.State〕
 
-〔111〕 Set Variable Calendar_Notes_Region to 〔107 Notes Address Dictionary.Country〕
+〔113〕 Set Variable Calendar_Notes_Region to 〔109 Notes Address Dictionary.Country〕
 
-〔112〕 Set Variable Calendar_Notes_ZIP_Code to 〔107 Notes Address Dictionary.Postcode〕
+〔114〕 Set Variable Calendar_Notes_ZIP_Code to 〔109 Notes Address Dictionary.Postcode〕
 
-〔113〕 If All are true　〔103 Current Location’s Street〕 is 〔Calendar_Notes_Street〕　〔103 Current Location’s City〕 is 〔Calendar_Notes_City〕　〔103 Current Location’s State〕 is 〔Calendar_Notes_State〕　〔103 Current Location’s Country〕 is 〔Calendar_Notes_Region〕　〔103 Current Location’s ZIP Code〕 is 〔Calendar_Notes_ZIP_Code〕
+〔115〕 If All are true　〔105 Current Location’s Street〕 is 〔Calendar_Notes_Street〕　〔105 Current Location’s City〕 is 〔Calendar_Notes_City〕　〔105 Current Location’s State〕 is 〔Calendar_Notes_State〕　〔105 Current Location’s Country〕 is 〔Calendar_Notes_Region〕　〔105 Current Location’s ZIP Code〕 is 〔Calendar_Notes_ZIP_Code〕
 
-〔114〕 Comment
+〔116〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
 
-〔115〕 Number 0　»
+〔117〕 Number 0　»
 
-〔116〕 Set Variable CurrentToDeparture to 〔115 Number〕
+〔118〕 Set Variable CurrentToDeparture to 〔117 Number〕
 
-〔117〕 Otherwise
+〔119〕 Otherwise
 
-〔118〕 Comment
+〔120〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔119〕 Get 〔TravelMethod〕 Time　»
-• GetDirectionsCustomLocation: 〔103 Current Location〕
-• Destination: 〔107 Notes Address Dictionary〕
+〔121〕 Get 〔TravelMethod〕 Time　»
+• GetDirectionsCustomLocation: 〔105 Current Location〕
+• Destination: 〔109 Notes Address Dictionary〕
 
-〔120〕 Set Variable CurrentToDeparture to 〔119 Travel Time〕
+〔122〕 Set Variable CurrentToDeparture to 〔121 Travel Time〕
 
-〔121〕 End If
+〔123〕 End If
 
-〔122〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
-• GetDirectionsCustomLocation: 〔107 Notes Address Dictionary〕
+〔124〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+• GetDirectionsCustomLocation: 〔109 Notes Address Dictionary〕
 • Destination: 〔Repeat Item’s Location〕
 
-〔123〕 Calculate 〔122 DepartureToDestination〕 + 〔CurrentToDeparture〕　»
+〔125〕 Calculate 〔124 DepartureToDestination〕 + 〔CurrentToDeparture〕　»
 
-〔124〕 Set Variable TravelTime to 〔123 Calculation Result〕
+〔126〕 Set Variable TravelTime to 〔125 Calculation Result〕
 
-〔125〕 Otherwise　▵105
+〔127〕 Otherwise　▵107
 
-〔126〕 Comment
+〔128〕 Comment
 CALENDER EVENT NOTES IS BLANK
 
-〔127〕 Get Dictionary from 〔HomeAddress〕 　➔ Home Address Dictionary　» 128 129 130 131 132
+〔129〕 Get Dictionary from 〔HomeAddress〕 　➔ Home Address Dictionary　» 130 131 132 133 134
 
-〔128〕 Get Dictionary Value for street in 〔127 Home Address Dictionary〕 　➔ home_Street　» 133 135
+〔130〕 Get Dictionary Value for street in 〔129 Home Address Dictionary〕 　➔ home_Street　» 135 137
 
-〔129〕 Get Dictionary Value for city in 〔127 Home Address Dictionary〕 　➔ home_City　» 133 135
+〔131〕 Get Dictionary Value for city in 〔129 Home Address Dictionary〕 　➔ home_City　» 135 137
 
-〔130〕 Get Dictionary Value for state in 〔127 Home Address Dictionary〕 　➔ home_State　» 133 135
+〔132〕 Get Dictionary Value for state in 〔129 Home Address Dictionary〕 　➔ home_State　» 135 137
 
-〔131〕 Get Dictionary Value for country in 〔127 Home Address Dictionary〕 　➔ home_Country　» 133 135
+〔133〕 Get Dictionary Value for country in 〔129 Home Address Dictionary〕 　➔ home_Country　» 135 137
 
-〔132〕 Get Dictionary Value for postcode in 〔127 Home Address Dictionary〕 　➔ home_Postcode　» 133 135
+〔134〕 Get Dictionary Value for postcode in 〔129 Home Address Dictionary〕 　➔ home_Postcode　» 135 137
 
-〔133〕 If All are true　〔128 home_Street〕 has any value　〔129 home_City〕 has any value　〔130 home_State〕 has any value　〔131 home_Country〕 has any value　〔132 home_Postcode〕 has any value
-
-〔134〕 Comment
-CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
-
-〔135〕 If All are true　〔103 Current Location’s Street〕 is 〔128 home_Street〕　〔103 Current Location’s City〕 is 〔129 home_City〕　〔103 Current Location’s State〕 is 〔130 home_State〕　〔103 Current Location’s Country〕 is 〔131 home_Country〕　〔103 Current Location’s ZIP Code〕 is 〔132 home_Postcode〕
+〔135〕 If All are true　〔130 home_Street〕 has any value　〔131 home_City〕 has any value　〔132 home_State〕 has any value　〔133 home_Country〕 has any value　〔134 home_Postcode〕 has any value
 
 〔136〕 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
+
+〔137〕 If All are true　〔105 Current Location’s Street〕 is 〔130 home_Street〕　〔105 Current Location’s City〕 is 〔131 home_City〕　〔105 Current Location’s State〕 is 〔132 home_State〕　〔105 Current Location’s Country〕 is 〔133 home_Country〕　〔105 Current Location’s ZIP Code〕 is 〔134 home_Postcode〕
+
+〔138〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
 
-〔137〕 Number 0　»
+〔139〕 Number 0　»
 
-〔138〕 Set Variable CurrentToDeparture to 〔137 Number〕
+〔140〕 Set Variable CurrentToDeparture to 〔139 Number〕
 
-〔139〕 Otherwise
+〔141〕 Otherwise
 
-〔140〕 Comment
+〔142〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔141〕 Get 〔TravelMethod〕 Time　»
+〔143〕 Get 〔TravelMethod〕 Time　»
 • Destination: 〔HomeAddress〕
 
-〔142〕 Set Variable CurrentToDeparture to 〔141 Travel Time〕
+〔144〕 Set Variable CurrentToDeparture to 〔143 Travel Time〕
 
-〔143〕 End If
+〔145〕 End If
 
-〔144〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+〔146〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
 • GetDirectionsCustomLocation: 〔HomeAddress〕
 • Destination: 〔Repeat Item’s Location〕
 
-〔145〕 Calculate 〔144 DepartureToDestination〕 + 〔CurrentToDeparture〕　»
+〔147〕 Calculate 〔146 DepartureToDestination〕 + 〔CurrentToDeparture〕　»
 
-〔146〕 Set Variable TravelTime to 〔145 Calculation Result〕
+〔148〕 Set Variable TravelTime to 〔147 Calculation Result〕
 
-〔147〕 Otherwise　▵133
+〔149〕 Otherwise　▵135
 
-〔148〕 Text
+〔150〕 Text
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 
-〔149〕 Get 〔TravelMethod〕 Time　»
+〔151〕 Get 〔TravelMethod〕 Time　»
 • Destination: 〔Repeat Item’s Location〕
 
-〔150〕 Set Variable TravelTime to 〔149 Travel Time〕
+〔152〕 Set Variable TravelTime to 〔151 Travel Time〕
 
-〔151〕 End If
+〔153〕 End If
 
-〔152〕 End If　▵125
+〔154〕 End If　▵127
 
-〔153〕 Otherwise　▵102
+〔155〕 Otherwise　▵104
 
-〔154〕 Number 0　»
+〔156〕 Number 0　»
 
-〔155〕 Set Variable TravelTime to 〔154 Number〕
+〔157〕 Set Variable TravelTime to 〔156 Number〕
 
-〔156〕 End If
+〔158〕 End If
 
-〔157〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
+〔159〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
 
-〔158〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed Alarm Time　» 159 162 165 168 175 190 192 193 195 211 216 219
-• Duration: 〔157 Calculation Result〕 min
+〔160〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed Alarm Time　» 161 164 167 170 177 192 194 195 197 213 218 221
+• Duration: 〔159 Calculation Result〕 min
 
-〔159〕 Dictionary 　➔ Alarm Label Dictionary　» 190 196 211
+〔161〕 Dictionary 　➔ Alarm Label Dictionary　» 192 198 213
 {  "Event": "〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
    "Location": "〔Repeat Item’s Location〕",
-   "AlarmTime": "〔158 Supposed Alarm Time〕"
+   "AlarmTime": "〔160 Supposed Alarm Time〕"
 }
 
-〔160〕 Date Current Date 　➔ Current Date　» 161 162 192
+〔162〕 Date Current Date 　➔ Current Date　» 163 164 194
 
-〔161〕 Adjust Add Date 〔160 Current Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM yyyy"}〕 　➔ 1 day after　» 175 176 193 198
+〔163〕 Adjust Add Date 〔162 Current Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM yyyy"}〕 　➔ 1 day after　» 177 178 195 200
 • Duration: "1" days
 
-〔162〕 If 〔158 Supposed Alarm Time〕 is 〔160 Current Date〕
+〔164〕 If 〔160 Supposed Alarm Time〕 is 〔162 Current Date〕
 
-〔163〕 Comment
+〔165〕 Comment
 supposed alarm time is exactly 12:00am
 
-〔164〕 If 〔Repeat Item’s Location〕 has any value
+〔166〕 If 〔Repeat Item’s Location〕 has any value
 
-〔165〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item〕 which  was supposed to get ready at 〔158 Supposed Alarm Time〕. Please check.
+〔167〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item〕 which  was supposed to get ready at 〔160 Supposed Alarm Time〕. Please check.
 
-〔166〕 Set Variable Text to 〔165 Text〕
+〔168〕 Set Variable Text to 〔167 Text〕
 
-〔167〕 Otherwise
+〔169〕 Otherwise
 
-〔168〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔158 Supposed Alarm Time〕. Please check.
+〔170〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔160 Supposed Alarm Time〕. Please check.
 
-〔169〕 Set Variable Text to 〔168 Text〕
+〔171〕 Set Variable Text to 〔170 Text〕
 
-〔170〕 End If
+〔172〕 End If
 
-〔171〕 Show Alert 〔Text〕
+〔173〕 Show Alert 〔Text〕
 
-〔172〕 Show Notification 〔Text〕
+〔174〕 Show Notification 〔Text〕
 
-〔173〕 Speak Text
+〔175〕 Speak Text
 • Text: 〔Text〕
 
-〔174〕 Otherwise　▵162
+〔176〕 Otherwise　▵164
 
-〔175〕 If 〔158 Supposed Alarm Time〕 is 〔161 1 day after〕
+〔177〕 If 〔160 Supposed Alarm Time〕 is 〔163 1 day after〕
 
-〔176〕 Find Alarm 〔161 1 day after〕　» 177 178
+〔178〕 Find Alarm 〔163 1 day after〕　» 179 180
+• ContentItemFilter: {  "Value": {
+      "WFActionParameterFilterPrefix": 1,
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
+   },
+   "WFSerializationType": "WFContentPredicateTableTemplate"
+}
+
+〔179〕 If 〔178 Alarms〕 has any value
+
+〔180〕 Repeat[2] with Each in 〔178 Alarms〕
+
+〔181〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 182 183 184 185
+
+〔182〕 Get Dictionary Value for Event in 〔181 AlarmLabelDictionary〕 　➔ Event　» 186
+
+〔183〕 Get Dictionary Value for From in 〔181 AlarmLabelDictionary〕 　➔ From　» 186
+
+〔184〕 Get Dictionary Value for To in 〔181 AlarmLabelDictionary〕 　➔ To　» 186
+
+〔185〕 Get Dictionary Value for Location in 〔181 AlarmLabelDictionary〕 　➔ Location　»
+
+〔186〕 If All are true　〔182 Event’s Name〕 is 〔Repeat Item〕　〔183 From’s Name〕 is 〔Repeat Item’s Start Date〕　〔184 To’s Name〕 is 〔Repeat Item’s End Date〕　〔185 Location’s Name〕 is 〔Repeat Item’s Location〕
+
+〔187〕 Delete Alarms
+• entities: 〔Repeat Item 2〕
+
+〔188〕 End If
+
+〔189〕 End Repeat[2] with Each　▵180
+
+〔190〕 End If　▵179
+
+〔191〕 Comment
+since this will be triggered at 12:00 am each day, when the supposed alarm time is 12:00 am in the next day, you can set alarm now
+
+〔192〕 Add Alarm for 〔160 Supposed Alarm Time〕 called 〔161 Alarm Label Dictionary〕
+
+〔193〕 Otherwise　▵177
+
+〔194〕 If 〔160 Supposed Alarm Time〕 > 〔162 Current Date〕
+
+〔195〕 If 〔160 Supposed Alarm Time〕 > 〔163 1 day after〕
+
+〔196〕 Comment
+when the time is other than 12:00 am of then next day, you cannot set alarm yet. If set, it will be today. For example, triggering time 2025-4-8 12:00 am, the supposed alarm time is 2025-4-9 08:00 am, if you set an alarm at 08:00 at 2025-4-8 12:00 am, it will alarm at 2025-4-8 08:00 am instead. So we need to record the supposed alarm time and trigger next day.
+
+〔197〕 Set Variable SupposedAlarmTime to 〔160 Supposed Alarm Time〕
+
+〔198〕 Set Variable Event to 〔161 Alarm Label Dictionary〕
+
+〔199〕 Otherwise
+
+〔200〕 Find Alarm 〔163 1 day after〕　» 201 202
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
       "WFContentPredicateBoundedDate": false,
@@ -1447,207 +1505,153 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔177〕 If 〔176 Alarms〕 has any value
+〔201〕 If 〔200 Alarms〕 has any value
 
-〔178〕 Repeat[2] with Each in 〔176 Alarms〕
+〔202〕 Repeat[2] with Each in 〔200 Alarms〕
 
-〔179〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 180 181 182 183
+〔203〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 204 205 206 207
 
-〔180〕 Get Dictionary Value for Event in 〔179 AlarmLabelDictionary〕 　➔ Event　» 184
+〔204〕 Get Dictionary Value for Event in 〔203 AlarmLabelDictionary〕 　➔ Event　» 208
 
-〔181〕 Get Dictionary Value for From in 〔179 AlarmLabelDictionary〕 　➔ From　» 184
+〔205〕 Get Dictionary Value for From in 〔203 AlarmLabelDictionary〕 　➔ From　» 208
 
-〔182〕 Get Dictionary Value for To in 〔179 AlarmLabelDictionary〕 　➔ To　» 184
+〔206〕 Get Dictionary Value for To in 〔203 AlarmLabelDictionary〕 　➔ To　» 208
 
-〔183〕 Get Dictionary Value for Location in 〔179 AlarmLabelDictionary〕 　➔ Location　»
+〔207〕 Get Dictionary Value for Location in 〔203 AlarmLabelDictionary〕 　➔ Location　»
 
-〔184〕 If All are true　〔180 Event’s Name〕 is 〔Repeat Item〕　〔181 From’s Name〕 is 〔Repeat Item’s Start Date〕　〔182 To’s Name〕 is 〔Repeat Item’s End Date〕　〔183 Location’s Name〕 is 〔Repeat Item’s Location〕
+〔208〕 If All are true　〔204 Event’s Name〕 is 〔Repeat Item〕　〔205 From’s Name〕 is 〔Repeat Item’s Start Date〕　〔206 To’s Name〕 is 〔Repeat Item’s End Date〕　〔207 Location’s Name〕 is 〔Repeat Item’s Location〕
 
-〔185〕 Delete Alarms
+〔209〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔186〕 End If
+〔210〕 End If
 
-〔187〕 End Repeat[2] with Each　▵178
+〔211〕 End Repeat[2] with Each　▵202
 
-〔188〕 End If　▵177
+〔212〕 End If　▵201
 
-〔189〕 Comment
-since this will be triggered at 12:00 am each day, when the supposed alarm time is 12:00 am in the next day, you can set alarm now
+〔213〕 Add Alarm for 〔160 Supposed Alarm Time〕 called 〔161 Alarm Label Dictionary〕
 
-〔190〕 Add Alarm for 〔158 Supposed Alarm Time〕 called 〔159 Alarm Label Dictionary〕
+〔214〕 End If　▵199
 
-〔191〕 Otherwise　▵175
+〔215〕 Otherwise　▵194
 
-〔192〕 If 〔158 Supposed Alarm Time〕 > 〔160 Current Date〕
-
-〔193〕 If 〔158 Supposed Alarm Time〕 > 〔161 1 day after〕
-
-〔194〕 Comment
-when the time is other than 12:00 am of then next day, you cannot set alarm yet. If set, it will be today. For example, triggering time 2025-4-8 12:00 am, the supposed alarm time is 2025-4-9 08:00 am, if you set an alarm at 08:00 at 2025-4-8 12:00 am, it will alarm at 2025-4-8 08:00 am instead. So we need to record the supposed alarm time and trigger next day.
-
-〔195〕 Set Variable SupposedAlarmTime to 〔158 Supposed Alarm Time〕
-
-〔196〕 Set Variable Event to 〔159 Alarm Label Dictionary〕
-
-〔197〕 Otherwise
-
-〔198〕 Find Alarm 〔161 1 day after〕　» 199 200
-• ContentItemFilter: {  "Value": {
-      "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
-   },
-   "WFSerializationType": "WFContentPredicateTableTemplate"
-}
-
-〔199〕 If 〔198 Alarms〕 has any value
-
-〔200〕 Repeat[2] with Each in 〔198 Alarms〕
-
-〔201〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 202 203 204 205
-
-〔202〕 Get Dictionary Value for Event in 〔201 AlarmLabelDictionary〕 　➔ Event　» 206
-
-〔203〕 Get Dictionary Value for From in 〔201 AlarmLabelDictionary〕 　➔ From　» 206
-
-〔204〕 Get Dictionary Value for To in 〔201 AlarmLabelDictionary〕 　➔ To　» 206
-
-〔205〕 Get Dictionary Value for Location in 〔201 AlarmLabelDictionary〕 　➔ Location　»
-
-〔206〕 If All are true　〔202 Event’s Name〕 is 〔Repeat Item〕　〔203 From’s Name〕 is 〔Repeat Item’s Start Date〕　〔204 To’s Name〕 is 〔Repeat Item’s End Date〕　〔205 Location’s Name〕 is 〔Repeat Item’s Location〕
-
-〔207〕 Delete Alarms
-• entities: 〔Repeat Item 2〕
-
-〔208〕 End If
-
-〔209〕 End Repeat[2] with Each　▵200
-
-〔210〕 End If　▵199
-
-〔211〕 Add Alarm for 〔158 Supposed Alarm Time〕 called 〔159 Alarm Label Dictionary〕
-
-〔212〕 End If　▵197
-
-〔213〕 Otherwise　▵192
-
-〔214〕 Comment
+〔216〕 Comment
 the supposed alarm time passed
 
-〔215〕 If 〔Repeat Item’s Location〕 has any value
+〔217〕 If 〔Repeat Item’s Location〕 has any value
 
-〔216〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item〕 which  was supposed to get ready at 〔158 Supposed Alarm Time〕. Please check.
+〔218〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item〕 which  was supposed to get ready at 〔160 Supposed Alarm Time〕. Please check.
 
-〔217〕 Set Variable Text to 〔216 Text〕
+〔219〕 Set Variable Text to 〔218 Text〕
 
-〔218〕 Otherwise
+〔220〕 Otherwise
 
-〔219〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔158 Supposed Alarm Time〕. Please check.
+〔221〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔160 Supposed Alarm Time〕. Please check.
 
-〔220〕 Set Variable Text to 〔219 Text〕
+〔222〕 Set Variable Text to 〔221 Text〕
 
-〔221〕 End If
+〔223〕 End If
 
-〔222〕 Show Alert 〔Text〕
+〔224〕 Show Alert 〔Text〕
 
-〔223〕 Show Notification 〔Text〕
+〔225〕 Show Notification 〔Text〕
 
-〔224〕 Speak Text
+〔226〕 Speak Text
 • Text: 〔Text〕
 
-〔225〕 End If　▵213
+〔227〕 End If　▵215
 
-〔226〕 End If　▵191
+〔228〕 End If　▵193
 
-〔227〕 End If　▵174
+〔229〕 End If　▵176
 
-〔228〕 Dictionary　» 229 230
+〔230〕 Dictionary　» 231 232
 {  "Supposed Alarm Time": "〔SupposedAlarmTime〕",
    "Event": "〔Event〕"
 }
 
-〔229〕 If All are true　〔228 Dictionary.Supposed Alarm〕 has any value　〔228 Dictionary.Event〕 has any value
+〔231〕 If All are true　〔230 Dictionary.Supposed Alarm〕 has any value　〔230 Dictionary.Event〕 has any value
 
-〔230〕 Append 〔228 Dictionary〕 to Text File
+〔232〕 Append 〔230 Dictionary〕 to Text File
 • FilePath: Smart Calendar Reminder/Future Alarms.txt
 
-〔231〕 End If
+〔233〕 End If
 
-〔232〕 End Repeat with Each　▵101
+〔234〕 End Repeat with Each　▵103
 
-〔233〕 End If　▵100
+〔235〕 End If　▵102
 
-〔234〕 Get File at Path Smart Calendar Reminder/Future Alarm.txt from Folder　» 235 236
+〔236〕 Get File at Path Smart Calendar Reminder/Future Alarm.txt from Folder　» 237 238
 • FileErrorIfNotFound: false
 
-〔235〕 If 〔234 File〕 has any value
+〔237〕 If 〔236 File〕 has any value
 
-〔236〕 Split Text 〔234 File〕 by New Lines　»
+〔238〕 Split Text 〔236 File〕 by New Lines　»
 
-〔237〕 Repeat with Each in 〔236 Split Text〕
+〔239〕 Repeat with Each in 〔238 Split Text〕
 
-〔238〕 Get Dictionary from 〔Repeat Item〕　» 239 240 246 256
+〔240〕 Get Dictionary from 〔Repeat Item〕　» 241 242 248 258
 
-〔239〕 If All are true　〔238 Dictionary.Supposed Alarm〕 has any value　〔238 Dictionary.Event〕 has any value
+〔241〕 If All are true　〔240 Dictionary.Supposed Alarm〕 has any value　〔240 Dictionary.Event〕 has any value
 
-〔240〕 Get Dates from 〔238 Dictionary.Supposed Alarm〕　» 241 242 256
+〔242〕 Get Dates from 〔240 Dictionary.Supposed Alarm〕　» 243 244 258
 
-〔241〕 If 〔240 Dates〕 is today
+〔243〕 If 〔242 Dates〕 is today
 
-〔242〕 Find Alarm 〔240 Dates〕　» 243 244
+〔244〕 Find Alarm 〔242 Dates〕　» 245 246
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔243〕 If 〔242 Alarms〕 has any value
+〔245〕 If 〔244 Alarms〕 has any value
 
-〔244〕 Repeat[2] with Each in 〔242 Alarms〕
+〔246〕 Repeat[2] with Each in 〔244 Alarms〕
 
-〔245〕 Get Dictionary from 〔Repeat Item 2’s label〕　» 251
+〔247〕 Get Dictionary from 〔Repeat Item 2’s label〕　» 253
 
-〔246〕 Get Dictionary from 〔238 Dictionary.Event〕 　➔ FutureAlarmLabelDictionary　» 247 248 249 250
+〔248〕 Get Dictionary from 〔240 Dictionary.Event〕 　➔ FutureAlarmLabelDictionary　» 249 250 251 252
 
-〔247〕 Get Dictionary Value for Event in 〔246 FutureAlarmLabelDictionary〕 　➔ Event　» 251
+〔249〕 Get Dictionary Value for Event in 〔248 FutureAlarmLabelDictionary〕 　➔ Event　» 253
 
-〔248〕 Get Dictionary Value for From in 〔246 FutureAlarmLabelDictionary〕 　➔ From　» 251
+〔250〕 Get Dictionary Value for From in 〔248 FutureAlarmLabelDictionary〕 　➔ From　» 253
 
-〔249〕 Get Dictionary Value for To in 〔246 FutureAlarmLabelDictionary〕 　➔ To　» 251
+〔251〕 Get Dictionary Value for To in 〔248 FutureAlarmLabelDictionary〕 　➔ To　» 253
 
-〔250〕 Get Dictionary Value for Location in 〔246 FutureAlarmLabelDictionary〕 　➔ Location　»
+〔252〕 Get Dictionary Value for Location in 〔248 FutureAlarmLabelDictionary〕 　➔ Location　»
 
-〔251〕 If All are true　〔247 Event’s Name〕 is 〔245 Dictionary.Event〕　〔248 From’s Name〕 is 〔245 Dictionary.From〕　〔249 To’s Name〕 is 〔245 Dictionary.To〕　〔250 Location’s Name〕 is 〔245 Dictionary.Location〕
+〔253〕 If All are true　〔249 Event’s Name〕 is 〔247 Dictionary.Event〕　〔250 From’s Name〕 is 〔247 Dictionary.From〕　〔251 To’s Name〕 is 〔247 Dictionary.To〕　〔252 Location’s Name〕 is 〔247 Dictionary.Location〕
 
-〔252〕 Delete Alarms
+〔254〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔253〕 End If
+〔255〕 End If
 
-〔254〕 End Repeat[2] with Each　▵244
+〔256〕 End Repeat[2] with Each　▵246
 
-〔255〕 End If　▵243
+〔257〕 End If　▵245
 
-〔256〕 Add Alarm for 〔240 Dates〕 called 〔238 Dictionary.Event〕
+〔258〕 Add Alarm for 〔242 Dates〕 called 〔240 Dictionary.Event〕
 
-〔257〕 End If　▵241
+〔259〕 End If　▵243
 
-〔258〕 End If　▵239
+〔260〕 End If　▵241
 
-〔259〕 End Repeat with Each　▵237
+〔261〕 End Repeat with Each　▵239
 
-〔260〕 End If　▵235
+〔262〕 End If　▵237
 
-〔261〕 Otherwise　▵92
+〔263〕 Otherwise　▵92
 
-〔262〕 If 〔Shortcut Input as Number〕 is 2
+〔264〕 If 〔Shortcut Input as Number〕 is 2
 
-〔263〕 Comment
+〔265〕 Comment
 1-Hour Event Processor
 *Real-time event handler for immediate notifications:
 
@@ -1657,18 +1661,22 @@ Provides most accurate travel estimates
 
 Recommended for hourly automation*
 
-〔264〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
+〔266〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
 • FileErrorIfNotFound: false
 
-〔265〕 Get Dictionary from 〔264 File〕　» 266 267 268
+〔267〕 Get Dictionary from 〔266 File〕　» 268 269
 
-〔266〕 Set Variable Home_Address to 〔265 Dictionary.HomeAddress〕
+〔268〕 Set Variable Home_Address to 〔267 Dictionary.HomeAddress〕
 
-〔267〕 Set Variable Travel_Method to 〔265 Dictionary.TravelMethod〕
+〔269〕 Set Variable Travel_Method to 〔267 Dictionary.TravelMethod〕
 
-〔268〕 Set Variable Extra_Time to 〔265 Dictionary.ExtraTime〕
+〔270〕 Get Dictionary Value for ExtraTime in 〔95 Dictionary〕　»
 
-〔269〕 Find Calendar Events All Calendar Events where　» 270 271 272 361
+〔271〕 Get Numbers from 〔270 Dictionary Value〕　»
+
+〔272〕 Set Variable Extra_Time to 〔271 Numbers〕
+
+〔273〕 Find Calendar Events All Calendar Events where　» 274 275 276 365
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
@@ -1676,138 +1684,138 @@ Start Date is in the next 1 hours
 Is All Day
 Canceled is {"Bool":{"Value":false,"WFSerializationType":"WFBooleanSubstitutableState"}}
 
-〔270〕 If 〔269 Calendar Events〕 has any value
+〔274〕 If 〔273 Calendar Events〕 has any value
 
-〔271〕 Count Items in 〔269 Calendar Events〕　» 365 373
+〔275〕 Count Items in 〔273 Calendar Events〕　» 369 377
 
-〔272〕 Repeat with Each in 〔269 Calendar Events〕
+〔276〕 Repeat with Each in 〔273 Calendar Events〕
 
-〔273〕 If 〔Repeat Item’s Location〕 has any value
+〔277〕 If 〔Repeat Item’s Location〕 has any value
 
-〔274〕 Get Current Location　» 283 289 305
+〔278〕 Get Current Location　» 287 293 309
 • Accuracy: Best
 
-〔275〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
+〔279〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
 
-〔276〕 Comment
+〔280〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
 
-〔277〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ NotesAddressDictionary　» 278 279 280 281 282 289 292
+〔281〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ NotesAddressDictionary　» 282 283 284 285 286 293 296
 
-〔278〕 Set Variable CalendarNotesStreet to 〔277 NotesAddressDictionary.Street〕
+〔282〕 Set Variable CalendarNotesStreet to 〔281 NotesAddressDictionary.Street〕
 
-〔279〕 Set Variable CalendarNotesCity to 〔277 NotesAddressDictionary.City〕
+〔283〕 Set Variable CalendarNotesCity to 〔281 NotesAddressDictionary.City〕
 
-〔280〕 Set Variable CalendarNotesState to 〔277 NotesAddressDictionary.State〕
+〔284〕 Set Variable CalendarNotesState to 〔281 NotesAddressDictionary.State〕
 
-〔281〕 Set Variable CalendarNotesRegion to 〔277 NotesAddressDictionary.Country〕
+〔285〕 Set Variable CalendarNotesRegion to 〔281 NotesAddressDictionary.Country〕
 
-〔282〕 Set Variable CalendarNotesZIPCode to 〔277 NotesAddressDictionary.Postcode〕
+〔286〕 Set Variable CalendarNotesZIPCode to 〔281 NotesAddressDictionary.Postcode〕
 
-〔283〕 If All are true　〔274 Current Location’s Street〕 is 〔CalendarNotesStreet〕　〔274 Current Location’s City〕 is 〔CalendarNotesCity〕　〔274 Current Location’s State〕 is 〔CalendarNotesState〕　〔274 Current Location’s Country〕 is 〔CalendarNotesRegion〕　〔274 Current Location’s ZIP Code〕 is 〔CalendarNotesZIPCode〕
-
-〔284〕 Comment
-CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
-
-〔285〕 Number 0　»
-
-〔286〕 Set Variable CurrentToDeparture to 〔285 Number〕
-
-〔287〕 Otherwise
+〔287〕 If All are true　〔278 Current Location’s Street〕 is 〔CalendarNotesStreet〕　〔278 Current Location’s City〕 is 〔CalendarNotesCity〕　〔278 Current Location’s State〕 is 〔CalendarNotesState〕　〔278 Current Location’s Country〕 is 〔CalendarNotesRegion〕　〔278 Current Location’s ZIP Code〕 is 〔CalendarNotesZIPCode〕
 
 〔288〕 Comment
+CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
+
+〔289〕 Number 0　»
+
+〔290〕 Set Variable CurrentToDeparture to 〔289 Number〕
+
+〔291〕 Otherwise
+
+〔292〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔289〕 Get 〔Travel_Method〕 Time　»
-• GetDirectionsCustomLocation: 〔274 Current Location〕
-• Destination: 〔277 NotesAddressDictionary〕
+〔293〕 Get 〔TravelMethod〕 Time　»
+• GetDirectionsCustomLocation: 〔278 Current Location〕
+• Destination: 〔281 NotesAddressDictionary〕
 
-〔290〕 Set Variable CurrentToDeparture to 〔289 Travel Time〕
+〔294〕 Set Variable CurrentToDeparture to 〔293 Travel Time〕
 
-〔291〕 End If
+〔295〕 End If
 
-〔292〕 Get 〔Travel_Method〕 Time 　➔ DepartureToDestination　»
-• GetDirectionsCustomLocation: 〔277 NotesAddressDictionary〕
+〔296〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+• GetDirectionsCustomLocation: 〔281 NotesAddressDictionary〕
 • Destination: 〔Repeat Item’s Location〕
 
-〔293〕 Calculate 〔292 DepartureToDestination〕 + 〔CurrentToDeparture〕　»
+〔297〕 Calculate 〔296 DepartureToDestination〕 + 〔CurrentToDeparture〕　»
 
-〔294〕 Set Variable TravelTime to 〔293 Calculation Result〕
+〔298〕 Set Variable TravelTime to 〔297 Calculation Result〕
 
-〔295〕 Otherwise　▵275
+〔299〕 Otherwise　▵279
 
-〔296〕 Comment
+〔300〕 Comment
 CALENDER EVENT NOTES IS BLANK
 
-〔297〕 Get Dictionary from 〔Home_Address〕 　➔ home_address_dictionary　» 298 299 300 301 302
+〔301〕 Get Dictionary from 〔HomeAddress〕 　➔ home_address_dictionary　» 302 303 304 305 306
 
-〔298〕 Get Dictionary Value for street in 〔297 home_address_dictionary〕 　➔ HomeStreet　» 303 305
+〔302〕 Get Dictionary Value for street in 〔301 home_address_dictionary〕 　➔ HomeStreet　» 307 309
 
-〔299〕 Get Dictionary Value for city in 〔297 home_address_dictionary〕 　➔ HomeCity　» 303 305
+〔303〕 Get Dictionary Value for city in 〔301 home_address_dictionary〕 　➔ HomeCity　» 307 309
 
-〔300〕 Get Dictionary Value for state in 〔297 home_address_dictionary〕 　➔ HomeState　» 303 305
+〔304〕 Get Dictionary Value for state in 〔301 home_address_dictionary〕 　➔ HomeState　» 307 309
 
-〔301〕 Get Dictionary Value for country in 〔297 home_address_dictionary〕 　➔ HomeCountry　» 303 305
+〔305〕 Get Dictionary Value for country in 〔301 home_address_dictionary〕 　➔ HomeCountry　» 307 309
 
-〔302〕 Get Dictionary Value for postcode in 〔297 home_address_dictionary〕 　➔ HomePostcode　» 303 305
+〔306〕 Get Dictionary Value for postcode in 〔301 home_address_dictionary〕 　➔ HomePostcode　» 307 309
 
-〔303〕 If All are true　〔298 HomeStreet〕 has any value　〔299 HomeCity〕 has any value　〔300 HomeState〕 has any value　〔301 HomeCountry〕 has any value　〔302 HomePostcode〕 has any value
+〔307〕 If All are true　〔302 HomeStreet〕 has any value　〔303 HomeCity〕 has any value　〔304 HomeState〕 has any value　〔305 HomeCountry〕 has any value　〔306 HomePostcode〕 has any value
 
-〔304〕 Comment
+〔308〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
 
-〔305〕 If All are true　〔274 Current Location’s Street〕 is 〔298 HomeStreet〕　〔274 Current Location’s City〕 is 〔299 HomeCity〕　〔274 Current Location’s State〕 is 〔300 HomeState〕　〔274 Current Location’s Country〕 is 〔301 HomeCountry〕　〔274 Current Location’s ZIP Code〕 is 〔302 HomePostcode〕
-
-〔306〕 Comment
-CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
-
-〔307〕 Number 0　»
-
-〔308〕 Set Variable CurrentToDeparture to 〔307 Number〕
-
-〔309〕 Otherwise
+〔309〕 If All are true　〔278 Current Location’s Street〕 is 〔302 HomeStreet〕　〔278 Current Location’s City〕 is 〔303 HomeCity〕　〔278 Current Location’s State〕 is 〔304 HomeState〕　〔278 Current Location’s Country〕 is 〔305 HomeCountry〕　〔278 Current Location’s ZIP Code〕 is 〔306 HomePostcode〕
 
 〔310〕 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
+
+〔311〕 Number 0　»
+
+〔312〕 Set Variable CurrentToDeparture to 〔311 Number〕
+
+〔313〕 Otherwise
+
+〔314〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔311〕 Get 〔Travel_Method〕 Time　»
-• Destination: 〔Home_Address〕
+〔315〕 Get 〔TravelMethod〕 Time　»
+• Destination: 〔HomeAddress〕
 
-〔312〕 Set Variable CurrentToDeparture to 〔311 Travel Time〕
+〔316〕 Set Variable CurrentToDeparture to 〔315 Travel Time〕
 
-〔313〕 End If
+〔317〕 End If
 
-〔314〕 Get 〔Travel_Method〕 Time 　➔ DepartureToDestination　»
-• GetDirectionsCustomLocation: 〔Home_Address〕
+〔318〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+• GetDirectionsCustomLocation: 〔HomeAddress〕
 • Destination: 〔Repeat Item’s Location〕
 
-〔315〕 Calculate 〔314 DepartureToDestination〕 + 〔CurrentToDeparture〕　»
+〔319〕 Calculate 〔318 DepartureToDestination〕 + 〔CurrentToDeparture〕　»
 
-〔316〕 Set Variable TravelTime to 〔315 Calculation Result〕
+〔320〕 Set Variable TravelTime to 〔319 Calculation Result〕
 
-〔317〕 Otherwise　▵303
+〔321〕 Otherwise　▵307
 
-〔318〕 Text
+〔322〕 Text
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 
-〔319〕 Get 〔Travel_Method〕 Time　»
+〔323〕 Get 〔TravelMethod〕 Time　»
 • Destination: 〔Repeat Item’s Location〕
 
-〔320〕 Set Variable TravelTime to 〔319 Travel Time〕
+〔324〕 Set Variable TravelTime to 〔323 Travel Time〕
 
-〔321〕 End If
+〔325〕 End If
 
-〔322〕 End If　▵295
+〔326〕 End If　▵299
 
-〔323〕 Otherwise　▵273
+〔327〕 Otherwise　▵277
 
-〔324〕 Number 0　»
+〔328〕 Number 0　»
 
-〔325〕 Set Variable TravelTime to 〔324 Number〕
+〔329〕 Set Variable TravelTime to 〔328 Number〕
 
-〔326〕 End If
+〔330〕 End If
 
-〔327〕 Find Alarm All Alarm　» 328 329
+〔331〕 Find Alarm All Alarm　» 332 333
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
       "WFContentPredicateBoundedDate": false,
@@ -1816,162 +1824,162 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔328〕 If 〔327 Alarms〕 has any value
+〔332〕 If 〔331 Alarms〕 has any value
 
-〔329〕 Repeat[2] with Each in 〔327 Alarms〕
+〔333〕 Repeat[2] with Each in 〔331 Alarms〕
 
-〔330〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 331 332 333 334
+〔334〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 335 336 337 338
 
-〔331〕 Get Dictionary Value for Event in 〔330 AlarmLabelDictionary〕 　➔ Event　» 335
+〔335〕 Get Dictionary Value for Event in 〔334 AlarmLabelDictionary〕 　➔ Event　» 339
 
-〔332〕 Get Dictionary Value for From in 〔330 AlarmLabelDictionary〕 　➔ From　» 335
+〔336〕 Get Dictionary Value for From in 〔334 AlarmLabelDictionary〕 　➔ From　» 339
 
-〔333〕 Get Dictionary Value for To in 〔330 AlarmLabelDictionary〕 　➔ To　» 335
+〔337〕 Get Dictionary Value for To in 〔334 AlarmLabelDictionary〕 　➔ To　» 339
 
-〔334〕 Get Dictionary Value for Location in 〔330 AlarmLabelDictionary〕 　➔ Location　»
+〔338〕 Get Dictionary Value for Location in 〔334 AlarmLabelDictionary〕 　➔ Location　»
 
-〔335〕 If All are true　〔331 Event’s Name〕 is 〔Repeat Item〕　〔332 From’s Name〕 is 〔Repeat Item’s Start Date〕　〔333 To’s Name〕 is 〔Repeat Item’s End Date〕　〔334 Location’s Name〕 is 〔Repeat Item’s Location〕
+〔339〕 If All are true　〔335 Event’s Name〕 is 〔Repeat Item〕　〔336 From’s Name〕 is 〔Repeat Item’s Start Date〕　〔337 To’s Name〕 is 〔Repeat Item’s End Date〕　〔338 Location’s Name〕 is 〔Repeat Item’s Location〕
 
-〔336〕 Delete Alarms
+〔340〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔337〕 End If
+〔341〕 End If
 
-〔338〕 End Repeat[2] with Each　▵329
+〔342〕 End Repeat[2] with Each　▵333
 
-〔339〕 End If　▵328
+〔343〕 End If　▵332
 
-〔340〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
+〔344〕 Calculate 〔TravelTime〕 + 〔Extra_Time〕　»
 
-〔341〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed_Alarm_Time　» 343 345 348 355 356
-• Duration: 〔340 Calculation Result〕 min
+〔345〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed_Alarm_Time　» 347 349 352 359 360
+• Duration: 〔344 Calculation Result〕 min
 
-〔342〕 Date Current Date　»
+〔346〕 Date Current Date　»
 
-〔343〕 If Any are true　〔341 Supposed_Alarm_Time〕 < 〔342 Date〕　〔341 Supposed_Alarm_Time〕 is 〔342 Date〕
+〔347〕 If Any are true　〔345 Supposed_Alarm_Time〕 < 〔346 Date〕　〔345 Supposed_Alarm_Time〕 is 〔346 Date〕
 
-〔344〕 If 〔Repeat Item’s Location〕 has any value
+〔348〕 If 〔Repeat Item’s Location〕 has any value
 
-〔345〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕  which  was supposed to get ready at 〔341 Supposed_Alarm_Time〕. Please check.
+〔349〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕  which  was supposed to get ready at 〔345 Supposed_Alarm_Time〕. Please check.
 
-〔346〕 Set Variable Text to 〔345 Text〕
+〔350〕 Set Variable Text to 〔349 Text〕
 
-〔347〕 Otherwise
+〔351〕 Otherwise
 
-〔348〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔341 Supposed_Alarm_Time〕. Please check.
+〔352〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔345 Supposed_Alarm_Time〕. Please check.
 
-〔349〕 Set Variable Text to 〔348 Text〕
+〔353〕 Set Variable Text to 〔352 Text〕
 
-〔350〕 End If
+〔354〕 End If
 
-〔351〕 Show Alert 〔Text〕
+〔355〕 Show Alert 〔Text〕
 
-〔352〕 Show Notification 〔Text〕
+〔356〕 Show Notification 〔Text〕
 
-〔353〕 Speak Text
+〔357〕 Speak Text
 • Text: 〔Text〕
 
-〔354〕 Otherwise　▵343
+〔358〕 Otherwise　▵347
 
-〔355〕 Dictionary　»
+〔359〕 Dictionary　»
 {  "Location": "〔Repeat Item’s Location〕",
    "Event": "〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
-   "AlarmTime": "〔341 Supposed_Alarm_Time〕"
+   "AlarmTime": "〔345 Supposed_Alarm_Time〕"
 }
 
-〔356〕 Add Alarm for 〔341 Supposed_Alarm_Time〕 called 〔355 Dictionary〕
+〔360〕 Add Alarm for 〔345 Supposed_Alarm_Time〕 called 〔359 Dictionary〕
 
-〔357〕 End If
+〔361〕 End If
 
-〔358〕 End Repeat with Each　▵272
+〔362〕 End Repeat with Each　▵276
 
-〔359〕 Number 3　»
+〔363〕 Number 3　»
 
-〔360〕 Repeat 〔359 Number〕 Times
+〔364〕 Repeat 〔363 Number〕 Times
 
-〔361〕 Repeat[2] with Each in 〔269 Calendar Events〕
+〔365〕 Repeat[2] with Each in 〔273 Calendar Events〕
 
-〔362〕 Format Date 〔Repeat Item 2’s Start Date〕　» 366 369 374 377
+〔366〕 Format Date 〔Repeat Item 2’s Start Date〕　» 370 373 378 381
 • DateFormatStyle: None
 
-〔363〕 Format Date 〔Repeat Item 2’s End Date〕　» 366 369 374 377
+〔367〕 Format Date 〔Repeat Item 2’s End Date〕　» 370 373 378 381
 • DateFormatStyle: None
 
-〔364〕 If 〔Repeat Item 2’s Location〕 has any value
+〔368〕 If 〔Repeat Item 2’s Location〕 has any value
 
-〔365〕 If 〔271 Count〕 > 1
+〔369〕 If 〔275 Count〕 > 1
 
-〔366〕 Text　»
-Event 〔Repeat Index 2〕 〔Repeat Item 2〕 from 〔362 Formatted Date〕 to 〔363 Formatted Date〕 at 〔Repeat Item 2’s Location〕
+〔370〕 Text　»
+Event 〔Repeat Index 2〕 〔Repeat Item 2〕 from 〔366 Formatted Date〕 to 〔367 Formatted Date〕 at 〔Repeat Item 2’s Location〕
 
-〔367〕 Set Variable Text to 〔366 Text〕
+〔371〕 Set Variable Text to 〔370 Text〕
 
-〔368〕 Otherwise
+〔372〕 Otherwise
 
-〔369〕 Text　»
-Event  〔Repeat Item 2〕 from 〔362 Formatted Date〕 to 〔363 Formatted Date〕 at 〔Repeat Item 2’s Location〕
+〔373〕 Text　»
+Event  〔Repeat Item 2〕 from 〔366 Formatted Date〕 to 〔367 Formatted Date〕 at 〔Repeat Item 2’s Location〕
 
-〔370〕 Set Variable Text to 〔369 Text〕
+〔374〕 Set Variable Text to 〔373 Text〕
 
-〔371〕 End If
+〔375〕 End If
 
-〔372〕 Otherwise　▵364
+〔376〕 Otherwise　▵368
 
-〔373〕 If 〔271 Count〕 > 1
+〔377〕 If 〔275 Count〕 > 1
 
-〔374〕 Text　»
-Event 〔Repeat Index 2〕 〔Repeat Item 2〕 from 〔362 Formatted Date〕 to 〔363 Formatted Date〕
+〔378〕 Text　»
+Event 〔Repeat Index 2〕 〔Repeat Item 2〕 from 〔366 Formatted Date〕 to 〔367 Formatted Date〕
 
-〔375〕 Set Variable Text to 〔374 Text〕
+〔379〕 Set Variable Text to 〔378 Text〕
 
-〔376〕 Otherwise
+〔380〕 Otherwise
 
-〔377〕 Text　»
-Event  〔Repeat Item 2〕 from 〔362 Formatted Date〕 to 〔363 Formatted Date〕
+〔381〕 Text　»
+Event  〔Repeat Item 2〕 from 〔366 Formatted Date〕 to 〔367 Formatted Date〕
 
-〔378〕 Set Variable Text to 〔377 Text〕
+〔382〕 Set Variable Text to 〔381 Text〕
 
-〔379〕 End If
+〔383〕 End If
 
-〔380〕 End If　▵372
+〔384〕 End If　▵376
 
-〔381〕 Speak Text
+〔385〕 Speak Text
 • Text: 〔Text〕
 
-〔382〕 Wait 1 seconds
+〔386〕 Wait 1 seconds
 
-〔383〕 End Repeat[2] with Each　▵361
+〔387〕 End Repeat[2] with Each　▵365
 
-〔384〕 End Repeat Times　▵360
+〔388〕 End Repeat Times　▵364
 
-〔385〕 End If　▵270
+〔389〕 End If　▵274
 
-〔386〕 Otherwise　▵262
+〔390〕 Otherwise　▵264
 
-〔387〕 If 〔Shortcut Input as Number〕 is 3
+〔391〕 If 〔Shortcut Input as Number〕 is 3
 
-〔388〕 Comment
+〔392〕 Comment
 Alarm Activation Handler
 Triggered by alarm events - manages notification flow
 
-〔389〕 Dictionary　»
+〔393〕 Dictionary　»
 {  "stop": "no" }
 
-〔390〕 Text　»
-〔389 Dictionary〕
+〔394〕 Text　»
+〔393 Dictionary〕
 
-〔391〕 Save File 〔390 Text〕
+〔395〕 Save File 〔394 Text〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: Smart Calendar Reminder/stopflag.txt
 
-〔392〕 Date Current Date　» 411
+〔396〕 Date Current Date　» 415
 
-〔393〕 Find Alarm All Alarm　» 394 403
+〔397〕 Find Alarm All Alarm　» 398 407
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
       "WFContentPredicateBoundedDate": false,
@@ -1980,105 +1988,105 @@ Triggered by alarm events - manages notification flow
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔394〕 If 〔393 Alarms〕 has any value
+〔398〕 If 〔397 Alarms〕 has any value
 
-〔395〕 Number 10000　»
+〔399〕 Number 10000　»
 
-〔396〕 Repeat 〔395 Number〕 Times
+〔400〕 Repeat 〔399 Number〕 Times
 
-〔397〕 Get File at Path Smart Calendar Reminder/stopflag.txt from Folder　»
+〔401〕 Get File at Path Smart Calendar Reminder/stopflag.txt from Folder　»
 • FileErrorIfNotFound: false
 
-〔398〕 Get Dictionary from 〔397 File〕　»
+〔402〕 Get Dictionary from 〔401 File〕　»
 
-〔399〕 Get Dictionary Value for stop in 〔398 Dictionary〕　»
+〔403〕 Get Dictionary Value for stop in 〔402 Dictionary〕　»
 
-〔400〕 If 〔399 Dictionary Value’s Name〕 is yes
+〔404〕 If 〔403 Dictionary Value’s Name〕 is yes
 
-〔401〕 Stop This Shortcut
+〔405〕 Stop This Shortcut
 
-〔402〕 End If
+〔406〕 End If
 
-〔403〕 Repeat[2] with Each in 〔393 Alarms〕
+〔407〕 Repeat[2] with Each in 〔397 Alarms〕
 
-〔404〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ alarm_label_dictionary　» 405 407 409 414 418 421
+〔408〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ alarm_label_dictionary　» 409 411 413 418 422 425
 
-〔405〕 Get Dictionary Value for From in 〔404 alarm_label_dictionary〕　»
+〔409〕 Get Dictionary Value for From in 〔408 alarm_label_dictionary〕　»
 
-〔406〕 Get Dates from 〔405 Dictionary Value〕 　➔ From　» 412
+〔410〕 Get Dates from 〔409 Dictionary Value〕 　➔ From　» 416
 
-〔407〕 Get Dictionary Value for To in 〔404 alarm_label_dictionary〕　»
+〔411〕 Get Dictionary Value for To in 〔408 alarm_label_dictionary〕　»
 
-〔408〕 Get Dates from 〔407 Dictionary Value〕 　➔ To　» 413
+〔412〕 Get Dates from 〔411 Dictionary Value〕 　➔ To　» 417
 
-〔409〕 Get Dictionary Value for AlarmTime in 〔404 alarm_label_dictionary〕　»
+〔413〕 Get Dictionary Value for AlarmTime in 〔408 alarm_label_dictionary〕　»
 
-〔410〕 Get Dates from 〔409 Dictionary Value〕 　➔ AlarmTime　»
+〔414〕 Get Dates from 〔413 Dictionary Value〕 　➔ AlarmTime　»
 
-〔411〕 If All are true　〔410 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕 is 〔392 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕　〔410 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕 is 〔392 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕
+〔415〕 If All are true　〔414 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕 is 〔396 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕　〔414 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕 is 〔396 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"mm"}〕
 
-〔412〕 Format Date 〔406 From’s Time〕　» 418 421
+〔416〕 Format Date 〔410 From’s Time〕　» 422 425
 
-〔413〕 Format Date 〔408 To’s Time〕　» 418 421
+〔417〕 Format Date 〔412 To’s Time〕　» 422 425
 
-〔414〕 Get Dictionary Value for Location in 〔404 alarm_label_dictionary〕　»
+〔418〕 Get Dictionary Value for Location in 〔408 alarm_label_dictionary〕　»
 
-〔415〕 Text　»
-〔414 Dictionary Value〕
+〔419〕 Text　»
+〔418 Dictionary Value〕
 
-〔416〕 Count Characters in 〔415 Text〕　»
+〔420〕 Count Characters in 〔419 Text〕　»
 
-〔417〕 If 〔416 Count〕 > • ConditionalActionString
+〔421〕 If 〔420 Count〕 > • ConditionalActionString
 ""• NumberValue
 0
 
-〔418〕 Text　»
-Prepare for 〔404 alarm_label_dictionary.Event〕 from 〔412 Formatted Date〕 to 〔413 Formatted Date〕 at 〔404 alarm_label_dictionary.Location〕
+〔422〕 Text　»
+Prepare for 〔408 alarm_label_dictionary.Event〕 from 〔416 Formatted Date〕 to 〔417 Formatted Date〕 at 〔408 alarm_label_dictionary.Location〕
 
-〔419〕 Set Variable Text to 〔418 Text〕
+〔423〕 Set Variable Text to 〔422 Text〕
 
-〔420〕 Otherwise
+〔424〕 Otherwise
 
-〔421〕 Text　»
-Prepare for 〔404 alarm_label_dictionary.Event〕 from 〔412 Formatted Date〕 to 〔413 Formatted Date〕
+〔425〕 Text　»
+Prepare for 〔408 alarm_label_dictionary.Event〕 from 〔416 Formatted Date〕 to 〔417 Formatted Date〕
 
-〔422〕 Set Variable Text to 〔421 Text〕
+〔426〕 Set Variable Text to 〔425 Text〕
 
-〔423〕 End If
+〔427〕 End If
 
-〔424〕 Speak Text
+〔428〕 Speak Text
 • Text: 〔Text〕
 
-〔425〕 End If　▵411
+〔429〕 End If　▵415
 
-〔426〕 End Repeat[2] with Each　▵403
+〔430〕 End Repeat[2] with Each　▵407
 
-〔427〕 End Repeat Times　▵396
+〔431〕 End Repeat Times　▵400
 
-〔428〕 End If　▵394
+〔432〕 End If　▵398
 
-〔429〕 Otherwise　▵387
+〔433〕 Otherwise　▵391
 
-〔430〕 Comment
+〔434〕 Comment
 input case 4:
 Notification Interrupt System
 Stop protocol for voice announcements when any alarm is stopped.
 
-〔431〕 Dictionary　»
+〔435〕 Dictionary　»
 {  "stop": "yes" }
 
-〔432〕 Text　»
-〔431 Dictionary〕
+〔436〕 Text　»
+〔435 Dictionary〕
 
-〔433〕 Save File 〔432 Text〕
+〔437〕 Save File 〔436 Text〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: Smart Calendar Reminder/stopflag.txt
 
-〔434〕 End If
+〔438〕 End If
 
-〔435〕 End If　▵386
+〔439〕 End If　▵390
 
-〔436〕 End If　▵261
+〔440〕 End If　▵263
 
-〔437〕 End If　▵91
+〔441〕 End If　▵91
