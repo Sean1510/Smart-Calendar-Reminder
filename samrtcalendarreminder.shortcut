@@ -1445,8 +1445,8 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
 〔178〕 Find Alarm 〔163 1 day after〕　» 179 180
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -1503,8 +1503,8 @@ when the time is other than 12:00 am of then next day, you cannot set alarm yet.
 〔201〕 Find Alarm 〔163 1 day after〕　» 202 203
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -1642,7 +1642,7 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
 
 〔259〕 Get Dates from 〔258 To〕 　➔ ToDate　»
 
-〔260〕 If All are true　〔255 Event’s Name〕 is 〔249 Alarm_Label_Dictionary.Event〕　〔257 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔251 From_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔259 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔253 To_Date〕
+〔260〕 If All are true　〔255 Event’s Name〕 is 〔249 Alarm_Label_Dictionary.Event〕　〔257 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔251 From_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔259 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔253 To_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
 
 〔261〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
