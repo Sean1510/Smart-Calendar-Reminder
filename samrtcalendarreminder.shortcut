@@ -1,4 +1,4 @@
-Smart Calendar Reminder (454 actions, 213 KB)
+Smart Calendar Reminder (454 actions, 214 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -1910,10 +1910,10 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
 〔370〕 Otherwise　▵359
 
 〔371〕 Dictionary　»
-{  "Location": "〔Repeat Item’s Location〕",
-   "Event": "〔Repeat Item〕",
+{  "Event": "〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
+   "Location": "〔Repeat Item’s Location〕",
    "AlarmTime": "〔357 Supposed_Alarm_Time〕"
 }
 
