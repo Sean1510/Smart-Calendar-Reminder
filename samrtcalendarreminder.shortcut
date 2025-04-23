@@ -1,4 +1,4 @@
-Smart Calendar Reminder V1 (1593 actions, 528 KB)
+Smart Calendar Reminder V1 (1593 actions, 513 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -1313,7 +1313,7 @@ CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDR
 〔124〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔125〕 Get 〔TravelMethod〕 Time　» 126 134 453 521 1387 1455
+〔125〕 Get 〔TravelMethod〕 Time　» 126 134
 • GetDirectionsCustomLocation: 〔107 Current Location〕
 • Destination: 〔NotesAddressString〕
 
@@ -2042,7 +2042,7 @@ CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDR
 〔443〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔444〕 Get 〔TravelMethod〕 Time　»
+〔444〕 Get 〔TravelMethod〕 Time　» 445 453
 • GetDirectionsCustomLocation: 〔427 Current Location〕
 • Destination: 〔NotesAddressString〕
 
@@ -2063,7 +2063,7 @@ CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDR
 
 〔452〕 Otherwise
 
-〔453〕 Match Text hour(?:s)? in 〔125 Travel Time〕 　➔ C2DMatches　»
+〔453〕 Match Text hour(?:s)? in 〔444 Travel Time〕 　➔ C2DMatches　»
 • MatchTextCaseSensitive: true
 
 〔454〕 If 〔453 C2DMatches’s text〕 has any value
@@ -2190,7 +2190,7 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS 
 〔511〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔512〕 Get 〔TravelMethod〕 Time　»
+〔512〕 Get 〔TravelMethod〕 Time　» 513 521
 • Destination: 〔HomeAddress〕
 
 〔513〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔512 Travel Time〕 　➔ C2DMatches　» 514 516 518 523 530
@@ -2210,7 +2210,7 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS 
 
 〔520〕 Otherwise
 
-〔521〕 Match Text hour(?:s)? in 〔125 Travel Time〕 　➔ C2DMatches　»
+〔521〕 Match Text hour(?:s)? in 〔512 Travel Time〕 　➔ C2DMatches　»
 • MatchTextCaseSensitive: true
 
 〔522〕 If 〔521 C2DMatches’s text〕 has any value
@@ -2374,8 +2374,8 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 〔597〕 Find Alarm All Alarm　» 598 599
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -2540,8 +2540,8 @@ Triggered by alarm events - manages notification flow
 〔664〕 Find Alarm All Alarm　» 665 674
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -3331,8 +3331,8 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
 〔1001〕 Find Alarm 〔999 Dates〕　» 1002 1003
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -3915,8 +3915,8 @@ when the time is other than 12:00 am of then next day, you cannot set alarm yet.
 〔1253〕 Find Alarm 〔1216 1 day after〕　» 1254 1255
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -4071,8 +4071,8 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
 〔1320〕 Find Alarm 〔1318 Dates〕　» 1321 1322
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -4213,7 +4213,7 @@ CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDR
 〔1377〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔1378〕 Get 〔TravelMethod〕 Time　»
+〔1378〕 Get 〔TravelMethod〕 Time　» 1379 1387
 • GetDirectionsCustomLocation: 〔1361 Current Location〕
 • Destination: 〔NotesAddressString〕
 
@@ -4234,7 +4234,7 @@ CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDR
 
 〔1386〕 Otherwise
 
-〔1387〕 Match Text hour(?:s)? in 〔125 Travel Time〕 　➔ C2DMatches　»
+〔1387〕 Match Text hour(?:s)? in 〔1378 Travel Time〕 　➔ C2DMatches　»
 • MatchTextCaseSensitive: true
 
 〔1388〕 If 〔1387 C2DMatches’s text〕 has any value
@@ -4361,7 +4361,7 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS 
 〔1445〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔1446〕 Get 〔TravelMethod〕 Time　»
+〔1446〕 Get 〔TravelMethod〕 Time　» 1447 1455
 • Destination: 〔HomeAddress〕
 
 〔1447〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔1446 Travel Time〕 　➔ C2DMatches　» 1448 1450 1452 1457 1464
@@ -4381,7 +4381,7 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS 
 
 〔1454〕 Otherwise
 
-〔1455〕 Match Text hour(?:s)? in 〔125 Travel Time〕 　➔ C2DMatches　»
+〔1455〕 Match Text hour(?:s)? in 〔1446 Travel Time〕 　➔ C2DMatches　»
 • MatchTextCaseSensitive: true
 
 〔1456〕 If 〔1455 C2DMatches’s text〕 has any value
