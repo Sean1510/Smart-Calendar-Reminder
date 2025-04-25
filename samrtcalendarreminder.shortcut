@@ -2785,8 +2785,8 @@ Triggered by alarm events - manages notification flow
 〔782〕 Find Alarm All Alarm　» 783 792
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -3703,11 +3703,11 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
 
 〔1179〕 If 〔1178 Dictionary〕 has any value
 
-〔1180〕 Get Dates from 〔1178 Dictionary.AlarmTime〕　» 1181 1182 1201
+〔1180〕 Get Dates from 〔1178 Dictionary.AlarmTime〕　» 1181 1201
 
 〔1181〕 If 〔1180 Dates〕 is today
 
-〔1182〕 Find Alarm 〔1180 Dates〕　» 1183 1184
+〔1182〕 Find Alarm Library　» 1183 1184
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
       "WFActionParameterFilterTemplates": [],
