@@ -1,4 +1,4 @@
-Smart Calendar Reminder V3 (1630 actions, 513 KB)
+Smart Calendar Reminder V3 (1893 actions, 559 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -1261,7 +1261,7 @@ Canceled is {"Bool":false}
 
 〔106〕 If 〔Repeat Item’s Location〕 has any value
 
-〔107〕 Get Current Location　» 119 125 200
+〔107〕 Get Current Location　» 119 125 211
 • Accuracy: Best
 
 〔108〕 Comment
@@ -1394,387 +1394,477 @@ CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDR
 
 〔162〕 End If　▵123
 
-〔163〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　» 164 1517
+〔163〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
 • GetDirectionsCustomLocation: 〔NotesAddressString〕
 • Destination: 〔Repeat Item’s Location〕
 
 〔164〕 Set Variable TravelTimeString to 〔163 DepartureToDestination〕
 
-〔165〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 166 168 170 175 182
+〔165〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔166〕 Count Items in 〔165 C2DMatches〕　»
+〔166〕 Set Variable MatchString to 〔165 Matches〕
 
-〔167〕 If 〔166 Count〕 > 1
+〔167〕 Count Items in 〔MatchString〕　»
 
-〔168〕 Get First Item from List 〔165 C2DMatches〕　»
+〔168〕 If 〔167 Count〕 is 1
 
-〔169〕 Set Variable C2DHours to 〔168 Item from List〕
+〔169〕 Get First Item from List 〔MatchString〕　»
 
-〔170〕 Get Last Item from List 〔165 C2DMatches〕　»
+〔170〕 Set Variable TravelDays to 〔169 Item from List〕
 
-〔171〕 Set Variable C2DMinutes to 〔170 Item from List〕
+〔171〕 Otherwise
 
-〔172〕 Otherwise
+〔172〕 Number 0　»
 
-〔173〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔173〕 Set Variable TravelDays to 〔172 Number〕
 
-〔174〕 If 〔173 C2DMatches’s text〕 has any value
+〔174〕 End If
 
-〔175〕 Get First Item from List 〔165 C2DMatches〕　»
+〔175〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔176〕 Set Variable C2DHours to 〔175 Item from List〕
+〔176〕 Set Variable MatchString to 〔175 Matches〕
 
-〔177〕 Number 0　»
+〔177〕 Count Items in 〔MatchString〕　»
 
-〔178〕 Set Variable C2DMinutes to 〔177 Number〕
+〔178〕 If 〔177 Count〕 is 1
 
-〔179〕 Otherwise
+〔179〕 Get First Item from List 〔MatchString〕　»
 
-〔180〕 Number 0　»
+〔180〕 Set Variable TravelHours to 〔179 Item from List〕
 
-〔181〕 Set Variable C2DHours to 〔180 Number〕
+〔181〕 Otherwise
 
-〔182〕 Get First Item from List 〔165 C2DMatches〕　»
+〔182〕 Number 0　»
 
-〔183〕 Set Variable C2DMinutes to 〔182 Item from List〕
+〔183〕 Set Variable TravelHours to 〔182 Number〕
 
 〔184〕 End If
 
-〔185〕 End If　▵172
-
-〔186〕 Calculate 〔C2DHours〕 × 60　»
-
-〔187〕 Calculate 〔186 Calculation Result〕 + 〔C2DMinutes〕　»
-
-〔188〕 Calculate 〔187 Calculation Result〕 + 〔CurrentToDeparture〕　»
-
-〔189〕 Set Variable TravelTime to 〔188 Calculation Result〕
-
-〔190〕 Otherwise　▵109
-
-〔191〕 Comment
-CALENDER EVENT NOTES IS BLANK
-
-〔192〕 Get Dictionary from 〔HomeAddress〕 　➔ Home Address Dictionary　» 193 194 195 196 197
-
-〔193〕 Get Dictionary Value for street in 〔192 Home Address Dictionary〕 　➔ home_Street　» 198 200
-
-〔194〕 Get Dictionary Value for city in 〔192 Home Address Dictionary〕 　➔ home_City　» 198 200
-
-〔195〕 Get Dictionary Value for state in 〔192 Home Address Dictionary〕 　➔ home_State　» 198 200
-
-〔196〕 Get Dictionary Value for country in 〔192 Home Address Dictionary〕 　➔ home_Country　» 198 200
-
-〔197〕 Get Dictionary Value for postcode in 〔192 Home Address Dictionary〕 　➔ home_Postcode　» 198 200
-
-〔198〕 If All are true　〔193 home_Street〕 has any value　〔194 home_City〕 has any value　〔195 home_State〕 has any value　〔196 home_Country〕 has any value　〔197 home_Postcode〕 has any value
-
-〔199〕 Comment
-CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
-
-〔200〕 If All are true　〔107 Current Location’s Street〕 is 〔193 home_Street〕　〔107 Current Location’s City〕 is 〔194 home_City〕　〔107 Current Location’s State〕 is 〔195 home_State〕　〔107 Current Location’s Country〕 is 〔196 home_Country〕　〔107 Current Location’s ZIP Code〕 is 〔197 home_Postcode〕
-
-〔201〕 Comment
-CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
-
-〔202〕 Number 0　»
-
-〔203〕 Set Variable CurrentToDeparture to 〔202 Number〕
-
-〔204〕 Otherwise
-
-〔205〕 Comment
-CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
-
-〔206〕 Get 〔TravelMethod〕 Time　»
-• Destination: 〔HomeAddress〕
-
-〔207〕 Set Variable TravelTimeString to 〔206 Travel Time〕
-
-〔208〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 209 211 213 218 225
+〔185〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔209〕 Count Items in 〔208 C2DMatches〕　»
+〔186〕 Set Variable MatchString to 〔185 Matches〕
 
-〔210〕 If 〔209 Count〕 > 1
+〔187〕 Count Items in 〔MatchString〕　»
 
-〔211〕 Get First Item from List 〔208 C2DMatches〕　»
+〔188〕 If 〔187 Count〕 is 1
 
-〔212〕 Set Variable C2DHours to 〔211 Item from List〕
+〔189〕 Get First Item from List 〔MatchString〕　»
 
-〔213〕 Get Last Item from List 〔208 C2DMatches〕　»
+〔190〕 Set Variable TravelMinutes to 〔189 Item from List〕
 
-〔214〕 Set Variable C2DMinutes to 〔213 Item from List〕
+〔191〕 Otherwise
+
+〔192〕 Number 0　»
+
+〔193〕 Set Variable TravelMinutes to 〔192 Number〕
+
+〔194〕 End If
+
+〔195〕 Calculate 〔TravelDays〕 × 1440　» 197
+
+〔196〕 Calculate 〔TravelHours〕 × 60　»
+
+〔197〕 Calculate 〔196 Calculation Result〕 + 〔195 Calculation Result〕　»
+
+〔198〕 Calculate 〔197 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔199〕 Calculate 〔198 Calculation Result〕 + 〔CurrentToDeparture〕　»
+
+〔200〕 Set Variable TravelTime to 〔199 Calculation Result〕
+
+〔201〕 Otherwise　▵109
+
+〔202〕 Comment
+CALENDER EVENT NOTES IS BLANK
+
+〔203〕 Get Dictionary from 〔HomeAddress〕 　➔ Home Address Dictionary　» 204 205 206 207 208
+
+〔204〕 Get Dictionary Value for street in 〔203 Home Address Dictionary〕 　➔ home_Street　» 209 211
+
+〔205〕 Get Dictionary Value for city in 〔203 Home Address Dictionary〕 　➔ home_City　» 209 211
+
+〔206〕 Get Dictionary Value for state in 〔203 Home Address Dictionary〕 　➔ home_State　» 209 211
+
+〔207〕 Get Dictionary Value for country in 〔203 Home Address Dictionary〕 　➔ home_Country　» 209 211
+
+〔208〕 Get Dictionary Value for postcode in 〔203 Home Address Dictionary〕 　➔ home_Postcode　» 209 211
+
+〔209〕 If All are true　〔204 home_Street〕 has any value　〔205 home_City〕 has any value　〔206 home_State〕 has any value　〔207 home_Country〕 has any value　〔208 home_Postcode〕 has any value
+
+〔210〕 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
+
+〔211〕 If All are true　〔107 Current Location’s Street〕 is 〔204 home_Street〕　〔107 Current Location’s City〕 is 〔205 home_City〕　〔107 Current Location’s State〕 is 〔206 home_State〕　〔107 Current Location’s Country〕 is 〔207 home_Country〕　〔107 Current Location’s ZIP Code〕 is 〔208 home_Postcode〕
+
+〔212〕 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
+
+〔213〕 Number 0　»
+
+〔214〕 Set Variable CurrentToDeparture to 〔213 Number〕
 
 〔215〕 Otherwise
 
-〔216〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔216〕 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔217〕 If 〔216 C2DMatches’s text〕 has any value
+〔217〕 Get 〔TravelMethod〕 Time　»
+• Destination: 〔HomeAddress〕
 
-〔218〕 Get First Item from List 〔208 C2DMatches〕　»
+〔218〕 Set Variable TravelTimeString to 〔217 Travel Time〕
 
-〔219〕 Set Variable C2DHours to 〔218 Item from List〕
+〔219〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔220〕 Number 0　»
+〔220〕 Set Variable MatchString to 〔219 Matches〕
 
-〔221〕 Set Variable C2DMinutes to 〔220 Number〕
+〔221〕 Count Items in 〔MatchString〕　»
 
-〔222〕 Otherwise
+〔222〕 If 〔221 Count〕 is 1
 
-〔223〕 Number 0　»
+〔223〕 Get First Item from List 〔MatchString〕　»
 
-〔224〕 Set Variable C2DHours to 〔223 Number〕
+〔224〕 Set Variable TravelDays to 〔223 Item from List〕
 
-〔225〕 Get First Item from List 〔208 C2DMatches〕　»
+〔225〕 Otherwise
 
-〔226〕 Set Variable C2DMinutes to 〔225 Item from List〕
+〔226〕 Number 0　»
 
-〔227〕 End If
+〔227〕 Set Variable TravelDays to 〔226 Number〕
 
-〔228〕 End If　▵215
+〔228〕 End If
 
-〔229〕 Calculate 〔C2DHours〕 × 60　»
+〔229〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔230〕 Calculate 〔229 Calculation Result〕 + 〔C2DMinutes〕　»
+〔230〕 Set Variable MatchString to 〔229 Matches〕
 
-〔231〕 Set Variable CurrentToDeparture to 〔230 Calculation Result〕
+〔231〕 Count Items in 〔MatchString〕　»
 
-〔232〕 End If　▵204
+〔232〕 If 〔231 Count〕 is 1
 
-〔233〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+〔233〕 Get First Item from List 〔MatchString〕　»
+
+〔234〕 Set Variable TravelHours to 〔233 Item from List〕
+
+〔235〕 Otherwise
+
+〔236〕 Number 0　»
+
+〔237〕 Set Variable TravelHours to 〔236 Number〕
+
+〔238〕 End If
+
+〔239〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
+
+〔240〕 Set Variable MatchString to 〔239 Matches〕
+
+〔241〕 Count Items in 〔MatchString〕　»
+
+〔242〕 If 〔241 Count〕 is 1
+
+〔243〕 Get First Item from List 〔MatchString〕　»
+
+〔244〕 Set Variable TravelMinutes to 〔243 Item from List〕
+
+〔245〕 Otherwise
+
+〔246〕 Number 0　»
+
+〔247〕 Set Variable TravelMinutes to 〔246 Number〕
+
+〔248〕 End If
+
+〔249〕 Calculate 〔TravelDays〕 × 1440　» 251
+
+〔250〕 Calculate 〔TravelHours〕 × 60　»
+
+〔251〕 Calculate 〔250 Calculation Result〕 + 〔249 Calculation Result〕　»
+
+〔252〕 Calculate 〔251 Calculation Result〕 + 〔TravelMinutes〕
+
+〔253〕 End If　▵215
+
+〔254〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
 • GetDirectionsCustomLocation: 〔HomeAddress〕
 • Destination: 〔Repeat Item’s Location〕
 
-〔234〕 Set Variable TravelTimeString to 〔233 DepartureToDestination〕
+〔255〕 Set Variable TravelTimeString to 〔254 DepartureToDestination〕
 
-〔235〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 236 238 240 245 252
+〔256〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔236〕 Count Items in 〔235 C2DMatches〕　»
+〔257〕 Set Variable MatchString to 〔256 Matches〕
 
-〔237〕 If 〔236 Count〕 > 1
+〔258〕 Count Items in 〔MatchString〕　»
 
-〔238〕 Get First Item from List 〔235 C2DMatches〕　»
+〔259〕 If 〔258 Count〕 is 1
 
-〔239〕 Set Variable C2DHours to 〔238 Item from List〕
+〔260〕 Get First Item from List 〔MatchString〕　»
 
-〔240〕 Get Last Item from List 〔235 C2DMatches〕　»
+〔261〕 Set Variable TravelDays to 〔260 Item from List〕
 
-〔241〕 Set Variable C2DMinutes to 〔240 Item from List〕
+〔262〕 Otherwise
 
-〔242〕 Otherwise
+〔263〕 Number 0　»
 
-〔243〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔264〕 Set Variable TravelDays to 〔263 Number〕
 
-〔244〕 If 〔243 C2DMatches’s text〕 has any value
+〔265〕 End If
 
-〔245〕 Get First Item from List 〔235 C2DMatches〕　»
+〔266〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔246〕 Set Variable C2DHours to 〔245 Item from List〕
+〔267〕 Set Variable MatchString to 〔266 Matches〕
 
-〔247〕 Number 0　»
+〔268〕 Count Items in 〔MatchString〕　»
 
-〔248〕 Set Variable C2DMinutes to 〔247 Number〕
+〔269〕 If 〔268 Count〕 is 1
 
-〔249〕 Otherwise
+〔270〕 Get First Item from List 〔MatchString〕　»
 
-〔250〕 Number 0　»
+〔271〕 Set Variable TravelHours to 〔270 Item from List〕
 
-〔251〕 Set Variable C2DHours to 〔250 Number〕
+〔272〕 Otherwise
 
-〔252〕 Get First Item from List 〔235 C2DMatches〕　»
+〔273〕 Number 0　»
 
-〔253〕 Set Variable C2DMinutes to 〔252 Item from List〕
+〔274〕 Set Variable TravelHours to 〔273 Number〕
 
-〔254〕 End If
+〔275〕 End If
 
-〔255〕 End If　▵242
+〔276〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔256〕 Calculate 〔C2DHours〕 × 60　»
+〔277〕 Set Variable MatchString to 〔276 Matches〕
 
-〔257〕 Calculate 〔256 Calculation Result〕 + 〔C2DMinutes〕　»
+〔278〕 Count Items in 〔MatchString〕　»
 
-〔258〕 Calculate 〔257 Calculation Result〕 + 〔CurrentToDeparture〕　»
+〔279〕 If 〔278 Count〕 is 1
 
-〔259〕 Set Variable TravelTime to 〔258 Calculation Result〕
+〔280〕 Get First Item from List 〔MatchString〕　»
 
-〔260〕 Otherwise　▵198
+〔281〕 Set Variable TravelMinutes to 〔280 Item from List〕
 
-〔261〕 Text
+〔282〕 Otherwise
+
+〔283〕 Number 0　»
+
+〔284〕 Set Variable TravelMinutes to 〔283 Number〕
+
+〔285〕 End If
+
+〔286〕 Calculate 〔TravelDays〕 × 1440　» 288
+
+〔287〕 Calculate 〔TravelHours〕 × 60　»
+
+〔288〕 Calculate 〔287 Calculation Result〕 + 〔286 Calculation Result〕　»
+
+〔289〕 Calculate 〔288 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔290〕 Calculate 〔289 Calculation Result〕 + 〔CurrentToDeparture〕　»
+
+〔291〕 Set Variable TravelTime to 〔290 Calculation Result〕
+
+〔292〕 Otherwise　▵209
+
+〔293〕 Text
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 
-〔262〕 Get 〔TravelMethod〕 Time　»
+〔294〕 Get 〔TravelMethod〕 Time　»
 • Destination: 〔Repeat Item’s Location〕
 
-〔263〕 Set Variable TravelTimeString to 〔262 Travel Time〕
+〔295〕 Set Variable TravelTimeString to 〔294 Travel Time〕
 
-〔264〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 265 267 269 274 281
+〔296〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔265〕 Count Items in 〔264 C2DMatches〕　»
+〔297〕 Set Variable MatchString to 〔296 Matches〕
 
-〔266〕 If 〔265 Count〕 > 1
+〔298〕 Count Items in 〔MatchString〕　»
 
-〔267〕 Get First Item from List 〔264 C2DMatches〕　»
+〔299〕 If 〔298 Count〕 is 1
 
-〔268〕 Set Variable C2DHours to 〔267 Item from List〕
+〔300〕 Get First Item from List 〔MatchString〕　»
 
-〔269〕 Get Last Item from List 〔264 C2DMatches〕　»
+〔301〕 Set Variable TravelDays to 〔300 Item from List〕
 
-〔270〕 Set Variable C2DMinutes to 〔269 Item from List〕
+〔302〕 Otherwise
 
-〔271〕 Otherwise
+〔303〕 Number 0　»
 
-〔272〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔304〕 Set Variable TravelDays to 〔303 Number〕
 
-〔273〕 If 〔272 C2DMatches’s text〕 has any value
+〔305〕 End If
 
-〔274〕 Get First Item from List 〔264 C2DMatches〕　»
+〔306〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔275〕 Set Variable C2DHours to 〔274 Item from List〕
+〔307〕 Set Variable MatchString to 〔306 Matches〕
 
-〔276〕 Number 0　»
+〔308〕 Count Items in 〔MatchString〕　»
 
-〔277〕 Set Variable C2DMinutes to 〔276 Number〕
+〔309〕 If 〔308 Count〕 is 1
 
-〔278〕 Otherwise
+〔310〕 Get First Item from List 〔MatchString〕　»
 
-〔279〕 Number 0　»
+〔311〕 Set Variable TravelHours to 〔310 Item from List〕
 
-〔280〕 Set Variable C2DHours to 〔279 Number〕
+〔312〕 Otherwise
 
-〔281〕 Get First Item from List 〔264 C2DMatches〕　»
+〔313〕 Number 0　»
 
-〔282〕 Set Variable C2DMinutes to 〔281 Item from List〕
+〔314〕 Set Variable TravelHours to 〔313 Number〕
 
-〔283〕 End If
+〔315〕 End If
 
-〔284〕 End If　▵271
+〔316〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔285〕 Calculate 〔C2DHours〕 × 60　»
+〔317〕 Set Variable MatchString to 〔316 Matches〕
 
-〔286〕 Calculate 〔285 Calculation Result〕 + 〔C2DMinutes〕　»
+〔318〕 Count Items in 〔MatchString〕　»
 
-〔287〕 Set Variable TravelTime to 〔286 Calculation Result〕
+〔319〕 If 〔318 Count〕 is 1
 
-〔288〕 End If　▵260
+〔320〕 Get First Item from List 〔MatchString〕　»
 
-〔289〕 End If　▵190
+〔321〕 Set Variable TravelMinutes to 〔320 Item from List〕
 
-〔290〕 Otherwise　▵106
+〔322〕 Otherwise
 
-〔291〕 Number 0　»
+〔323〕 Number 0　»
 
-〔292〕 Set Variable TravelTime to 〔291 Number〕
+〔324〕 Set Variable TravelMinutes to 〔323 Number〕
 
-〔293〕 End If
+〔325〕 End If
 
-〔294〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
+〔326〕 Calculate 〔TravelDays〕 × 1440　» 328
 
-〔295〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed Alarm Time　» 296 299 302 305 312 328 330 331 349 354 357
-• Duration: 〔294 Calculation Result〕 min
+〔327〕 Calculate 〔TravelHours〕 × 60　»
 
-〔296〕 Dictionary 　➔ Alarm Label Dictionary　» 328 333 349
+〔328〕 Calculate 〔327 Calculation Result〕 + 〔326 Calculation Result〕　»
+
+〔329〕 Calculate 〔328 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔330〕 Set Variable TravelTime to 〔329 Calculation Result〕
+
+〔331〕 End If　▵292
+
+〔332〕 End If　▵201
+
+〔333〕 Otherwise　▵106
+
+〔334〕 Number 0　»
+
+〔335〕 Set Variable TravelTime to 〔334 Number〕
+
+〔336〕 End If
+
+〔337〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
+
+〔338〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed Alarm Time　» 339 342 345 348 355 371 373 374 392 397 400
+• Duration: 〔337 Calculation Result〕 min
+
+〔339〕 Dictionary 　➔ Alarm Label Dictionary　» 371 376 392
 {  "Event": "〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
    "Location": "〔Repeat Item’s Location〕",
-   "AlarmTime": "〔295 Supposed Alarm Time〕"
+   "AlarmTime": "〔338 Supposed Alarm Time〕"
 }
 
-〔297〕 Date Current Date 　➔ Current Date　» 298 299 330
+〔340〕 Date Current Date 　➔ Current Date　» 341 342 373
 
-〔298〕 Adjust Add Date 〔297 Current Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM yyyy"}〕 　➔ 1 day after　» 312 331
+〔341〕 Adjust Add Date 〔340 Current Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM yyyy"}〕 　➔ 1 day after　» 355 374
 • Duration: "1" days
 
-〔299〕 If 〔295 Supposed Alarm Time〕 is 〔297 Current Date〕
+〔342〕 If 〔338 Supposed Alarm Time〕 is 〔340 Current Date〕
 
-〔300〕 Comment
+〔343〕 Comment
 supposed alarm time is exactly 12:00am
 
-〔301〕 If 〔Repeat Item’s Location〕 has any value
+〔344〕 If 〔Repeat Item’s Location〕 has any value
 
-〔302〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕 which  was supposed to get ready at 〔295 Supposed Alarm Time〕. Please check.
+〔345〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕 which  was supposed to get ready at 〔338 Supposed Alarm Time〕. Please check.
 
-〔303〕 Set Variable Text to 〔302 Text〕
+〔346〕 Set Variable Text to 〔345 Text〕
 
-〔304〕 Otherwise
+〔347〕 Otherwise
 
-〔305〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔295 Supposed Alarm Time〕. Please check.
+〔348〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔338 Supposed Alarm Time〕. Please check.
 
-〔306〕 Set Variable Text to 〔305 Text〕
+〔349〕 Set Variable Text to 〔348 Text〕
 
-〔307〕 End If
+〔350〕 End If
 
-〔308〕 Show Alert 〔Text〕
+〔351〕 Show Alert 〔Text〕
 
-〔309〕 Show Notification 〔Text〕
+〔352〕 Show Notification 〔Text〕
 
-〔310〕 Speak Text
+〔353〕 Speak Text
 • Text: 〔Text〕
 
-〔311〕 Otherwise　▵299
+〔354〕 Otherwise　▵342
 
-〔312〕 If 〔295 Supposed Alarm Time〕 is 〔298 1 day after〕
+〔355〕 If 〔338 Supposed Alarm Time〕 is 〔341 1 day after〕
 
-〔313〕 Find Alarm All Alarm　» 314 315
+〔356〕 Find Alarm All Alarm　» 357 358
 
-〔314〕 If 〔313 Alarms〕 has any value
+〔357〕 If 〔356 Alarms〕 has any value
 
-〔315〕 Repeat[2] with Each in 〔313 Alarms〕
+〔358〕 Repeat[2] with Each in 〔356 Alarms〕
 
-〔316〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 317 318 320
+〔359〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 360 361 363
 
-〔317〕 Get Dictionary Value for Event in 〔316 AlarmLabelDictionary〕 　➔ Event　» 322
+〔360〕 Get Dictionary Value for Event in 〔359 AlarmLabelDictionary〕 　➔ Event　» 365
 
-〔318〕 Get Dictionary Value for From in 〔316 AlarmLabelDictionary〕 　➔ From　»
+〔361〕 Get Dictionary Value for From in 〔359 AlarmLabelDictionary〕 　➔ From　»
 
-〔319〕 Get Dates from 〔318 From〕 　➔ FromDate　» 322
+〔362〕 Get Dates from 〔361 From〕 　➔ FromDate　» 365
 
-〔320〕 Get Dictionary Value for To in 〔316 AlarmLabelDictionary〕 　➔ To　»
+〔363〕 Get Dictionary Value for To in 〔359 AlarmLabelDictionary〕 　➔ To　»
 
-〔321〕 Get Dates from 〔320 To〕 　➔ ToDate　»
+〔364〕 Get Dates from 〔363 To〕 　➔ ToDate　»
 
-〔322〕 If All are true　〔317 Event’s Name〕 is 〔Repeat Item〕　〔319 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔321 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is • ConditionalActionString
+〔365〕 If All are true　〔360 Event’s Name〕 is 〔Repeat Item〕　〔362 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔364 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is • ConditionalActionString
 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕• Date
 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
 
-〔323〕 Delete Alarms
+〔366〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔324〕 End If
+〔367〕 End If
 
-〔325〕 End Repeat[2] with Each　▵315
+〔368〕 End Repeat[2] with Each　▵358
 
-〔326〕 End If　▵314
+〔369〕 End If　▵357
 
-〔327〕 Comment
+〔370〕 Comment
 since this will be triggered at 12:00 am each day, when the supposed alarm time is 12:00 am in the next day, you can set alarm now
 
-〔328〕 Add Alarm for 〔295 Supposed Alarm Time〕 called 〔296 Alarm Label Dictionary〕
+〔371〕 Add Alarm for 〔338 Supposed Alarm Time〕 called 〔339 Alarm Label Dictionary〕
 
-〔329〕 Otherwise　▵312
+〔372〕 Otherwise　▵355
 
-〔330〕 If 〔295 Supposed Alarm Time〕 > 〔297 Current Date〕
+〔373〕 If 〔338 Supposed Alarm Time〕 > 〔340 Current Date〕
 
-〔331〕 If 〔295 Supposed Alarm Time〕 > 〔298 1 day after〕
+〔374〕 If 〔338 Supposed Alarm Time〕 > 〔341 1 day after〕
 
-〔332〕 Comment
+〔375〕 Comment
 when the time is other than 12:00 am of then next day, you cannot set alarm yet. If set, it will be today. For example, triggering time 2025-4-8 12:00 am, the supposed alarm time is 2025-4-9 08:00 am, if you set an alarm at 08:00 at 2025-4-8 12:00 am, it will alarm at 2025-4-8 08:00 am instead. So we need to record the supposed alarm time and trigger next day.
 
-〔333〕 Set Variable Event to 〔296 Alarm Label Dictionary〕
+〔376〕 Set Variable Event to 〔339 Alarm Label Dictionary〕
 
-〔334〕 Otherwise
+〔377〕 Otherwise
 
-〔335〕 Find Alarm All Alarm　» 336 337
+〔378〕 Find Alarm All Alarm　» 379 380
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
       "WFContentPredicateBoundedDate": false,
@@ -1783,211 +1873,211 @@ when the time is other than 12:00 am of then next day, you cannot set alarm yet.
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔336〕 If 〔335 Alarms〕 has any value
+〔379〕 If 〔378 Alarms〕 has any value
 
-〔337〕 Repeat[2] with Each in 〔335 Alarms〕
+〔380〕 Repeat[2] with Each in 〔378 Alarms〕
 
-〔338〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 339 340 342
+〔381〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 382 383 385
 
-〔339〕 Get Dictionary Value for Event in 〔338 AlarmLabelDictionary〕 　➔ Event　» 344
+〔382〕 Get Dictionary Value for Event in 〔381 AlarmLabelDictionary〕 　➔ Event　» 387
 
-〔340〕 Get Dictionary Value for From in 〔338 AlarmLabelDictionary〕 　➔ From　»
+〔383〕 Get Dictionary Value for From in 〔381 AlarmLabelDictionary〕 　➔ From　»
 
-〔341〕 Get Dates from 〔340 From〕 　➔ FromDate　» 344
+〔384〕 Get Dates from 〔383 From〕 　➔ FromDate　» 387
 
-〔342〕 Get Dictionary Value for To in 〔338 AlarmLabelDictionary〕 　➔ To　»
+〔385〕 Get Dictionary Value for To in 〔381 AlarmLabelDictionary〕 　➔ To　»
 
-〔343〕 Get Dates from 〔342 To〕 　➔ ToDate　»
+〔386〕 Get Dates from 〔385 To〕 　➔ ToDate　»
 
-〔344〕 If All are true　〔339 Event’s Name〕 is 〔Repeat Item〕　〔341 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔343 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
+〔387〕 If All are true　〔382 Event’s Name〕 is 〔Repeat Item〕　〔384 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔386 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
 
-〔345〕 Delete Alarms
+〔388〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔346〕 End If
+〔389〕 End If
 
-〔347〕 End Repeat[2] with Each　▵337
+〔390〕 End Repeat[2] with Each　▵380
 
-〔348〕 End If　▵336
+〔391〕 End If　▵379
 
-〔349〕 Add Alarm for 〔295 Supposed Alarm Time〕 called 〔296 Alarm Label Dictionary〕
+〔392〕 Add Alarm for 〔338 Supposed Alarm Time〕 called 〔339 Alarm Label Dictionary〕
 
-〔350〕 End If　▵334
+〔393〕 End If　▵377
 
-〔351〕 Otherwise　▵330
+〔394〕 Otherwise　▵373
 
-〔352〕 Comment
+〔395〕 Comment
 the supposed alarm time passed
 
-〔353〕 If 〔Repeat Item’s Location〕 has any value
+〔396〕 If 〔Repeat Item’s Location〕 has any value
 
-〔354〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕 which  was supposed to get ready at 〔295 Supposed Alarm Time〕. Please check.
+〔397〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕 which  was supposed to get ready at 〔338 Supposed Alarm Time〕. Please check.
 
-〔355〕 Set Variable Text to 〔354 Text〕
+〔398〕 Set Variable Text to 〔397 Text〕
 
-〔356〕 Otherwise
+〔399〕 Otherwise
 
-〔357〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔295 Supposed Alarm Time〕. Please check.
+〔400〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔338 Supposed Alarm Time〕. Please check.
 
-〔358〕 Set Variable Text to 〔357 Text〕
+〔401〕 Set Variable Text to 〔400 Text〕
 
-〔359〕 End If
+〔402〕 End If
 
-〔360〕 Show Alert 〔Text〕
+〔403〕 Show Alert 〔Text〕
 
-〔361〕 Show Notification 〔Text〕
+〔404〕 Show Notification 〔Text〕
 
-〔362〕 Speak Text
+〔405〕 Speak Text
 • Text: 〔Text〕
 
-〔363〕 End If　▵351
+〔406〕 End If　▵394
 
-〔364〕 End If　▵329
+〔407〕 End If　▵372
 
-〔365〕 End If　▵311
+〔408〕 End If　▵354
 
-〔366〕 If 〔Event〕 has any value
+〔409〕 If 〔Event〕 has any value
 
-〔367〕 Get Dictionary from 〔Event〕　» 380
+〔410〕 Get Dictionary from 〔Event〕　» 423
 
-〔368〕 Text　»
+〔411〕 Text　»
 
-〔369〕 Set Variable TextList to 〔368 Text〕
+〔412〕 Set Variable TextList to 〔411 Text〕
 
-〔370〕 Add 〔Event〕 to Variable TextList
+〔413〕 Add 〔Event〕 to Variable TextList
 
-〔371〕 Get File at Path Smart Calendar Reminder/Future Alarms.txt from Folder　» 372 373
+〔414〕 Get File at Path Smart Calendar Reminder/Future Alarms.txt from Folder　» 415 416
 • FileErrorIfNotFound: false
 
-〔372〕 If 〔371 File’s File Size〕 has any value
+〔415〕 If 〔414 File’s File Size〕 has any value
 
-〔373〕 Split Text 〔371 File〕 by New Lines　»
+〔416〕 Split Text 〔414 File〕 by New Lines　»
 
-〔374〕 Repeat[2] with Each in 〔373 Split Text〕
+〔417〕 Repeat[2] with Each in 〔416 Split Text〕
 
-〔375〕 Get Dictionary from 〔Repeat Item 2〕　» 376 377 378 379
+〔418〕 Get Dictionary from 〔Repeat Item 2〕　» 419 420 421 422
 
-〔376〕 Get Dictionary Value for Event in 〔375 Dictionary〕 　➔ Event　» 380
+〔419〕 Get Dictionary Value for Event in 〔418 Dictionary〕 　➔ Event　» 423
 
-〔377〕 Get Dictionary Value for From in 〔375 Dictionary〕 　➔ From　» 380
+〔420〕 Get Dictionary Value for From in 〔418 Dictionary〕 　➔ From　» 423
 
-〔378〕 Get Dictionary Value for To in 〔375 Dictionary〕 　➔ To　» 380
+〔421〕 Get Dictionary Value for To in 〔418 Dictionary〕 　➔ To　» 423
 
-〔379〕 Get Dictionary Value for Location in 〔375 Dictionary〕 　➔ Location　»
+〔422〕 Get Dictionary Value for Location in 〔418 Dictionary〕 　➔ Location　»
 
-〔380〕 If Any are true　〔376 Event’s Name〕 is not 〔367 Dictionary.Event〕　〔377 From’s Name〕 is not 〔367 Dictionary.From〕　〔378 To’s Name〕 is not 〔367 Dictionary.To〕　〔379 Location’s Name〕 is not 〔367 Dictionary.Location〕
+〔423〕 If Any are true　〔419 Event’s Name〕 is not 〔410 Dictionary.Event〕　〔420 From’s Name〕 is not 〔410 Dictionary.From〕　〔421 To’s Name〕 is not 〔410 Dictionary.To〕　〔422 Location’s Name〕 is not 〔410 Dictionary.Location〕
 
-〔381〕 Add 〔Repeat Item 2〕 to Variable TextList
+〔424〕 Add 〔Repeat Item 2〕 to Variable TextList
 
-〔382〕 End If
+〔425〕 End If
 
-〔383〕 End Repeat[2] with Each　▵374
+〔426〕 End Repeat[2] with Each　▵417
 
-〔384〕 Combine Text 〔TextList〕 with New Lines　»
+〔427〕 Combine Text 〔TextList〕 with New Lines　»
 
-〔385〕 Save File 〔384 Combined Text〕
+〔428〕 Save File 〔427 Combined Text〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: Smart Calendar Reminder/Future Alarms.txt
 
-〔386〕 Otherwise　▵372
+〔429〕 Otherwise　▵415
 
-〔387〕 Text　»
+〔430〕 Text　»
 
 〔Event〕
 
-〔388〕 Save File 〔387 Text〕
+〔431〕 Save File 〔430 Text〕
 • AskWhereToSave: false
 • FileDestinationPath: Smart Calendar Reminder/Future Alarms.txt
 
-〔389〕 End If
+〔432〕 End If
 
-〔390〕 End If　▵366
+〔433〕 End If　▵409
 
-〔391〕 End Repeat with Each　▵105
+〔434〕 End Repeat with Each　▵105
 
-〔392〕 End If　▵104
+〔435〕 End If　▵104
 
-〔393〕 Get File at Path Smart Calendar Reminder/Future Alarms.txt from Folder　» 394 395
+〔436〕 Get File at Path Smart Calendar Reminder/Future Alarms.txt from Folder　» 437 438
 • FileErrorIfNotFound: false
 
-〔394〕 If 〔393 File’s File Size〕 has any value
+〔437〕 If 〔436 File’s File Size〕 has any value
 
-〔395〕 Split Text 〔393 File〕 by New Lines　»
+〔438〕 Split Text 〔436 File〕 by New Lines　»
 
-〔396〕 Repeat with Each in 〔395 Split Text〕
+〔439〕 Repeat with Each in 〔438 Split Text〕
 
-〔397〕 Get Dictionary from 〔Repeat Item〕　» 398 399 409 420
+〔440〕 Get Dictionary from 〔Repeat Item〕　» 441 442 452 463
 
-〔398〕 If 〔397 Dictionary〕 has any value
+〔441〕 If 〔440 Dictionary〕 has any value
 
-〔399〕 Get Dates from 〔397 Dictionary.AlarmTime〕　» 400 420
+〔442〕 Get Dates from 〔440 Dictionary.AlarmTime〕　» 443 463
 
-〔400〕 If 〔399 Dates〕 is today
+〔443〕 If 〔442 Dates〕 is today
 
-〔401〕 Find Alarm All Alarm　» 402 403
+〔444〕 Find Alarm All Alarm　» 445 446
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔402〕 If 〔401 Alarms〕 has any value
+〔445〕 If 〔444 Alarms〕 has any value
 
-〔403〕 Repeat[2] with Each in 〔401 Alarms〕
+〔446〕 Repeat[2] with Each in 〔444 Alarms〕
 
-〔404〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ Alarm_Label_Dictionary　» 405 407 415
+〔447〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ Alarm_Label_Dictionary　» 448 450 458
 
-〔405〕 Get Dictionary Value for From in 〔404 Alarm_Label_Dictionary〕　»
+〔448〕 Get Dictionary Value for From in 〔447 Alarm_Label_Dictionary〕　»
 
-〔406〕 Get Dates from 〔405 Dictionary Value〕 　➔ From_Date　» 415
+〔449〕 Get Dates from 〔448 Dictionary Value〕 　➔ From_Date　» 458
 
-〔407〕 Get Dictionary Value for To in 〔404 Alarm_Label_Dictionary〕　»
+〔450〕 Get Dictionary Value for To in 〔447 Alarm_Label_Dictionary〕　»
 
-〔408〕 Get Dates from 〔407 Dictionary Value〕 　➔ To_Date　» 415
+〔451〕 Get Dates from 〔450 Dictionary Value〕 　➔ To_Date　» 458
 
-〔409〕 Get Dictionary from 〔397 Dictionary.Event〕 　➔ FutureAlarmLabelDictionary　» 410 411 413
+〔452〕 Get Dictionary from 〔440 Dictionary.Event〕 　➔ FutureAlarmLabelDictionary　» 453 454 456
 
-〔410〕 Get Dictionary Value for Event in 〔409 FutureAlarmLabelDictionary〕 　➔ Event　» 415
+〔453〕 Get Dictionary Value for Event in 〔452 FutureAlarmLabelDictionary〕 　➔ Event　» 458
 
-〔411〕 Get Dictionary Value for From in 〔409 FutureAlarmLabelDictionary〕 　➔ From　»
+〔454〕 Get Dictionary Value for From in 〔452 FutureAlarmLabelDictionary〕 　➔ From　»
 
-〔412〕 Get Dates from 〔411 From〕 　➔ FromDate　» 415
+〔455〕 Get Dates from 〔454 From〕 　➔ FromDate　» 458
 
-〔413〕 Get Dictionary Value for To in 〔409 FutureAlarmLabelDictionary〕 　➔ To　»
+〔456〕 Get Dictionary Value for To in 〔452 FutureAlarmLabelDictionary〕 　➔ To　»
 
-〔414〕 Get Dates from 〔413 To〕 　➔ ToDate　»
+〔457〕 Get Dates from 〔456 To〕 　➔ ToDate　»
 
-〔415〕 If All are true　〔410 Event’s Name〕 is 〔404 Alarm_Label_Dictionary.Event〕　〔412 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔406 From_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔414 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔408 To_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
+〔458〕 If All are true　〔453 Event’s Name〕 is 〔447 Alarm_Label_Dictionary.Event〕　〔455 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔449 From_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔457 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔451 To_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
 
-〔416〕 Delete Alarms
+〔459〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔417〕 End If
+〔460〕 End If
 
-〔418〕 End Repeat[2] with Each　▵403
+〔461〕 End Repeat[2] with Each　▵446
 
-〔419〕 End If　▵402
+〔462〕 End If　▵445
 
-〔420〕 Add Alarm for 〔399 Dates〕 called 〔397 Dictionary.Event〕
+〔463〕 Add Alarm for 〔442 Dates〕 called 〔440 Dictionary.Event〕
 
-〔421〕 End If　▵400
+〔464〕 End If　▵443
 
-〔422〕 End If　▵398
+〔465〕 End If　▵441
 
-〔423〕 End Repeat with Each　▵396
+〔466〕 End Repeat with Each　▵439
 
-〔424〕 End If　▵394
+〔467〕 End If　▵437
 
-〔425〕 End If　▵92
+〔468〕 End If　▵92
 
-〔426〕 If 〔Shortcut Input as Number〕 is 2
+〔469〕 If 〔Shortcut Input as Number〕 is 2
 
-〔427〕 Comment
+〔470〕 Comment
 1-Hour Event Processor
 *Real-time event handler for immediate notifications:
 
@@ -1997,27 +2087,27 @@ Provides most accurate travel estimates
 
 Recommended for hourly automation*
 
-〔428〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
+〔471〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
 • FileErrorIfNotFound: false
 
-〔429〕 Get Dictionary from 〔428 File〕　» 430 433 434
+〔472〕 Get Dictionary from 〔471 File〕　» 473 476 477
 
-〔430〕 Get Dictionary from 〔429 Dictionary.HomeAddress〕　»
+〔473〕 Get Dictionary from 〔472 Dictionary.HomeAddress〕　»
 
-〔431〕 Text　»
-〔430 Dictionary.street〕 〔430 Dictionary.city〕 〔430 Dictionary.state〕 〔430 Dictionary.postcode〕 〔430 Dictionary.country〕
+〔474〕 Text　»
+〔473 Dictionary.street〕 〔473 Dictionary.city〕 〔473 Dictionary.state〕 〔473 Dictionary.postcode〕 〔473 Dictionary.country〕
 
-〔432〕 Set Variable Home_Address to 〔431 Text〕
+〔475〕 Set Variable Home_Address to 〔474 Text〕
 
-〔433〕 Set Variable Travel_Method to 〔429 Dictionary.TravelMethod〕
+〔476〕 Set Variable Travel_Method to 〔472 Dictionary.TravelMethod〕
 
-〔434〕 Get Dictionary Value for ExtraTime in 〔429 Dictionary〕　»
+〔477〕 Get Dictionary Value for ExtraTime in 〔472 Dictionary〕　»
 
-〔435〕 Get Numbers from 〔434 Dictionary Value〕　»
+〔478〕 Get Numbers from 〔477 Dictionary Value〕　»
 
-〔436〕 Set Variable Extra_Time to 〔435 Numbers〕
+〔479〕 Set Variable Extra_Time to 〔478 Numbers〕
 
-〔437〕 Find Calendar Events All Calendar Events where　» 438 439 440 652
+〔480〕 Find Calendar Events All Calendar Events where　» 481 482 483 750
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
@@ -2025,393 +2115,508 @@ Start Date is in the next 1 hours
 Is Not All Day
 Canceled is {"Bool":false}
 
-〔438〕 If 〔437 Calendar Events〕 has any value
+〔481〕 If 〔480 Calendar Events〕 has any value
 
-〔439〕 Count Items in 〔437 Calendar Events〕　» 656 664
+〔482〕 Count Items in 〔480 Calendar Events〕　» 754 762
 
-〔440〕 Repeat with Each in 〔437 Calendar Events〕
+〔483〕 Repeat with Each in 〔480 Calendar Events〕
 
-〔441〕 If 〔Repeat Item’s Location〕 has any value
+〔484〕 If 〔Repeat Item’s Location〕 has any value
 
-〔442〕 Get Current Location　» 453 459 523
+〔485〕 Get Current Location　» 496 502 588
 • Accuracy: Best
 
-〔443〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
+〔486〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
 
-〔444〕 Comment
+〔487〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
 
-〔445〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ NotesAddressDictionary　» 446 447 448 449 450
+〔488〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ NotesAddressDictionary　» 489 490 491 492 493
 
-〔446〕 Set Variable CalendarNotesStreet to 〔445 NotesAddressDictionary.Street〕
+〔489〕 Set Variable CalendarNotesStreet to 〔488 NotesAddressDictionary.Street〕
 
-〔447〕 Set Variable CalendarNotesCity to 〔445 NotesAddressDictionary.City〕
+〔490〕 Set Variable CalendarNotesCity to 〔488 NotesAddressDictionary.City〕
 
-〔448〕 Set Variable CalendarNotesState to 〔445 NotesAddressDictionary.State〕
+〔491〕 Set Variable CalendarNotesState to 〔488 NotesAddressDictionary.State〕
 
-〔449〕 Set Variable CalendarNotesRegion to 〔445 NotesAddressDictionary.Country〕
+〔492〕 Set Variable CalendarNotesRegion to 〔488 NotesAddressDictionary.Country〕
 
-〔450〕 Set Variable CalendarNotesZIPCode to 〔445 NotesAddressDictionary.Postcode〕
+〔493〕 Set Variable CalendarNotesZIPCode to 〔488 NotesAddressDictionary.Postcode〕
 
-〔451〕 Text　»
+〔494〕 Text　»
 〔CalendarNotesStreet〕 〔CalendarNotesCity〕 〔CalendarNotesState〕 〔CalendarNotesZIPCode〕 〔CalendarNotesRegion〕
 
-〔452〕 Set Variable NotesAddressString to 〔451 Text〕
+〔495〕 Set Variable NotesAddressString to 〔494 Text〕
 
-〔453〕 If All are true　〔442 Current Location’s Street〕 is 〔CalendarNotesStreet〕　〔442 Current Location’s City〕 is 〔CalendarNotesCity〕　〔442 Current Location’s State〕 is 〔CalendarNotesState〕　〔442 Current Location’s Country〕 is 〔CalendarNotesRegion〕　〔442 Current Location’s ZIP Code〕 is 〔CalendarNotesZIPCode〕
+〔496〕 If All are true　〔485 Current Location’s Street〕 is 〔CalendarNotesStreet〕　〔485 Current Location’s City〕 is 〔CalendarNotesCity〕　〔485 Current Location’s State〕 is 〔CalendarNotesState〕　〔485 Current Location’s Country〕 is 〔CalendarNotesRegion〕　〔485 Current Location’s ZIP Code〕 is 〔CalendarNotesZIPCode〕
 
-〔454〕 Comment
+〔497〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
 
-〔455〕 Number 0　»
+〔498〕 Number 0　»
 
-〔456〕 Set Variable CurrentToDeparture to 〔455 Number〕
+〔499〕 Set Variable CurrentToDeparture to 〔498 Number〕
 
-〔457〕 Otherwise
+〔500〕 Otherwise
 
-〔458〕 Comment
+〔501〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔459〕 Get 〔TravelMethod〕 Time　»
-• GetDirectionsCustomLocation: 〔442 Current Location〕
+〔502〕 Get 〔TravelMethod〕 Time　»
+• GetDirectionsCustomLocation: 〔485 Current Location〕
 • Destination: 〔NotesAddressString〕
 
-〔460〕 Set Variable TravelTimeString to 〔459 Travel Time〕
+〔503〕 Set Variable TravelTimeString to 〔502 Travel Time〕
 
-〔461〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 462 464 466 471 478
+〔504〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔462〕 Count Items in 〔461 C2DMatches〕　»
+〔505〕 Set Variable MatchString to 〔504 Matches〕
 
-〔463〕 If 〔462 Count〕 > 1
+〔506〕 Count Items in 〔MatchString〕　»
 
-〔464〕 Get First Item from List 〔461 C2DMatches〕　»
+〔507〕 If 〔506 Count〕 is 1
 
-〔465〕 Set Variable C2DHours to 〔464 Item from List〕
+〔508〕 Get First Item from List 〔MatchString〕　»
 
-〔466〕 Get Last Item from List 〔461 C2DMatches〕　»
+〔509〕 Set Variable TravelDays to 〔508 Item from List〕
 
-〔467〕 Set Variable C2DMinutes to 〔466 Item from List〕
+〔510〕 Otherwise
 
-〔468〕 Otherwise
+〔511〕 Number 0　»
 
-〔469〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔512〕 Set Variable TravelDays to 〔511 Number〕
 
-〔470〕 If 〔469 C2DMatches’s text〕 has any value
+〔513〕 End If
 
-〔471〕 Get First Item from List 〔461 C2DMatches〕　»
+〔514〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔472〕 Set Variable C2DHours to 〔471 Item from List〕
+〔515〕 Set Variable MatchString to 〔514 Matches〕
 
-〔473〕 Number 0　»
+〔516〕 Count Items in 〔MatchString〕　»
 
-〔474〕 Set Variable C2DMinutes to 〔473 Number〕
+〔517〕 If 〔516 Count〕 is 1
 
-〔475〕 Otherwise
+〔518〕 Get First Item from List 〔MatchString〕　»
 
-〔476〕 Number 0　»
+〔519〕 Set Variable TravelHours to 〔518 Item from List〕
 
-〔477〕 Set Variable C2DHours to 〔476 Number〕
+〔520〕 Otherwise
 
-〔478〕 Get First Item from List 〔461 C2DMatches〕　»
+〔521〕 Number 0　»
 
-〔479〕 Set Variable C2DMinutes to 〔478 Item from List〕
+〔522〕 Set Variable TravelHours to 〔521 Number〕
 
-〔480〕 End If
+〔523〕 End If
 
-〔481〕 End If　▵468
+〔524〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔482〕 Calculate 〔C2DHours〕 × 60　»
+〔525〕 Set Variable MatchString to 〔524 Matches〕
 
-〔483〕 Calculate 〔482 Calculation Result〕 + 〔C2DMinutes〕　»
+〔526〕 Count Items in 〔MatchString〕　»
 
-〔484〕 Set Variable CurrentToDeparture to 〔483 Calculation Result〕
+〔527〕 If 〔526 Count〕 is 1
 
-〔485〕 End If　▵457
+〔528〕 Get First Item from List 〔MatchString〕　»
 
-〔486〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+〔529〕 Set Variable TravelMinutes to 〔528 Item from List〕
+
+〔530〕 Otherwise
+
+〔531〕 Number 0　»
+
+〔532〕 Set Variable TravelMinutes to 〔531 Number〕
+
+〔533〕 End If
+
+〔534〕 Calculate 〔TravelDays〕 × 1440　» 536
+
+〔535〕 Calculate 〔TravelHours〕 × 60　»
+
+〔536〕 Calculate 〔535 Calculation Result〕 + 〔534 Calculation Result〕　»
+
+〔537〕 Calculate 〔536 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔538〕 Set Variable CurrentToDeparture to 〔537 Calculation Result〕
+
+〔539〕 End If　▵500
+
+〔540〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
 • GetDirectionsCustomLocation: 〔NotesAddressString〕
 • Destination: 〔Repeat Item’s Location〕
 
-〔487〕 Set Variable TravelTimeString to 〔486 DepartureToDestination〕
+〔541〕 Set Variable TravelTimeString to 〔540 DepartureToDestination〕
 
-〔488〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 489 491 493 498 505
+〔542〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔489〕 Count Items in 〔488 C2DMatches〕　»
+〔543〕 Set Variable MatchString to 〔542 Matches〕
 
-〔490〕 If 〔489 Count〕 > 1
+〔544〕 Count Items in 〔MatchString〕　»
 
-〔491〕 Get First Item from List 〔488 C2DMatches〕　»
+〔545〕 If 〔544 Count〕 is 1
 
-〔492〕 Set Variable C2DHours to 〔491 Item from List〕
+〔546〕 Get First Item from List 〔MatchString〕　»
 
-〔493〕 Get Last Item from List 〔488 C2DMatches〕　»
+〔547〕 Set Variable TravelDays to 〔546 Item from List〕
 
-〔494〕 Set Variable C2DMinutes to 〔493 Item from List〕
+〔548〕 Otherwise
 
-〔495〕 Otherwise
+〔549〕 Number 0　»
 
-〔496〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔550〕 Set Variable TravelDays to 〔549 Number〕
 
-〔497〕 If 〔496 C2DMatches’s text〕 has any value
+〔551〕 End If
 
-〔498〕 Get First Item from List 〔488 C2DMatches〕　»
+〔552〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔499〕 Set Variable C2DHours to 〔498 Item from List〕
+〔553〕 Set Variable MatchString to 〔552 Matches〕
 
-〔500〕 Number 0　»
+〔554〕 Count Items in 〔MatchString〕　»
 
-〔501〕 Set Variable C2DMinutes to 〔500 Number〕
+〔555〕 If 〔554 Count〕 is 1
 
-〔502〕 Otherwise
+〔556〕 Get First Item from List 〔MatchString〕　»
 
-〔503〕 Number 0　»
+〔557〕 Set Variable TravelHours to 〔556 Item from List〕
 
-〔504〕 Set Variable C2DHours to 〔503 Number〕
+〔558〕 Otherwise
 
-〔505〕 Get First Item from List 〔488 C2DMatches〕　»
+〔559〕 Number 0　»
 
-〔506〕 Set Variable C2DMinutes to 〔505 Item from List〕
+〔560〕 Set Variable TravelHours to 〔559 Number〕
 
-〔507〕 End If
+〔561〕 End If
 
-〔508〕 End If　▵495
+〔562〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔509〕 Calculate 〔C2DHours〕 × 60　»
+〔563〕 Set Variable MatchString to 〔562 Matches〕
 
-〔510〕 Calculate 〔509 Calculation Result〕 + 〔C2DMinutes〕　»
+〔564〕 Count Items in 〔MatchString〕　»
 
-〔511〕 Calculate 〔510 Calculation Result〕 + 〔CurrentToDeparture〕　»
+〔565〕 If 〔564 Count〕 is 1
 
-〔512〕 Set Variable TravelTime to 〔511 Calculation Result〕
+〔566〕 Get First Item from List 〔MatchString〕　»
 
-〔513〕 Otherwise　▵443
+〔567〕 Set Variable TravelMinutes to 〔566 Item from List〕
 
-〔514〕 Comment
+〔568〕 Otherwise
+
+〔569〕 Number 0　»
+
+〔570〕 Set Variable TravelMinutes to 〔569 Number〕
+
+〔571〕 End If
+
+〔572〕 Calculate 〔TravelDays〕 × 1440　» 574
+
+〔573〕 Calculate 〔TravelHours〕 × 60　»
+
+〔574〕 Calculate 〔573 Calculation Result〕 + 〔572 Calculation Result〕　»
+
+〔575〕 Calculate 〔574 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔576〕 Calculate 〔575 Calculation Result〕 + 〔CurrentToDeparture〕　»
+
+〔577〕 Set Variable TravelTime to 〔576 Calculation Result〕
+
+〔578〕 Otherwise　▵486
+
+〔579〕 Comment
 CALENDER EVENT NOTES IS BLANK
 
-〔515〕 Get Dictionary from 〔HomeAddress〕 　➔ home_address_dictionary　» 516 517 518 519 520
+〔580〕 Get Dictionary from 〔HomeAddress〕 　➔ home_address_dictionary　» 581 582 583 584 585
 
-〔516〕 Get Dictionary Value for street in 〔515 home_address_dictionary〕 　➔ HomeStreet　» 521 523
+〔581〕 Get Dictionary Value for street in 〔580 home_address_dictionary〕 　➔ HomeStreet　» 586 588
 
-〔517〕 Get Dictionary Value for city in 〔515 home_address_dictionary〕 　➔ HomeCity　» 521 523
+〔582〕 Get Dictionary Value for city in 〔580 home_address_dictionary〕 　➔ HomeCity　» 586 588
 
-〔518〕 Get Dictionary Value for state in 〔515 home_address_dictionary〕 　➔ HomeState　» 521 523
+〔583〕 Get Dictionary Value for state in 〔580 home_address_dictionary〕 　➔ HomeState　» 586 588
 
-〔519〕 Get Dictionary Value for country in 〔515 home_address_dictionary〕 　➔ HomeCountry　» 521 523
+〔584〕 Get Dictionary Value for country in 〔580 home_address_dictionary〕 　➔ HomeCountry　» 586 588
 
-〔520〕 Get Dictionary Value for postcode in 〔515 home_address_dictionary〕 　➔ HomePostcode　» 521 523
+〔585〕 Get Dictionary Value for postcode in 〔580 home_address_dictionary〕 　➔ HomePostcode　» 586 588
 
-〔521〕 If All are true　〔516 HomeStreet〕 has any value　〔517 HomeCity〕 has any value　〔518 HomeState〕 has any value　〔519 HomeCountry〕 has any value　〔520 HomePostcode〕 has any value
+〔586〕 If All are true　〔581 HomeStreet〕 has any value　〔582 HomeCity〕 has any value　〔583 HomeState〕 has any value　〔584 HomeCountry〕 has any value　〔585 HomePostcode〕 has any value
 
-〔522〕 Comment
+〔587〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
 
-〔523〕 If All are true　〔442 Current Location’s Street〕 is 〔516 HomeStreet〕　〔442 Current Location’s City〕 is 〔517 HomeCity〕　〔442 Current Location’s State〕 is 〔518 HomeState〕　〔442 Current Location’s Country〕 is 〔519 HomeCountry〕　〔442 Current Location’s ZIP Code〕 is 〔520 HomePostcode〕
+〔588〕 If All are true　〔485 Current Location’s Street〕 is 〔581 HomeStreet〕　〔485 Current Location’s City〕 is 〔582 HomeCity〕　〔485 Current Location’s State〕 is 〔583 HomeState〕　〔485 Current Location’s Country〕 is 〔584 HomeCountry〕　〔485 Current Location’s ZIP Code〕 is 〔585 HomePostcode〕
 
-〔524〕 Comment
+〔589〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
 
-〔525〕 Number 0　»
+〔590〕 Number 0　»
 
-〔526〕 Set Variable CurrentToDeparture to 〔525 Number〕
+〔591〕 Set Variable CurrentToDeparture to 〔590 Number〕
 
-〔527〕 Otherwise
+〔592〕 Otherwise
 
-〔528〕 Comment
+〔593〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔529〕 Get 〔TravelMethod〕 Time　»
+〔594〕 Get 〔TravelMethod〕 Time　»
 • Destination: 〔HomeAddress〕
 
-〔530〕 Set Variable TravelTimeString to 〔529 Travel Time〕
+〔595〕 Set Variable TravelTimeString to 〔594 Travel Time〕
 
-〔531〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 532 534 536 541 548
+〔596〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔532〕 Count Items in 〔531 C2DMatches〕　»
+〔597〕 Set Variable MatchString to 〔596 Matches〕
 
-〔533〕 If 〔532 Count〕 > 1
+〔598〕 Count Items in 〔MatchString〕　»
 
-〔534〕 Get First Item from List 〔531 C2DMatches〕　»
+〔599〕 If 〔598 Count〕 is 1
 
-〔535〕 Set Variable C2DHours to 〔534 Item from List〕
+〔600〕 Get First Item from List 〔MatchString〕　»
 
-〔536〕 Get Last Item from List 〔531 C2DMatches〕　»
+〔601〕 Set Variable TravelDays to 〔600 Item from List〕
 
-〔537〕 Set Variable C2DMinutes to 〔536 Item from List〕
+〔602〕 Otherwise
 
-〔538〕 Otherwise
+〔603〕 Number 0　»
 
-〔539〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔604〕 Set Variable TravelDays to 〔603 Number〕
 
-〔540〕 If 〔539 C2DMatches’s text〕 has any value
+〔605〕 End If
 
-〔541〕 Get First Item from List 〔531 C2DMatches〕　»
+〔606〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔542〕 Set Variable C2DHours to 〔541 Item from List〕
+〔607〕 Set Variable MatchString to 〔606 Matches〕
 
-〔543〕 Number 0　»
+〔608〕 Count Items in 〔MatchString〕　»
 
-〔544〕 Set Variable C2DMinutes to 〔543 Number〕
+〔609〕 If 〔608 Count〕 is 1
 
-〔545〕 Otherwise
+〔610〕 Get First Item from List 〔MatchString〕　»
 
-〔546〕 Number 0　»
+〔611〕 Set Variable TravelHours to 〔610 Item from List〕
 
-〔547〕 Set Variable C2DHours to 〔546 Number〕
+〔612〕 Otherwise
 
-〔548〕 Get First Item from List 〔531 C2DMatches〕　»
+〔613〕 Number 0　»
 
-〔549〕 Set Variable C2DMinutes to 〔548 Item from List〕
+〔614〕 Set Variable TravelHours to 〔613 Number〕
 
-〔550〕 End If
+〔615〕 End If
 
-〔551〕 End If　▵538
+〔616〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔552〕 Calculate 〔C2DHours〕 × 60　»
+〔617〕 Set Variable MatchString to 〔616 Matches〕
 
-〔553〕 Calculate 〔552 Calculation Result〕 + 〔C2DMinutes〕　»
+〔618〕 Count Items in 〔MatchString〕　»
 
-〔554〕 Set Variable CurrentToDeparture to 〔553 Calculation Result〕
+〔619〕 If 〔618 Count〕 is 1
 
-〔555〕 End If　▵527
+〔620〕 Get First Item from List 〔MatchString〕　»
 
-〔556〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+〔621〕 Set Variable TravelMinutes to 〔620 Item from List〕
+
+〔622〕 Otherwise
+
+〔623〕 Number 0　»
+
+〔624〕 Set Variable TravelMinutes to 〔623 Number〕
+
+〔625〕 End If
+
+〔626〕 Calculate 〔TravelDays〕 × 1440　» 628
+
+〔627〕 Calculate 〔TravelHours〕 × 60　»
+
+〔628〕 Calculate 〔627 Calculation Result〕 + 〔626 Calculation Result〕　»
+
+〔629〕 Calculate 〔628 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔630〕 Set Variable CurrentToDeparture to 〔629 Calculation Result〕
+
+〔631〕 End If　▵592
+
+〔632〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
 • GetDirectionsCustomLocation: 〔HomeAddress〕
 • Destination: 〔Repeat Item’s Location〕
 
-〔557〕 Set Variable TravelTimeString to 〔556 DepartureToDestination〕
+〔633〕 Set Variable TravelTimeString to 〔632 DepartureToDestination〕
 
-〔558〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 559 561 563 568 575
+〔634〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔559〕 Count Items in 〔558 C2DMatches〕　»
+〔635〕 Set Variable MatchString to 〔634 Matches〕
 
-〔560〕 If 〔559 Count〕 > 1
+〔636〕 Count Items in 〔MatchString〕　»
 
-〔561〕 Get First Item from List 〔558 C2DMatches〕　»
+〔637〕 If 〔636 Count〕 is 1
 
-〔562〕 Set Variable C2DHours to 〔561 Item from List〕
+〔638〕 Get First Item from List 〔MatchString〕　»
 
-〔563〕 Get Last Item from List 〔558 C2DMatches〕　»
+〔639〕 Set Variable TravelDays to 〔638 Item from List〕
 
-〔564〕 Set Variable C2DMinutes to 〔563 Item from List〕
+〔640〕 Otherwise
 
-〔565〕 Otherwise
+〔641〕 Number 0　»
 
-〔566〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔642〕 Set Variable TravelDays to 〔641 Number〕
 
-〔567〕 If 〔566 C2DMatches’s text〕 has any value
+〔643〕 End If
 
-〔568〕 Get First Item from List 〔558 C2DMatches〕　»
+〔644〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔569〕 Set Variable C2DHours to 〔568 Item from List〕
+〔645〕 Set Variable MatchString to 〔644 Matches〕
 
-〔570〕 Number 0　»
+〔646〕 Count Items in 〔MatchString〕　»
 
-〔571〕 Set Variable C2DMinutes to 〔570 Number〕
+〔647〕 If 〔646 Count〕 is 1
 
-〔572〕 Otherwise
+〔648〕 Get First Item from List 〔MatchString〕　»
 
-〔573〕 Number 0　»
+〔649〕 Set Variable TravelHours to 〔648 Item from List〕
 
-〔574〕 Set Variable C2DHours to 〔573 Number〕
+〔650〕 Otherwise
 
-〔575〕 Get First Item from List 〔558 C2DMatches〕　»
+〔651〕 Number 0　»
 
-〔576〕 Set Variable C2DMinutes to 〔575 Item from List〕
+〔652〕 Set Variable TravelHours to 〔651 Number〕
 
-〔577〕 End If
+〔653〕 End If
 
-〔578〕 End If　▵565
+〔654〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔579〕 Calculate 〔C2DHours〕 × 60　»
+〔655〕 Set Variable MatchString to 〔654 Matches〕
 
-〔580〕 Calculate 〔579 Calculation Result〕 + 〔C2DMinutes〕　»
+〔656〕 Count Items in 〔MatchString〕　»
 
-〔581〕 Calculate 〔580 Calculation Result〕 + 〔CurrentToDeparture〕　»
+〔657〕 If 〔656 Count〕 is 1
 
-〔582〕 Set Variable TravelTime to 〔581 Calculation Result〕
+〔658〕 Get First Item from List 〔MatchString〕　»
 
-〔583〕 Otherwise　▵521
+〔659〕 Set Variable TravelMinutes to 〔658 Item from List〕
 
-〔584〕 Text
+〔660〕 Otherwise
+
+〔661〕 Number 0　»
+
+〔662〕 Set Variable TravelMinutes to 〔661 Number〕
+
+〔663〕 End If
+
+〔664〕 Calculate 〔TravelDays〕 × 1440　» 666
+
+〔665〕 Calculate 〔TravelHours〕 × 60　»
+
+〔666〕 Calculate 〔665 Calculation Result〕 + 〔664 Calculation Result〕　»
+
+〔667〕 Calculate 〔666 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔668〕 Calculate 〔667 Calculation Result〕 + 〔CurrentToDeparture〕　»
+
+〔669〕 Set Variable TravelTime to 〔668 Calculation Result〕
+
+〔670〕 Otherwise　▵586
+
+〔671〕 Text
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 
-〔585〕 Get 〔TravelMethod〕 Time　»
+〔672〕 Get 〔TravelMethod〕 Time　»
 • Destination: 〔Repeat Item’s Location〕
 
-〔586〕 Set Variable TravelTimeString to 〔585 Travel Time〕
+〔673〕 Set Variable TravelTimeString to 〔672 Travel Time〕
 
-〔587〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 588 590 592 597 604
+〔674〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔588〕 Count Items in 〔587 C2DMatches〕　»
+〔675〕 Set Variable MatchString to 〔674 Matches〕
 
-〔589〕 If 〔588 Count〕 > 1
+〔676〕 Count Items in 〔MatchString〕　»
 
-〔590〕 Get First Item from List 〔587 C2DMatches〕　»
+〔677〕 If 〔676 Count〕 is 1
 
-〔591〕 Set Variable C2DHours to 〔590 Item from List〕
+〔678〕 Get First Item from List 〔MatchString〕　»
 
-〔592〕 Get Last Item from List 〔587 C2DMatches〕　»
+〔679〕 Set Variable TravelDays to 〔678 Item from List〕
 
-〔593〕 Set Variable C2DMinutes to 〔592 Item from List〕
+〔680〕 Otherwise
 
-〔594〕 Otherwise
+〔681〕 Number 0　»
 
-〔595〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔682〕 Set Variable TravelDays to 〔681 Number〕
 
-〔596〕 If 〔595 C2DMatches’s text〕 has any value
+〔683〕 End If
 
-〔597〕 Get First Item from List 〔587 C2DMatches〕　»
+〔684〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔598〕 Set Variable C2DHours to 〔597 Item from List〕
+〔685〕 Set Variable MatchString to 〔684 Matches〕
 
-〔599〕 Number 0　»
+〔686〕 Count Items in 〔MatchString〕　»
 
-〔600〕 Set Variable C2DMinutes to 〔599 Number〕
+〔687〕 If 〔686 Count〕 is 1
 
-〔601〕 Otherwise
+〔688〕 Get First Item from List 〔MatchString〕　»
 
-〔602〕 Number 0　»
+〔689〕 Set Variable TravelHours to 〔688 Item from List〕
 
-〔603〕 Set Variable C2DHours to 〔602 Number〕
+〔690〕 Otherwise
 
-〔604〕 Get First Item from List 〔587 C2DMatches〕　»
+〔691〕 Number 0　»
 
-〔605〕 Set Variable C2DMinutes to 〔604 Item from List〕
+〔692〕 Set Variable TravelHours to 〔691 Number〕
 
-〔606〕 End If
+〔693〕 End If
 
-〔607〕 End If　▵594
+〔694〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔608〕 Calculate 〔C2DHours〕 × 60　»
+〔695〕 Set Variable MatchString to 〔694 Matches〕
 
-〔609〕 Calculate 〔608 Calculation Result〕 + 〔C2DMinutes〕　»
+〔696〕 Count Items in 〔MatchString〕　»
 
-〔610〕 Set Variable TravelTime to 〔609 Calculation Result〕
+〔697〕 If 〔696 Count〕 is 1
 
-〔611〕 End If　▵583
+〔698〕 Get First Item from List 〔MatchString〕　»
 
-〔612〕 End If　▵513
+〔699〕 Set Variable TravelMinutes to 〔698 Item from List〕
 
-〔613〕 Otherwise　▵441
+〔700〕 Otherwise
 
-〔614〕 Number 0　»
+〔701〕 Number 0　»
 
-〔615〕 Set Variable TravelTime to 〔614 Number〕
+〔702〕 Set Variable TravelMinutes to 〔701 Number〕
 
-〔616〕 End If
+〔703〕 End If
 
-〔617〕 Find Alarm All Alarm　» 618 619
+〔704〕 Calculate 〔TravelDays〕 × 1440　» 706
+
+〔705〕 Calculate 〔TravelHours〕 × 60　»
+
+〔706〕 Calculate 〔705 Calculation Result〕 + 〔704 Calculation Result〕　»
+
+〔707〕 Calculate 〔706 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔708〕 Set Variable TravelTime to 〔707 Calculation Result〕
+
+〔709〕 End If　▵670
+
+〔710〕 End If　▵578
+
+〔711〕 Otherwise　▵484
+
+〔712〕 Number 0　»
+
+〔713〕 Set Variable TravelTime to 〔712 Number〕
+
+〔714〕 End If
+
+〔715〕 Find Alarm All Alarm　» 716 717
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
       "WFContentPredicateBoundedDate": false,
@@ -2420,275 +2625,275 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔618〕 If 〔617 Alarms〕 has any value
+〔716〕 If 〔715 Alarms〕 has any value
 
-〔619〕 Repeat[2] with Each in 〔617 Alarms〕
+〔717〕 Repeat[2] with Each in 〔715 Alarms〕
 
-〔620〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 621 622 624
+〔718〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 719 720 722
 
-〔621〕 Get Dictionary Value for Event in 〔620 AlarmLabelDictionary〕 　➔ Event　» 626
+〔719〕 Get Dictionary Value for Event in 〔718 AlarmLabelDictionary〕 　➔ Event　» 724
 
-〔622〕 Get Dictionary Value for From in 〔620 AlarmLabelDictionary〕 　➔ From　»
+〔720〕 Get Dictionary Value for From in 〔718 AlarmLabelDictionary〕 　➔ From　»
 
-〔623〕 Get Dates from 〔622 From〕 　➔ FromDate　» 626
+〔721〕 Get Dates from 〔720 From〕 　➔ FromDate　» 724
 
-〔624〕 Get Dictionary Value for To in 〔620 AlarmLabelDictionary〕 　➔ To　»
+〔722〕 Get Dictionary Value for To in 〔718 AlarmLabelDictionary〕 　➔ To　»
 
-〔625〕 Get Dates from 〔624 To〕 　➔ ToDate　»
+〔723〕 Get Dates from 〔722 To〕 　➔ ToDate　»
 
-〔626〕 If All are true　〔621 Event’s Name〕 is 〔Repeat Item〕　〔623 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕　〔625 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
+〔724〕 If All are true　〔719 Event’s Name〕 is 〔Repeat Item〕　〔721 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕　〔723 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
 
-〔627〕 Delete Alarms
+〔725〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔628〕 End If
+〔726〕 End If
 
-〔629〕 End Repeat[2] with Each　▵619
+〔727〕 End Repeat[2] with Each　▵717
 
-〔630〕 End If　▵618
+〔728〕 End If　▵716
 
-〔631〕 Calculate 〔TravelTime〕 + 〔Extra_Time〕　»
+〔729〕 Calculate 〔TravelTime〕 + 〔Extra_Time〕　»
 
-〔632〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed_Alarm_Time　» 634 636 639 646 647
-• Duration: 〔631 Calculation Result〕 min
+〔730〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed_Alarm_Time　» 732 734 737 744 745
+• Duration: 〔729 Calculation Result〕 min
 
-〔633〕 Date Current Date　»
+〔731〕 Date Current Date　»
 
-〔634〕 If Any are true　〔632 Supposed_Alarm_Time〕 < 〔633 Date〕　〔632 Supposed_Alarm_Time〕 is 〔633 Date〕
+〔732〕 If Any are true　〔730 Supposed_Alarm_Time〕 < 〔731 Date〕　〔730 Supposed_Alarm_Time〕 is 〔731 Date〕
 
-〔635〕 If 〔Repeat Item’s Location〕 has any value
+〔733〕 If 〔Repeat Item’s Location〕 has any value
 
-〔636〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕  which  was supposed to get ready at 〔632 Supposed_Alarm_Time〕. Please check.
+〔734〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕  which  was supposed to get ready at 〔730 Supposed_Alarm_Time〕. Please check.
 
-〔637〕 Set Variable Text to 〔636 Text〕
+〔735〕 Set Variable Text to 〔734 Text〕
 
-〔638〕 Otherwise
+〔736〕 Otherwise
 
-〔639〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔632 Supposed_Alarm_Time〕. Please check.
+〔737〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔730 Supposed_Alarm_Time〕. Please check.
 
-〔640〕 Set Variable Text to 〔639 Text〕
+〔738〕 Set Variable Text to 〔737 Text〕
 
-〔641〕 End If
+〔739〕 End If
 
-〔642〕 Show Alert 〔Text〕
+〔740〕 Show Alert 〔Text〕
 
-〔643〕 Show Notification 〔Text〕
+〔741〕 Show Notification 〔Text〕
 
-〔644〕 Speak Text
+〔742〕 Speak Text
 • Text: 〔Text〕
 
-〔645〕 Otherwise　▵634
+〔743〕 Otherwise　▵732
 
-〔646〕 Dictionary　»
+〔744〕 Dictionary　»
 {  "Event": "〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
    "Location": "〔Repeat Item’s Location〕",
-   "AlarmTime": "〔632 Supposed_Alarm_Time〕"
+   "AlarmTime": "〔730 Supposed_Alarm_Time〕"
 }
 
-〔647〕 Add Alarm for 〔632 Supposed_Alarm_Time〕 called 〔646 Dictionary〕
+〔745〕 Add Alarm for 〔730 Supposed_Alarm_Time〕 called 〔744 Dictionary〕
 
-〔648〕 End If
+〔746〕 End If
 
-〔649〕 End Repeat with Each　▵440
+〔747〕 End Repeat with Each　▵483
 
-〔650〕 Number 3　»
+〔748〕 Number 3　»
 
-〔651〕 Repeat 〔650 Number〕 Times
+〔749〕 Repeat 〔748 Number〕 Times
 
-〔652〕 Repeat[2] with Each in 〔437 Calendar Events〕
+〔750〕 Repeat[2] with Each in 〔480 Calendar Events〕
 
-〔653〕 Format Date 〔Repeat Item 2’s Start Date〕　» 657 660 665 668
+〔751〕 Format Date 〔Repeat Item 2’s Start Date〕　» 755 758 763 766
 • DateFormatStyle: None
 
-〔654〕 Format Date 〔Repeat Item 2’s End Date〕　» 657 660 665 668
+〔752〕 Format Date 〔Repeat Item 2’s End Date〕　» 755 758 763 766
 • DateFormatStyle: None
 
-〔655〕 If 〔Repeat Item 2’s Location〕 has any value
+〔753〕 If 〔Repeat Item 2’s Location〕 has any value
 
-〔656〕 If 〔439 Count〕 > 1
+〔754〕 If 〔482 Count〕 > 1
 
-〔657〕 Text　»
-Event 〔Repeat Index 2〕 〔Repeat Item 2〕 from 〔653 Formatted Date〕 to 〔654 Formatted Date〕 at 〔Repeat Item 2’s Location〕
+〔755〕 Text　»
+Event 〔Repeat Index 2〕 〔Repeat Item 2〕 from 〔751 Formatted Date〕 to 〔752 Formatted Date〕 at 〔Repeat Item 2’s Location〕
 
-〔658〕 Set Variable Text to 〔657 Text〕
+〔756〕 Set Variable Text to 〔755 Text〕
 
-〔659〕 Otherwise
+〔757〕 Otherwise
 
-〔660〕 Text　»
-Event  〔Repeat Item 2〕 from 〔653 Formatted Date〕 to 〔654 Formatted Date〕 at 〔Repeat Item 2’s Location〕
+〔758〕 Text　»
+Event  〔Repeat Item 2〕 from 〔751 Formatted Date〕 to 〔752 Formatted Date〕 at 〔Repeat Item 2’s Location〕
 
-〔661〕 Set Variable Text to 〔660 Text〕
+〔759〕 Set Variable Text to 〔758 Text〕
 
-〔662〕 End If
+〔760〕 End If
 
-〔663〕 Otherwise　▵655
+〔761〕 Otherwise　▵753
 
-〔664〕 If 〔439 Count〕 > 1
+〔762〕 If 〔482 Count〕 > 1
 
-〔665〕 Text　»
-Event 〔Repeat Index 2〕 〔Repeat Item 2〕 from 〔653 Formatted Date〕 to 〔654 Formatted Date〕
+〔763〕 Text　»
+Event 〔Repeat Index 2〕 〔Repeat Item 2〕 from 〔751 Formatted Date〕 to 〔752 Formatted Date〕
 
-〔666〕 Set Variable Text to 〔665 Text〕
+〔764〕 Set Variable Text to 〔763 Text〕
 
-〔667〕 Otherwise
+〔765〕 Otherwise
 
-〔668〕 Text　»
-Event  〔Repeat Item 2〕 from 〔653 Formatted Date〕 to 〔654 Formatted Date〕
+〔766〕 Text　»
+Event  〔Repeat Item 2〕 from 〔751 Formatted Date〕 to 〔752 Formatted Date〕
 
-〔669〕 Set Variable Text to 〔668 Text〕
+〔767〕 Set Variable Text to 〔766 Text〕
 
-〔670〕 End If
+〔768〕 End If
 
-〔671〕 End If　▵663
+〔769〕 End If　▵761
 
-〔672〕 Speak Text
+〔770〕 Speak Text
 • Text: 〔Text〕
 
-〔673〕 Wait 1 seconds
+〔771〕 Wait 1 seconds
 
-〔674〕 End Repeat[2] with Each　▵652
+〔772〕 End Repeat[2] with Each　▵750
 
-〔675〕 End Repeat Times　▵651
+〔773〕 End Repeat Times　▵749
 
-〔676〕 End If　▵438
+〔774〕 End If　▵481
 
-〔677〕 End If　▵426
+〔775〕 End If　▵469
 
-〔678〕 If 〔Shortcut Input as Number〕 is 3
+〔776〕 If 〔Shortcut Input as Number〕 is 3
 
-〔679〕 Comment
+〔777〕 Comment
 Alarm Activation Handler
 Triggered by alarm events - manages notification flow
 
-〔680〕 Dictionary　»
+〔778〕 Dictionary　»
 {  "stop": "no" }
 
-〔681〕 Text　»
-〔680 Dictionary〕
+〔779〕 Text　»
+〔778 Dictionary〕
 
-〔682〕 Save File 〔681 Text〕
+〔780〕 Save File 〔779 Text〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: Smart Calendar Reminder/stopflag.txt
 
-〔683〕 Date Current Date　» 702
+〔781〕 Date Current Date　» 800
 
-〔684〕 Find Alarm All Alarm　» 685 694
+〔782〕 Find Alarm All Alarm　» 783 792
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔685〕 If 〔684 Alarms〕 has any value
+〔783〕 If 〔782 Alarms〕 has any value
 
-〔686〕 Number 10000　» 687 688
+〔784〕 Number 10000　» 785 786
 
-〔687〕 Repeat 〔686 Number〕 Times
+〔785〕 Repeat 〔784 Number〕 Times
 
-〔688〕 Get File at Path Smart Calendar Reminder/stopflag.txt from Folder　»
+〔786〕 Get File at Path Smart Calendar Reminder/stopflag.txt from Folder　»
 • FileErrorIfNotFound: false
-• File: 〔686 Number〕
+• File: 〔784 Number〕
 
-〔689〕 Get Dictionary from 〔688 File〕　»
+〔787〕 Get Dictionary from 〔786 File〕　»
 
-〔690〕 Get Dictionary Value for stop in 〔689 Dictionary〕　»
+〔788〕 Get Dictionary Value for stop in 〔787 Dictionary〕　»
 
-〔691〕 If 〔690 Dictionary Value’s Name〕 is yes
+〔789〕 If 〔788 Dictionary Value’s Name〕 is yes
 
-〔692〕 Stop This Shortcut
+〔790〕 Stop This Shortcut
 
-〔693〕 End If
+〔791〕 End If
 
-〔694〕 Repeat[2] with Each in 〔684 Alarms〕
+〔792〕 Repeat[2] with Each in 〔782 Alarms〕
 
-〔695〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ alarm_label_dictionary　» 696 698 700 705 709 712
+〔793〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ alarm_label_dictionary　» 794 796 798 803 807 810
 
-〔696〕 Get Dictionary Value for From in 〔695 alarm_label_dictionary〕　»
+〔794〕 Get Dictionary Value for From in 〔793 alarm_label_dictionary〕　»
 
-〔697〕 Get Dates from 〔696 Dictionary Value〕 　➔ From　» 703
+〔795〕 Get Dates from 〔794 Dictionary Value〕 　➔ From　» 801
 
-〔698〕 Get Dictionary Value for To in 〔695 alarm_label_dictionary〕　»
+〔796〕 Get Dictionary Value for To in 〔793 alarm_label_dictionary〕　»
 
-〔699〕 Get Dates from 〔698 Dictionary Value〕 　➔ To　» 704
+〔797〕 Get Dates from 〔796 Dictionary Value〕 　➔ To　» 802
 
-〔700〕 Get Dictionary Value for AlarmTime in 〔695 alarm_label_dictionary〕　»
+〔798〕 Get Dictionary Value for AlarmTime in 〔793 alarm_label_dictionary〕　»
 
-〔701〕 Get Dates from 〔700 Dictionary Value〕 　➔ AlarmTime　»
+〔799〕 Get Dates from 〔798 Dictionary Value〕 　➔ AlarmTime　»
 
-〔702〕 If All are true　〔701 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕 is 〔683 Date{"Date Style":"Custom","WFDateFormat":"HH","WFISO8601IncludeTime":false}〕　〔701 AlarmTime{"Date Style":"Custom","WFDateFormat":"mm","WFISO8601IncludeTime":false}〕 is 〔683 Date{"Date Style":"Custom","WFDateFormat":"mm","WFISO8601IncludeTime":false}〕
+〔800〕 If All are true　〔799 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕 is 〔781 Date{"Date Style":"Custom","WFDateFormat":"HH","WFISO8601IncludeTime":false}〕　〔799 AlarmTime{"Date Style":"Custom","WFDateFormat":"mm","WFISO8601IncludeTime":false}〕 is 〔781 Date{"Date Style":"Custom","WFDateFormat":"mm","WFISO8601IncludeTime":false}〕
 
-〔703〕 Format Date 〔697 From’s Time〕　» 709 712
+〔801〕 Format Date 〔795 From’s Time〕　» 807 810
 
-〔704〕 Format Date 〔699 To’s Time〕　» 709 712
+〔802〕 Format Date 〔797 To’s Time〕　» 807 810
 
-〔705〕 Get Dictionary Value for Location in 〔695 alarm_label_dictionary〕　»
+〔803〕 Get Dictionary Value for Location in 〔793 alarm_label_dictionary〕　»
 
-〔706〕 Text　»
-〔705 Dictionary Value〕
+〔804〕 Text　»
+〔803 Dictionary Value〕
 
-〔707〕 Count Characters in 〔706 Text〕　»
+〔805〕 Count Characters in 〔804 Text〕　»
 
-〔708〕 If 〔707 Count〕 > • ConditionalActionString
+〔806〕 If 〔805 Count〕 > • ConditionalActionString
 ""• NumberValue
 0
 
-〔709〕 Text　»
-Prepare for 〔695 alarm_label_dictionary.Event〕 from 〔703 Formatted Date〕 to 〔704 Formatted Date〕 at 〔695 alarm_label_dictionary.Location〕
+〔807〕 Text　»
+Prepare for 〔793 alarm_label_dictionary.Event〕 from 〔801 Formatted Date〕 to 〔802 Formatted Date〕 at 〔793 alarm_label_dictionary.Location〕
 
-〔710〕 Set Variable Text to 〔709 Text〕
+〔808〕 Set Variable Text to 〔807 Text〕
 
-〔711〕 Otherwise
+〔809〕 Otherwise
 
-〔712〕 Text　»
-Prepare for 〔695 alarm_label_dictionary.Event〕 from 〔703 Formatted Date〕 to 〔704 Formatted Date〕
+〔810〕 Text　»
+Prepare for 〔793 alarm_label_dictionary.Event〕 from 〔801 Formatted Date〕 to 〔802 Formatted Date〕
 
-〔713〕 Set Variable Text to 〔712 Text〕
+〔811〕 Set Variable Text to 〔810 Text〕
 
-〔714〕 End If
+〔812〕 End If
 
-〔715〕 Speak Text
+〔813〕 Speak Text
 • Text: 〔Text〕
 
-〔716〕 End If　▵702
+〔814〕 End If　▵800
 
-〔717〕 End Repeat[2] with Each　▵694
+〔815〕 End Repeat[2] with Each　▵792
 
-〔718〕 End Repeat Times　▵687
+〔816〕 End Repeat Times　▵785
 
-〔719〕 End If　▵685
+〔817〕 End If　▵783
 
-〔720〕 End If　▵678
+〔818〕 End If　▵776
 
-〔721〕 If 〔Shortcut Input as Number〕 is 4
+〔819〕 If 〔Shortcut Input as Number〕 is 4
 
-〔722〕 Comment
+〔820〕 Comment
 input case 4:
 Notification Interrupt System
 Stop protocol for voice announcements when any alarm is stopped.
 
-〔723〕 Dictionary　»
+〔821〕 Dictionary　»
 {  "stop": "yes" }
 
-〔724〕 Text　»
-〔723 Dictionary〕
+〔822〕 Text　»
+〔821 Dictionary〕
 
-〔725〕 Save File 〔724 Text〕
+〔823〕 Save File 〔822 Text〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: Smart Calendar Reminder/stopflag.txt
 
-〔726〕 End If
+〔824〕 End If
 
-〔727〕 If 〔Shortcut Input as Number〕 is 5
+〔825〕 If 〔Shortcut Input as Number〕 is 5
 
-〔728〕 Comment
+〔826〕 Comment
 *Revolutionizing event management by integrating calendar data with intelligent automation:
 
 Voice announcements for upcoming events
@@ -2698,27 +2903,27 @@ Dynamic alarm calculation (travel + prep time)
 Calendar-driven scheduling system
 Eliminates manual reminders and ensures perfect timing synchronization*
 
-〔729〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
+〔827〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
 • FileErrorIfNotFound: false
 
-〔730〕 Get Dictionary from 〔729 File〕　» 731 734 735
+〔828〕 Get Dictionary from 〔827 File〕　» 829 832 833
 
-〔731〕 Get Dictionary from 〔730 Dictionary.HomeAddress〕　»
+〔829〕 Get Dictionary from 〔828 Dictionary.HomeAddress〕　»
 
-〔732〕 Text　»
-〔731 Dictionary.street〕 〔731 Dictionary.city〕 〔731 Dictionary.state〕 〔731 Dictionary.postcode〕 〔731 Dictionary.country〕\u{space}
+〔830〕 Text　»
+〔829 Dictionary.street〕 〔829 Dictionary.city〕 〔829 Dictionary.state〕 〔829 Dictionary.postcode〕 〔829 Dictionary.country〕\u{space}
 
-〔733〕 Set Variable HomeAddress to 〔732 Text〕
+〔831〕 Set Variable HomeAddress to 〔830 Text〕
 
-〔734〕 Set Variable TravelMethod to 〔730 Dictionary.TravelMethod〕
+〔832〕 Set Variable TravelMethod to 〔828 Dictionary.TravelMethod〕
 
-〔735〕 Get Dictionary Value for ExtraTime in 〔730 Dictionary〕　»
+〔833〕 Get Dictionary Value for ExtraTime in 〔828 Dictionary〕　»
 
-〔736〕 Get Numbers from 〔735 Dictionary Value〕　»
+〔834〕 Get Numbers from 〔833 Dictionary Value〕　»
 
-〔737〕 Set Variable ExtraTime to 〔736 Numbers〕
+〔835〕 Set Variable ExtraTime to 〔834 Numbers〕
 
-〔738〕 Find Calendar Events All Calendar Events where　» 739 740
+〔836〕 Find Calendar Events All Calendar Events where　» 837 838
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
@@ -2726,16 +2931,16 @@ Start Date is in the next 1 months
 Is Not All Day
 Canceled is {"Bool":false}
 
-〔739〕 If 〔738 Calendar Events〕 has any value
+〔837〕 If 〔836 Calendar Events〕 has any value
 
-〔740〕 Repeat with Each in 〔738 Calendar Events〕
+〔838〕 Repeat with Each in 〔836 Calendar Events〕
 
-〔741〕 If 〔Repeat Item’s Location〕 has any value
+〔839〕 If 〔Repeat Item’s Location〕 has any value
 
-〔742〕 Get Current Location　» 754 760 824
+〔840〕 Get Current Location　» 852 858 944
 • Accuracy: Best
 
-〔743〕 Comment
+〔841〕 Comment
 *To specify event-specific departure locations:
 
 1. Create calendar event notes with JSON structure:
@@ -2748,646 +2953,596 @@ Canceled is {"Bool":false}
 }
 2. System prioritizes these over default locations*
 
-〔744〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
+〔842〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
 
-〔745〕 Comment
+〔843〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
 
-〔746〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ Notes Address Dictionary　» 747 748 749 750 751
+〔844〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ Notes Address Dictionary　» 845 846 847 848 849
 
-〔747〕 Set Variable Calendar_Notes_Street to 〔746 Notes Address Dictionary.Street〕
+〔845〕 Set Variable Calendar_Notes_Street to 〔844 Notes Address Dictionary.Street〕
 
-〔748〕 Set Variable Calendar_Notes_City to 〔746 Notes Address Dictionary.City〕
+〔846〕 Set Variable Calendar_Notes_City to 〔844 Notes Address Dictionary.City〕
 
-〔749〕 Set Variable Calendar_Notes_State to 〔746 Notes Address Dictionary.State〕
+〔847〕 Set Variable Calendar_Notes_State to 〔844 Notes Address Dictionary.State〕
 
-〔750〕 Set Variable Calendar_Notes_Region to 〔746 Notes Address Dictionary.Country〕
+〔848〕 Set Variable Calendar_Notes_Region to 〔844 Notes Address Dictionary.Country〕
 
-〔751〕 Set Variable Calendar_Notes_ZIP_Code to 〔746 Notes Address Dictionary.Postcode〕
+〔849〕 Set Variable Calendar_Notes_ZIP_Code to 〔844 Notes Address Dictionary.Postcode〕
 
-〔752〕 Text　»
+〔850〕 Text　»
 〔Calendar_Notes_Street〕 〔Calendar_Notes_City〕 〔Calendar_Notes_State〕 〔Calendar_Notes_ZIP_Code〕 〔Calendar_Notes_Region〕
 
-〔753〕 Set Variable NotesAddressString to 〔752 Text〕
+〔851〕 Set Variable NotesAddressString to 〔850 Text〕
 
-〔754〕 If All are true　〔742 Current Location’s Street〕 is 〔Calendar_Notes_Street〕　〔742 Current Location’s City〕 is 〔Calendar_Notes_City〕　〔742 Current Location’s State〕 is 〔Calendar_Notes_State〕　〔742 Current Location’s Country〕 is 〔Calendar_Notes_Region〕　〔742 Current Location’s ZIP Code〕 is 〔Calendar_Notes_ZIP_Code〕
+〔852〕 If All are true　〔840 Current Location’s Street〕 is 〔Calendar_Notes_Street〕　〔840 Current Location’s City〕 is 〔Calendar_Notes_City〕　〔840 Current Location’s State〕 is 〔Calendar_Notes_State〕　〔840 Current Location’s Country〕 is 〔Calendar_Notes_Region〕　〔840 Current Location’s ZIP Code〕 is 〔Calendar_Notes_ZIP_Code〕
 
-〔755〕 Comment
+〔853〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
 
-〔756〕 Number 0　»
+〔854〕 Number 0　»
 
-〔757〕 Set Variable CurrentToDeparture to 〔756 Number〕
+〔855〕 Set Variable CurrentToDeparture to 〔854 Number〕
 
-〔758〕 Otherwise
+〔856〕 Otherwise
 
-〔759〕 Comment
+〔857〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔760〕 Get 〔TravelMethod〕 Time　»
-• GetDirectionsCustomLocation: 〔742 Current Location〕
+〔858〕 Get 〔TravelMethod〕 Time　»
+• GetDirectionsCustomLocation: 〔840 Current Location〕
 • Destination: 〔NotesAddressString〕
 
-〔761〕 Set Variable TravelTimeString to 〔760 Travel Time〕
+〔859〕 Set Variable TravelTimeString to 〔858 Travel Time〕
 
-〔762〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 763 765 767 772 779
+〔860〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔763〕 Count Items in 〔762 C2DMatches〕　»
+〔861〕 Set Variable MatchString to 〔860 Matches〕
 
-〔764〕 If 〔763 Count〕 > 1
+〔862〕 Count Items in 〔MatchString〕　»
 
-〔765〕 Get First Item from List 〔762 C2DMatches〕　»
+〔863〕 If 〔862 Count〕 is 1
 
-〔766〕 Set Variable C2DHours to 〔765 Item from List〕
+〔864〕 Get First Item from List 〔MatchString〕　»
 
-〔767〕 Get Last Item from List 〔762 C2DMatches〕　»
-
-〔768〕 Set Variable C2DMinutes to 〔767 Item from List〕
-
-〔769〕 Otherwise
-
-〔770〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
-
-〔771〕 If 〔770 C2DMatches’s text〕 has any value
-
-〔772〕 Get First Item from List 〔762 C2DMatches〕　»
-
-〔773〕 Set Variable C2DHours to 〔772 Item from List〕
-
-〔774〕 Number 0　»
-
-〔775〕 Set Variable C2DMinutes to 〔774 Number〕
-
-〔776〕 Otherwise
-
-〔777〕 Number 0　»
-
-〔778〕 Set Variable C2DHours to 〔777 Number〕
-
-〔779〕 Get First Item from List 〔762 C2DMatches〕　»
-
-〔780〕 Set Variable C2DMinutes to 〔779 Item from List〕
-
-〔781〕 End If
-
-〔782〕 End If　▵769
-
-〔783〕 Calculate 〔C2DHours〕 × 60　»
-
-〔784〕 Calculate 〔783 Calculation Result〕 + 〔C2DMinutes〕　»
-
-〔785〕 Set Variable CurrentToDeparture to 〔784 Calculation Result〕
-
-〔786〕 End If　▵758
-
-〔787〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
-• GetDirectionsCustomLocation: 〔NotesAddressString〕
-• Destination: 〔Repeat Item’s Location〕
-
-〔788〕 Set Variable TravelTimeString to 〔787 DepartureToDestination〕
-
-〔789〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 790 792 794 799 806
-• MatchTextCaseSensitive: false
-
-〔790〕 Count Items in 〔789 C2DMatches〕　»
-
-〔791〕 If 〔790 Count〕 > 1
-
-〔792〕 Get First Item from List 〔789 C2DMatches〕　»
-
-〔793〕 Set Variable C2DHours to 〔792 Item from List〕
-
-〔794〕 Get Last Item from List 〔789 C2DMatches〕　»
-
-〔795〕 Set Variable C2DMinutes to 〔794 Item from List〕
-
-〔796〕 Otherwise
-
-〔797〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
-
-〔798〕 If 〔797 C2DMatches’s text〕 has any value
-
-〔799〕 Get First Item from List 〔789 C2DMatches〕　»
-
-〔800〕 Set Variable C2DHours to 〔799 Item from List〕
-
-〔801〕 Number 0　»
-
-〔802〕 Set Variable C2DMinutes to 〔801 Number〕
-
-〔803〕 Otherwise
-
-〔804〕 Number 0　»
-
-〔805〕 Set Variable C2DHours to 〔804 Number〕
-
-〔806〕 Get First Item from List 〔789 C2DMatches〕　»
-
-〔807〕 Set Variable C2DMinutes to 〔806 Item from List〕
-
-〔808〕 End If
-
-〔809〕 End If　▵796
-
-〔810〕 Calculate 〔C2DHours〕 × 60　»
-
-〔811〕 Calculate 〔810 Calculation Result〕 + 〔C2DMinutes〕　»
-
-〔812〕 Calculate 〔811 Calculation Result〕 + 〔CurrentToDeparture〕　»
-
-〔813〕 Set Variable TravelTime to 〔812 Calculation Result〕
-
-〔814〕 Otherwise　▵744
-
-〔815〕 Comment
-CALENDER EVENT NOTES IS BLANK
-
-〔816〕 Get Dictionary from 〔HomeAddress〕 　➔ Home Address Dictionary　» 817 818 819 820 821
-
-〔817〕 Get Dictionary Value for street in 〔816 Home Address Dictionary〕 　➔ home_Street　» 822 824
-
-〔818〕 Get Dictionary Value for city in 〔816 Home Address Dictionary〕 　➔ home_City　» 822 824
-
-〔819〕 Get Dictionary Value for state in 〔816 Home Address Dictionary〕 　➔ home_State　» 822 824
-
-〔820〕 Get Dictionary Value for country in 〔816 Home Address Dictionary〕 　➔ home_Country　» 822 824
-
-〔821〕 Get Dictionary Value for postcode in 〔816 Home Address Dictionary〕 　➔ home_Postcode　» 822 824
-
-〔822〕 If All are true　〔817 home_Street〕 has any value　〔818 home_City〕 has any value　〔819 home_State〕 has any value　〔820 home_Country〕 has any value　〔821 home_Postcode〕 has any value
-
-〔823〕 Comment
-CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
-
-〔824〕 If All are true　〔742 Current Location’s Street〕 is 〔817 home_Street〕　〔742 Current Location’s City〕 is 〔818 home_City〕　〔742 Current Location’s State〕 is 〔819 home_State〕　〔742 Current Location’s Country〕 is 〔820 home_Country〕　〔742 Current Location’s ZIP Code〕 is 〔821 home_Postcode〕
-
-〔825〕 Comment
-CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
-
-〔826〕 Number 0　»
-
-〔827〕 Set Variable CurrentToDeparture to 〔826 Number〕
-
-〔828〕 Otherwise
-
-〔829〕 Comment
-CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
-
-〔830〕 Get 〔TravelMethod〕 Time　»
-• Destination: 〔HomeAddress〕
-
-〔831〕 Set Variable TravelTimeString to 〔830 Travel Time〕
-
-〔832〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 833 835 837 842 849
-• MatchTextCaseSensitive: false
-
-〔833〕 Count Items in 〔832 C2DMatches〕　»
-
-〔834〕 If 〔833 Count〕 > 1
-
-〔835〕 Get First Item from List 〔832 C2DMatches〕　»
-
-〔836〕 Set Variable C2DHours to 〔835 Item from List〕
-
-〔837〕 Get Last Item from List 〔832 C2DMatches〕　»
-
-〔838〕 Set Variable C2DMinutes to 〔837 Item from List〕
-
-〔839〕 Otherwise
-
-〔840〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
-
-〔841〕 If 〔840 C2DMatches’s text〕 has any value
-
-〔842〕 Get First Item from List 〔832 C2DMatches〕　»
-
-〔843〕 Set Variable C2DHours to 〔842 Item from List〕
-
-〔844〕 Number 0　»
-
-〔845〕 Set Variable C2DMinutes to 〔844 Number〕
-
-〔846〕 Otherwise
-
-〔847〕 Number 0　»
-
-〔848〕 Set Variable C2DHours to 〔847 Number〕
-
-〔849〕 Get First Item from List 〔832 C2DMatches〕　»
-
-〔850〕 Set Variable C2DMinutes to 〔849 Item from List〕
-
-〔851〕 End If
-
-〔852〕 End If　▵839
-
-〔853〕 Calculate 〔C2DHours〕 × 60　»
-
-〔854〕 Calculate 〔853 Calculation Result〕 + 〔C2DMinutes〕　»
-
-〔855〕 Set Variable CurrentToDeparture to 〔854 Calculation Result〕
-
-〔856〕 End If　▵828
-
-〔857〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
-• GetDirectionsCustomLocation: 〔HomeAddress〕
-• Destination: 〔Repeat Item’s Location〕
-
-〔858〕 Set Variable TravelTimeString to 〔857 DepartureToDestination〕
-
-〔859〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 860 862 864 869 876
-• MatchTextCaseSensitive: false
-
-〔860〕 Count Items in 〔859 C2DMatches〕　»
-
-〔861〕 If 〔860 Count〕 > 1
-
-〔862〕 Get First Item from List 〔859 C2DMatches〕　»
-
-〔863〕 Set Variable C2DHours to 〔862 Item from List〕
-
-〔864〕 Get Last Item from List 〔859 C2DMatches〕　»
-
-〔865〕 Set Variable C2DMinutes to 〔864 Item from List〕
+〔865〕 Set Variable TravelDays to 〔864 Item from List〕
 
 〔866〕 Otherwise
 
-〔867〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔867〕 Number 0　»
 
-〔868〕 If 〔867 C2DMatches’s text〕 has any value
+〔868〕 Set Variable TravelDays to 〔867 Number〕
 
-〔869〕 Get First Item from List 〔859 C2DMatches〕　»
+〔869〕 End If
 
-〔870〕 Set Variable C2DHours to 〔869 Item from List〕
-
-〔871〕 Number 0　»
-
-〔872〕 Set Variable C2DMinutes to 〔871 Number〕
-
-〔873〕 Otherwise
-
-〔874〕 Number 0　»
-
-〔875〕 Set Variable C2DHours to 〔874 Number〕
-
-〔876〕 Get First Item from List 〔859 C2DMatches〕　»
-
-〔877〕 Set Variable C2DMinutes to 〔876 Item from List〕
-
-〔878〕 End If
-
-〔879〕 End If　▵866
-
-〔880〕 Calculate 〔C2DHours〕 × 60　»
-
-〔881〕 Calculate 〔880 Calculation Result〕 + 〔C2DMinutes〕　»
-
-〔882〕 Calculate 〔881 Calculation Result〕 + 〔CurrentToDeparture〕　»
-
-〔883〕 Set Variable TravelTime to 〔882 Calculation Result〕
-
-〔884〕 Otherwise　▵822
-
-〔885〕 Text
-CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
-
-〔886〕 Get 〔TravelMethod〕 Time　»
-• Destination: 〔Repeat Item’s Location〕
-
-〔887〕 Set Variable TravelTimeString to 〔886 Travel Time〕
-
-〔888〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 889 891 893 898 905
+〔870〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔889〕 Count Items in 〔888 C2DMatches〕　»
+〔871〕 Set Variable MatchString to 〔870 Matches〕
 
-〔890〕 If 〔889 Count〕 > 1
+〔872〕 Count Items in 〔MatchString〕　»
 
-〔891〕 Get First Item from List 〔888 C2DMatches〕　»
+〔873〕 If 〔872 Count〕 is 1
 
-〔892〕 Set Variable C2DHours to 〔891 Item from List〕
+〔874〕 Get First Item from List 〔MatchString〕　»
 
-〔893〕 Get Last Item from List 〔888 C2DMatches〕　»
+〔875〕 Set Variable TravelHours to 〔874 Item from List〕
 
-〔894〕 Set Variable C2DMinutes to 〔893 Item from List〕
+〔876〕 Otherwise
 
-〔895〕 Otherwise
+〔877〕 Number 0　»
 
-〔896〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔878〕 Set Variable TravelHours to 〔877 Number〕
 
-〔897〕 If 〔896 C2DMatches’s text〕 has any value
+〔879〕 End If
 
-〔898〕 Get First Item from List 〔888 C2DMatches〕　»
+〔880〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔899〕 Set Variable C2DHours to 〔898 Item from List〕
+〔881〕 Set Variable MatchString to 〔880 Matches〕
 
-〔900〕 Number 0　»
+〔882〕 Count Items in 〔MatchString〕　»
 
-〔901〕 Set Variable C2DMinutes to 〔900 Number〕
+〔883〕 If 〔882 Count〕 is 1
 
-〔902〕 Otherwise
+〔884〕 Get First Item from List 〔MatchString〕　»
 
-〔903〕 Number 0　»
+〔885〕 Set Variable TravelMinutes to 〔884 Item from List〕
 
-〔904〕 Set Variable C2DHours to 〔903 Number〕
+〔886〕 Otherwise
 
-〔905〕 Get First Item from List 〔888 C2DMatches〕　»
+〔887〕 Number 0　»
 
-〔906〕 Set Variable C2DMinutes to 〔905 Item from List〕
+〔888〕 Set Variable TravelMinutes to 〔887 Number〕
+
+〔889〕 End If
+
+〔890〕 Calculate 〔TravelDays〕 × 1440　» 892
+
+〔891〕 Calculate 〔TravelHours〕 × 60　»
+
+〔892〕 Calculate 〔891 Calculation Result〕 + 〔890 Calculation Result〕　»
+
+〔893〕 Calculate 〔892 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔894〕 Set Variable CurrentToDeparture to 〔893 Calculation Result〕
+
+〔895〕 End If　▵856
+
+〔896〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+• GetDirectionsCustomLocation: 〔NotesAddressString〕
+• Destination: 〔Repeat Item’s Location〕
+
+〔897〕 Set Variable TravelTimeString to 〔896 DepartureToDestination〕
+
+〔898〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
+
+〔899〕 Set Variable MatchString to 〔898 Matches〕
+
+〔900〕 Count Items in 〔MatchString〕　»
+
+〔901〕 If 〔900 Count〕 is 1
+
+〔902〕 Get First Item from List 〔MatchString〕　»
+
+〔903〕 Set Variable TravelDays to 〔902 Item from List〕
+
+〔904〕 Otherwise
+
+〔905〕 Number 0　»
+
+〔906〕 Set Variable TravelDays to 〔905 Number〕
 
 〔907〕 End If
 
-〔908〕 End If　▵895
+〔908〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔909〕 Calculate 〔C2DHours〕 × 60　»
+〔909〕 Set Variable MatchString to 〔908 Matches〕
 
-〔910〕 Calculate 〔909 Calculation Result〕 + 〔C2DMinutes〕　»
+〔910〕 Count Items in 〔MatchString〕　»
 
-〔911〕 Set Variable TravelTime to 〔910 Calculation Result〕
+〔911〕 If 〔910 Count〕 is 1
 
-〔912〕 End If　▵884
+〔912〕 Get First Item from List 〔MatchString〕　»
 
-〔913〕 End If　▵814
+〔913〕 Set Variable TravelHours to 〔912 Item from List〕
 
-〔914〕 Otherwise　▵741
+〔914〕 Otherwise
 
 〔915〕 Number 0　»
 
-〔916〕 Set Variable TravelTime to 〔915 Number〕
+〔916〕 Set Variable TravelHours to 〔915 Number〕
 
 〔917〕 End If
 
-〔918〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
+〔918〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔919〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed Alarm Time　» 920 923 926 929 936 952 954 955 973 978 981
-• Duration: 〔918 Calculation Result〕 min
+〔919〕 Set Variable MatchString to 〔918 Matches〕
 
-〔920〕 Dictionary 　➔ Alarm Label Dictionary　» 952 957 973
+〔920〕 Count Items in 〔MatchString〕　»
+
+〔921〕 If 〔920 Count〕 is 1
+
+〔922〕 Get First Item from List 〔MatchString〕　»
+
+〔923〕 Set Variable TravelMinutes to 〔922 Item from List〕
+
+〔924〕 Otherwise
+
+〔925〕 Number 0　»
+
+〔926〕 Set Variable TravelMinutes to 〔925 Number〕
+
+〔927〕 End If
+
+〔928〕 Calculate 〔TravelDays〕 × 1440　» 930
+
+〔929〕 Calculate 〔TravelHours〕 × 60　»
+
+〔930〕 Calculate 〔929 Calculation Result〕 + 〔928 Calculation Result〕　»
+
+〔931〕 Calculate 〔930 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔932〕 Calculate 〔931 Calculation Result〕 + 〔CurrentToDeparture〕　»
+
+〔933〕 Set Variable TravelTime to 〔932 Calculation Result〕
+
+〔934〕 Otherwise　▵842
+
+〔935〕 Comment
+CALENDER EVENT NOTES IS BLANK
+
+〔936〕 Get Dictionary from 〔HomeAddress〕 　➔ Home Address Dictionary　» 937 938 939 940 941
+
+〔937〕 Get Dictionary Value for street in 〔936 Home Address Dictionary〕 　➔ home_Street　» 942 944
+
+〔938〕 Get Dictionary Value for city in 〔936 Home Address Dictionary〕 　➔ home_City　» 942 944
+
+〔939〕 Get Dictionary Value for state in 〔936 Home Address Dictionary〕 　➔ home_State　» 942 944
+
+〔940〕 Get Dictionary Value for country in 〔936 Home Address Dictionary〕 　➔ home_Country　» 942 944
+
+〔941〕 Get Dictionary Value for postcode in 〔936 Home Address Dictionary〕 　➔ home_Postcode　» 942 944
+
+〔942〕 If All are true　〔937 home_Street〕 has any value　〔938 home_City〕 has any value　〔939 home_State〕 has any value　〔940 home_Country〕 has any value　〔941 home_Postcode〕 has any value
+
+〔943〕 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
+
+〔944〕 If All are true　〔840 Current Location’s Street〕 is 〔937 home_Street〕　〔840 Current Location’s City〕 is 〔938 home_City〕　〔840 Current Location’s State〕 is 〔939 home_State〕　〔840 Current Location’s Country〕 is 〔940 home_Country〕　〔840 Current Location’s ZIP Code〕 is 〔941 home_Postcode〕
+
+〔945〕 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
+
+〔946〕 Number 0　»
+
+〔947〕 Set Variable CurrentToDeparture to 〔946 Number〕
+
+〔948〕 Otherwise
+
+〔949〕 Comment
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
+
+〔950〕 Get 〔TravelMethod〕 Time　»
+• Destination: 〔HomeAddress〕
+
+〔951〕 Set Variable TravelTimeString to 〔950 Travel Time〕
+
+〔952〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
+
+〔953〕 Set Variable MatchString to 〔952 Matches〕
+
+〔954〕 Count Items in 〔MatchString〕　»
+
+〔955〕 If 〔954 Count〕 is 1
+
+〔956〕 Get First Item from List 〔MatchString〕　»
+
+〔957〕 Set Variable TravelDays to 〔956 Item from List〕
+
+〔958〕 Otherwise
+
+〔959〕 Number 0　»
+
+〔960〕 Set Variable TravelDays to 〔959 Number〕
+
+〔961〕 End If
+
+〔962〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
+
+〔963〕 Set Variable MatchString to 〔962 Matches〕
+
+〔964〕 Count Items in 〔MatchString〕　»
+
+〔965〕 If 〔964 Count〕 is 1
+
+〔966〕 Get First Item from List 〔MatchString〕　»
+
+〔967〕 Set Variable TravelHours to 〔966 Item from List〕
+
+〔968〕 Otherwise
+
+〔969〕 Number 0　»
+
+〔970〕 Set Variable TravelHours to 〔969 Number〕
+
+〔971〕 End If
+
+〔972〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
+
+〔973〕 Set Variable MatchString to 〔972 Matches〕
+
+〔974〕 Count Items in 〔MatchString〕　»
+
+〔975〕 If 〔974 Count〕 is 1
+
+〔976〕 Get First Item from List 〔MatchString〕　»
+
+〔977〕 Set Variable TravelMinutes to 〔976 Item from List〕
+
+〔978〕 Otherwise
+
+〔979〕 Number 0　»
+
+〔980〕 Set Variable TravelMinutes to 〔979 Number〕
+
+〔981〕 End If
+
+〔982〕 Calculate 〔TravelDays〕 × 1440　» 984
+
+〔983〕 Calculate 〔TravelHours〕 × 60　»
+
+〔984〕 Calculate 〔983 Calculation Result〕 + 〔982 Calculation Result〕　»
+
+〔985〕 Calculate 〔984 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔986〕 Set Variable CurrentToDeparture to 〔985 Calculation Result〕
+
+〔987〕 End If　▵948
+
+〔988〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+• GetDirectionsCustomLocation: 〔HomeAddress〕
+• Destination: 〔Repeat Item’s Location〕
+
+〔989〕 Set Variable TravelTimeString to 〔988 DepartureToDestination〕
+
+〔990〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
+
+〔991〕 Set Variable MatchString to 〔990 Matches〕
+
+〔992〕 Count Items in 〔MatchString〕　»
+
+〔993〕 If 〔992 Count〕 is 1
+
+〔994〕 Get First Item from List 〔MatchString〕　»
+
+〔995〕 Set Variable TravelDays to 〔994 Item from List〕
+
+〔996〕 Otherwise
+
+〔997〕 Number 0　»
+
+〔998〕 Set Variable TravelDays to 〔997 Number〕
+
+〔999〕 End If
+
+〔1000〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
+
+〔1001〕 Set Variable MatchString to 〔1000 Matches〕
+
+〔1002〕 Count Items in 〔MatchString〕　»
+
+〔1003〕 If 〔1002 Count〕 is 1
+
+〔1004〕 Get First Item from List 〔MatchString〕　»
+
+〔1005〕 Set Variable TravelHours to 〔1004 Item from List〕
+
+〔1006〕 Otherwise
+
+〔1007〕 Number 0　»
+
+〔1008〕 Set Variable TravelHours to 〔1007 Number〕
+
+〔1009〕 End If
+
+〔1010〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
+
+〔1011〕 Set Variable MatchString to 〔1010 Matches〕
+
+〔1012〕 Count Items in 〔MatchString〕　»
+
+〔1013〕 If 〔1012 Count〕 is 1
+
+〔1014〕 Get First Item from List 〔MatchString〕　»
+
+〔1015〕 Set Variable TravelMinutes to 〔1014 Item from List〕
+
+〔1016〕 Otherwise
+
+〔1017〕 Number 0　»
+
+〔1018〕 Set Variable TravelMinutes to 〔1017 Number〕
+
+〔1019〕 End If
+
+〔1020〕 Calculate 〔TravelDays〕 × 1440　» 1022
+
+〔1021〕 Calculate 〔TravelHours〕 × 60　»
+
+〔1022〕 Calculate 〔1021 Calculation Result〕 + 〔1020 Calculation Result〕　»
+
+〔1023〕 Calculate 〔1022 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔1024〕 Calculate 〔1023 Calculation Result〕 + 〔CurrentToDeparture〕　»
+
+〔1025〕 Set Variable TravelTime to 〔1024 Calculation Result〕
+
+〔1026〕 Otherwise　▵942
+
+〔1027〕 Text
+CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
+
+〔1028〕 Get 〔TravelMethod〕 Time　»
+• Destination: 〔Repeat Item’s Location〕
+
+〔1029〕 Set Variable TravelTimeString to 〔1028 Travel Time〕
+
+〔1030〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
+
+〔1031〕 Set Variable MatchString to 〔1030 Matches〕
+
+〔1032〕 Count Items in 〔MatchString〕　»
+
+〔1033〕 If 〔1032 Count〕 is 1
+
+〔1034〕 Get First Item from List 〔MatchString〕　»
+
+〔1035〕 Set Variable TravelDays to 〔1034 Item from List〕
+
+〔1036〕 Otherwise
+
+〔1037〕 Number 0　»
+
+〔1038〕 Set Variable TravelDays to 〔1037 Number〕
+
+〔1039〕 End If
+
+〔1040〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
+
+〔1041〕 Set Variable MatchString to 〔1040 Matches〕
+
+〔1042〕 Count Items in 〔MatchString〕　»
+
+〔1043〕 If 〔1042 Count〕 is 1
+
+〔1044〕 Get First Item from List 〔MatchString〕　»
+
+〔1045〕 Set Variable TravelHours to 〔1044 Item from List〕
+
+〔1046〕 Otherwise
+
+〔1047〕 Number 0　»
+
+〔1048〕 Set Variable TravelHours to 〔1047 Number〕
+
+〔1049〕 End If
+
+〔1050〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
+
+〔1051〕 Set Variable MatchString to 〔1050 Matches〕
+
+〔1052〕 Count Items in 〔MatchString〕　»
+
+〔1053〕 If 〔1052 Count〕 is 1
+
+〔1054〕 Get First Item from List 〔MatchString〕　»
+
+〔1055〕 Set Variable TravelMinutes to 〔1054 Item from List〕
+
+〔1056〕 Otherwise
+
+〔1057〕 Number 0　»
+
+〔1058〕 Set Variable TravelMinutes to 〔1057 Number〕
+
+〔1059〕 End If
+
+〔1060〕 Calculate 〔TravelDays〕 × 1440　» 1062
+
+〔1061〕 Calculate 〔TravelHours〕 × 60　»
+
+〔1062〕 Calculate 〔1061 Calculation Result〕 + 〔1060 Calculation Result〕　»
+
+〔1063〕 Calculate 〔1062 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔1064〕 Set Variable TravelTime to 〔1063 Calculation Result〕
+
+〔1065〕 End If　▵1026
+
+〔1066〕 End If　▵934
+
+〔1067〕 Otherwise　▵839
+
+〔1068〕 Number 0　»
+
+〔1069〕 Set Variable TravelTime to 〔1068 Number〕
+
+〔1070〕 End If
+
+〔1071〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
+
+〔1072〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed Alarm Time　» 1073 1076 1079 1082 1089 1105 1107 1108 1126 1131 1134
+• Duration: 〔1071 Calculation Result〕 min
+
+〔1073〕 Dictionary 　➔ Alarm Label Dictionary　» 1105 1110 1126
 {  "Event": "〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
    "Location": "〔Repeat Item’s Location〕",
-   "AlarmTime": "〔919 Supposed Alarm Time〕"
+   "AlarmTime": "〔1072 Supposed Alarm Time〕"
 }
 
-〔921〕 Date Current Date 　➔ Current Date　» 922 923 954
+〔1074〕 Date Current Date 　➔ Current Date　» 1075 1076 1107
 
-〔922〕 Adjust Add Date 〔921 Current Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM yyyy"}〕 　➔ 1 day after　» 936 955
+〔1075〕 Adjust Add Date 〔1074 Current Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM yyyy"}〕 　➔ 1 day after　» 1089 1108
 • Duration: "1" days
 
-〔923〕 If 〔919 Supposed Alarm Time〕 is 〔921 Current Date〕
+〔1076〕 If 〔1072 Supposed Alarm Time〕 is 〔1074 Current Date〕
 
-〔924〕 Comment
+〔1077〕 Comment
 supposed alarm time is exactly 12:00am
 
-〔925〕 If 〔Repeat Item’s Location〕 has any value
+〔1078〕 If 〔Repeat Item’s Location〕 has any value
 
-〔926〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕 which  was supposed to get ready at 〔919 Supposed Alarm Time〕. Please check.
+〔1079〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕 which  was supposed to get ready at 〔1072 Supposed Alarm Time〕. Please check.
 
-〔927〕 Set Variable Text to 〔926 Text〕
+〔1080〕 Set Variable Text to 〔1079 Text〕
 
-〔928〕 Otherwise
+〔1081〕 Otherwise
 
-〔929〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔919 Supposed Alarm Time〕. Please check.
+〔1082〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔1072 Supposed Alarm Time〕. Please check.
 
-〔930〕 Set Variable Text to 〔929 Text〕
+〔1083〕 Set Variable Text to 〔1082 Text〕
 
-〔931〕 End If
+〔1084〕 End If
 
-〔932〕 Show Alert 〔Text〕
+〔1085〕 Show Alert 〔Text〕
 
-〔933〕 Show Notification 〔Text〕
+〔1086〕 Show Notification 〔Text〕
 
-〔934〕 Speak Text
+〔1087〕 Speak Text
 • Text: 〔Text〕
 
-〔935〕 Otherwise　▵923
+〔1088〕 Otherwise　▵1076
 
-〔936〕 If 〔919 Supposed Alarm Time〕 is 〔922 1 day after〕
+〔1089〕 If 〔1072 Supposed Alarm Time〕 is 〔1075 1 day after〕
 
-〔937〕 Find Alarm All Alarm　» 938 939
+〔1090〕 Find Alarm All Alarm　» 1091 1092
 
-〔938〕 If 〔937 Alarms〕 has any value
+〔1091〕 If 〔1090 Alarms〕 has any value
 
-〔939〕 Repeat[2] with Each in 〔937 Alarms〕
+〔1092〕 Repeat[2] with Each in 〔1090 Alarms〕
 
-〔940〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 941 942 944
+〔1093〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 1094 1095 1097
 
-〔941〕 Get Dictionary Value for Event in 〔940 AlarmLabelDictionary〕 　➔ Event　» 946
+〔1094〕 Get Dictionary Value for Event in 〔1093 AlarmLabelDictionary〕 　➔ Event　» 1099
 
-〔942〕 Get Dictionary Value for From in 〔940 AlarmLabelDictionary〕 　➔ From　»
+〔1095〕 Get Dictionary Value for From in 〔1093 AlarmLabelDictionary〕 　➔ From　»
 
-〔943〕 Get Dates from 〔942 From〕 　➔ FromDate　» 946
+〔1096〕 Get Dates from 〔1095 From〕 　➔ FromDate　» 1099
 
-〔944〕 Get Dictionary Value for To in 〔940 AlarmLabelDictionary〕 　➔ To　»
+〔1097〕 Get Dictionary Value for To in 〔1093 AlarmLabelDictionary〕 　➔ To　»
 
-〔945〕 Get Dates from 〔944 To〕 　➔ ToDate　»
+〔1098〕 Get Dates from 〔1097 To〕 　➔ ToDate　»
 
-〔946〕 If All are true　〔941 Event’s Name〕 is 〔Repeat Item〕　〔943 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔945 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is • ConditionalActionString
+〔1099〕 If All are true　〔1094 Event’s Name〕 is 〔Repeat Item〕　〔1096 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔1098 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is • ConditionalActionString
 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕• Date
 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
 
-〔947〕 Delete Alarms
+〔1100〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔948〕 End If
+〔1101〕 End If
 
-〔949〕 End Repeat[2] with Each　▵939
+〔1102〕 End Repeat[2] with Each　▵1092
 
-〔950〕 End If　▵938
+〔1103〕 End If　▵1091
 
-〔951〕 Comment
+〔1104〕 Comment
 since this will be triggered at 12:00 am each day, when the supposed alarm time is 12:00 am in the next day, you can set alarm now
 
-〔952〕 Add Alarm for 〔919 Supposed Alarm Time〕 called 〔920 Alarm Label Dictionary〕
+〔1105〕 Add Alarm for 〔1072 Supposed Alarm Time〕 called 〔1073 Alarm Label Dictionary〕
 
-〔953〕 Otherwise　▵936
+〔1106〕 Otherwise　▵1089
 
-〔954〕 If 〔919 Supposed Alarm Time〕 > 〔921 Current Date〕
+〔1107〕 If 〔1072 Supposed Alarm Time〕 > 〔1074 Current Date〕
 
-〔955〕 If 〔919 Supposed Alarm Time〕 > 〔922 1 day after〕
+〔1108〕 If 〔1072 Supposed Alarm Time〕 > 〔1075 1 day after〕
 
-〔956〕 Comment
+〔1109〕 Comment
 when the time is other than 12:00 am of then next day, you cannot set alarm yet. If set, it will be today. For example, triggering time 2025-4-8 12:00 am, the supposed alarm time is 2025-4-9 08:00 am, if you set an alarm at 08:00 at 2025-4-8 12:00 am, it will alarm at 2025-4-8 08:00 am instead. So we need to record the supposed alarm time and trigger next day.
 
-〔957〕 Set Variable Event to 〔920 Alarm Label Dictionary〕
+〔1110〕 Set Variable Event to 〔1073 Alarm Label Dictionary〕
 
-〔958〕 Otherwise
+〔1111〕 Otherwise
 
-〔959〕 Find Alarm All Alarm　» 960 961
-• ContentItemFilter: {  "Value": {
-      "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
-   },
-   "WFSerializationType": "WFContentPredicateTableTemplate"
-}
-
-〔960〕 If 〔959 Alarms〕 has any value
-
-〔961〕 Repeat[2] with Each in 〔959 Alarms〕
-
-〔962〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 963 964 966
-
-〔963〕 Get Dictionary Value for Event in 〔962 AlarmLabelDictionary〕 　➔ Event　» 968
-
-〔964〕 Get Dictionary Value for From in 〔962 AlarmLabelDictionary〕 　➔ From　»
-
-〔965〕 Get Dates from 〔964 From〕 　➔ FromDate　» 968
-
-〔966〕 Get Dictionary Value for To in 〔962 AlarmLabelDictionary〕 　➔ To　»
-
-〔967〕 Get Dates from 〔966 To〕 　➔ ToDate　»
-
-〔968〕 If All are true　〔963 Event’s Name〕 is 〔Repeat Item〕　〔965 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔967 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
-
-〔969〕 Delete Alarms
-• entities: 〔Repeat Item 2〕
-
-〔970〕 End If
-
-〔971〕 End Repeat[2] with Each　▵961
-
-〔972〕 End If　▵960
-
-〔973〕 Add Alarm for 〔919 Supposed Alarm Time〕 called 〔920 Alarm Label Dictionary〕
-
-〔974〕 End If　▵958
-
-〔975〕 Otherwise　▵954
-
-〔976〕 Comment
-the supposed alarm time passed
-
-〔977〕 If 〔Repeat Item’s Location〕 has any value
-
-〔978〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕 which  was supposed to get ready at 〔919 Supposed Alarm Time〕. Please check.
-
-〔979〕 Set Variable Text to 〔978 Text〕
-
-〔980〕 Otherwise
-
-〔981〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔919 Supposed Alarm Time〕. Please check.
-
-〔982〕 Set Variable Text to 〔981 Text〕
-
-〔983〕 End If
-
-〔984〕 Show Alert 〔Text〕
-
-〔985〕 Show Notification 〔Text〕
-
-〔986〕 Speak Text
-• Text: 〔Text〕
-
-〔987〕 End If　▵975
-
-〔988〕 End If　▵953
-
-〔989〕 End If　▵935
-
-〔990〕 If 〔Event〕 has any value
-
-〔991〕 Get Dictionary from 〔Event〕　» 992 993 994 995 1008
-
-〔992〕 Get Text from 〔991 Dictionary.Event〕　» 1008
-
-〔993〕 Get Dates from 〔991 Dictionary.From〕　» 1008
-
-〔994〕 Get Dates from 〔991 Dictionary.To〕　» 1008
-
-〔995〕 Get Text from 〔991 Dictionary.Location〕　» 1008
-
-〔996〕 Text　»
-
-〔997〕 Set Variable TextList to 〔996 Text〕
-
-〔998〕 Add 〔Event〕 to Variable TextList
-
-〔999〕 Get File at Path Smart Calendar Reminder/Future Alarms.txt from Folder　» 1000 1001
-• FileErrorIfNotFound: false
-
-〔1000〕 If 〔999 File’s File Size〕 has any value
-
-〔1001〕 Split Text 〔999 File〕 by New Lines　»
-
-〔1002〕 Repeat[2] with Each in 〔1001 Split Text〕
-
-〔1003〕 Get Dictionary from 〔Repeat Item 2〕　» 1004 1005 1006 1007
-
-〔1004〕 Get Text from 〔1003 Dictionary.Event〕　» 1008
-
-〔1005〕 Get Dates from 〔1003 Dictionary.From〕　» 1008
-
-〔1006〕 Get Dates from 〔1003 Dictionary.To〕
-
-〔1007〕 Get Text from 〔1003 Dictionary.Location〕　»
-
-〔1008〕 If Any are true　〔992 Text〕 is not 〔1004 Text〕　〔993 Dates〕 is not • ConditionalActionString
-〔991 Dictionary.From〕• Date
-〔1005 Dates〕　〔994 Dates〕 is not • ConditionalActionString
-〔991 Dictionary.To〕• Date
-〔1005 Dates〕　〔995 Text〕 is not 〔1007 Text〕
-
-〔1009〕 Add 〔Repeat Item 2〕 to Variable TextList
-
-〔1010〕 End If
-
-〔1011〕 End Repeat[2] with Each　▵1002
-
-〔1012〕 Combine Text 〔TextList〕 with New Lines　»
-
-〔1013〕 Save File 〔1012 Combined Text〕
-• AskWhereToSave: false
-• SaveFileOverwrite: true
-• FileDestinationPath: Smart Calendar Reminder/Future Alarms.txt
-
-〔1014〕 Otherwise　▵1000
-
-〔1015〕 Text　»
-
-〔Event〕
-
-〔1016〕 Save File 〔1015 Text〕
-• AskWhereToSave: false
-• FileDestinationPath: Smart Calendar Reminder/Future Alarms.txt
-
-〔1017〕 End If
-
-〔1018〕 End If　▵990
-
-〔1019〕 End Repeat with Each　▵740
-
-〔1020〕 End If　▵739
-
-〔1021〕 Get File at Path Smart Calendar Reminder/Future Alarms.txt from Folder　» 1022 1023
-• FileErrorIfNotFound: false
-
-〔1022〕 If 〔1021 File’s File Size〕 has any value
-
-〔1023〕 Split Text 〔1021 File〕 by New Lines　»
-
-〔1024〕 Repeat with Each in 〔1023 Split Text〕
-
-〔1025〕 Get Dictionary from 〔Repeat Item〕　» 1026 1027 1037 1048
-
-〔1026〕 If 〔1025 Dictionary〕 has any value
-
-〔1027〕 Get Dates from 〔1025 Dictionary.AlarmTime〕　» 1028 1029 1048
-
-〔1028〕 If 〔1027 Dates〕 is today
-
-〔1029〕 Find Alarm 〔1027 Dates〕　» 1030 1031
+〔1112〕 Find Alarm All Alarm　» 1113 1114
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
       "WFActionParameterFilterTemplates": [],
@@ -3396,58 +3551,223 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔1030〕 If 〔1029 Alarms〕 has any value
+〔1113〕 If 〔1112 Alarms〕 has any value
 
-〔1031〕 Repeat[2] with Each in 〔1029 Alarms〕
+〔1114〕 Repeat[2] with Each in 〔1112 Alarms〕
 
-〔1032〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ Alarm_Label_Dictionary　» 1033 1035 1043
+〔1115〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 1116 1117 1119
 
-〔1033〕 Get Dictionary Value for From in 〔1032 Alarm_Label_Dictionary〕　»
+〔1116〕 Get Dictionary Value for Event in 〔1115 AlarmLabelDictionary〕 　➔ Event　» 1121
 
-〔1034〕 Get Dates from 〔1033 Dictionary Value〕 　➔ From_Date　» 1043
+〔1117〕 Get Dictionary Value for From in 〔1115 AlarmLabelDictionary〕 　➔ From　»
 
-〔1035〕 Get Dictionary Value for To in 〔1032 Alarm_Label_Dictionary〕　»
+〔1118〕 Get Dates from 〔1117 From〕 　➔ FromDate　» 1121
 
-〔1036〕 Get Dates from 〔1035 Dictionary Value〕 　➔ To_Date　» 1043
+〔1119〕 Get Dictionary Value for To in 〔1115 AlarmLabelDictionary〕 　➔ To　»
 
-〔1037〕 Get Dictionary from 〔1025 Dictionary.Event〕 　➔ FutureAlarmLabelDictionary　» 1038 1039 1041
+〔1120〕 Get Dates from 〔1119 To〕 　➔ ToDate　»
 
-〔1038〕 Get Dictionary Value for Event in 〔1037 FutureAlarmLabelDictionary〕 　➔ Event　» 1043
+〔1121〕 If All are true　〔1116 Event’s Name〕 is 〔Repeat Item〕　〔1118 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔1120 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
 
-〔1039〕 Get Dictionary Value for From in 〔1037 FutureAlarmLabelDictionary〕 　➔ From　»
-
-〔1040〕 Get Dates from 〔1039 From〕 　➔ FromDate　» 1043
-
-〔1041〕 Get Dictionary Value for To in 〔1037 FutureAlarmLabelDictionary〕 　➔ To　»
-
-〔1042〕 Get Dates from 〔1041 To〕 　➔ ToDate　»
-
-〔1043〕 If All are true　〔1038 Event’s Name〕 is 〔1032 Alarm_Label_Dictionary.Event〕　〔1040 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔1034 From_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔1042 ToDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is 〔1036 To_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
-
-〔1044〕 Delete Alarms
+〔1122〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔1045〕 End If
+〔1123〕 End If
 
-〔1046〕 End Repeat[2] with Each　▵1031
+〔1124〕 End Repeat[2] with Each　▵1114
 
-〔1047〕 End If　▵1030
+〔1125〕 End If　▵1113
 
-〔1048〕 Add Alarm for 〔1027 Dates〕 called 〔1025 Dictionary.Event〕
+〔1126〕 Add Alarm for 〔1072 Supposed Alarm Time〕 called 〔1073 Alarm Label Dictionary〕
 
-〔1049〕 End If　▵1028
+〔1127〕 End If　▵1111
 
-〔1050〕 End If　▵1026
+〔1128〕 Otherwise　▵1107
 
-〔1051〕 End Repeat with Each　▵1024
+〔1129〕 Comment
+the supposed alarm time passed
 
-〔1052〕 End If　▵1022
+〔1130〕 If 〔Repeat Item’s Location〕 has any value
 
-〔1053〕 End If　▵727
+〔1131〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕 which  was supposed to get ready at 〔1072 Supposed Alarm Time〕. Please check.
 
-〔1054〕 If 〔Shortcut Input as Number〕 is 6
+〔1132〕 Set Variable Text to 〔1131 Text〕
 
-〔1055〕 Comment
+〔1133〕 Otherwise
+
+〔1134〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔1072 Supposed Alarm Time〕. Please check.
+
+〔1135〕 Set Variable Text to 〔1134 Text〕
+
+〔1136〕 End If
+
+〔1137〕 Show Alert 〔Text〕
+
+〔1138〕 Show Notification 〔Text〕
+
+〔1139〕 Speak Text
+• Text: 〔Text〕
+
+〔1140〕 End If　▵1128
+
+〔1141〕 End If　▵1106
+
+〔1142〕 End If　▵1088
+
+〔1143〕 If 〔Event〕 has any value
+
+〔1144〕 Get Dictionary from 〔Event〕　» 1145 1146 1147 1148 1161
+
+〔1145〕 Get Text from 〔1144 Dictionary.Event〕　» 1161
+
+〔1146〕 Get Dates from 〔1144 Dictionary.From〕　» 1161
+
+〔1147〕 Get Dates from 〔1144 Dictionary.To〕　» 1161
+
+〔1148〕 Get Text from 〔1144 Dictionary.Location〕　» 1161
+
+〔1149〕 Text　»
+
+〔1150〕 Set Variable TextList to 〔1149 Text〕
+
+〔1151〕 Add 〔Event〕 to Variable TextList
+
+〔1152〕 Get File at Path Smart Calendar Reminder/Future Alarms.txt from Folder　» 1153 1154
+• FileErrorIfNotFound: false
+
+〔1153〕 If 〔1152 File’s File Size〕 has any value
+
+〔1154〕 Split Text 〔1152 File〕 by New Lines　»
+
+〔1155〕 Repeat[2] with Each in 〔1154 Split Text〕
+
+〔1156〕 Get Dictionary from 〔Repeat Item 2〕　» 1157 1158 1159 1160
+
+〔1157〕 Get Text from 〔1156 Dictionary.Event〕　» 1161
+
+〔1158〕 Get Dates from 〔1156 Dictionary.From〕　» 1161
+
+〔1159〕 Get Dates from 〔1156 Dictionary.To〕
+
+〔1160〕 Get Text from 〔1156 Dictionary.Location〕　»
+
+〔1161〕 If Any are true　〔1145 Text〕 is not 〔1157 Text〕　〔1146 Dates〕 is not • ConditionalActionString
+〔1144 Dictionary.From〕• Date
+〔1158 Dates〕　〔1147 Dates〕 is not • ConditionalActionString
+〔1144 Dictionary.To〕• Date
+〔1158 Dates〕　〔1148 Text〕 is not 〔1160 Text〕
+
+〔1162〕 Add 〔Repeat Item 2〕 to Variable TextList
+
+〔1163〕 End If
+
+〔1164〕 End Repeat[2] with Each　▵1155
+
+〔1165〕 Combine Text 〔TextList〕 with New Lines　»
+
+〔1166〕 Save File 〔1165 Combined Text〕
+• AskWhereToSave: false
+• SaveFileOverwrite: true
+• FileDestinationPath: Smart Calendar Reminder/Future Alarms.txt
+
+〔1167〕 Otherwise　▵1153
+
+〔1168〕 Text　»
+
+〔Event〕
+
+〔1169〕 Save File 〔1168 Text〕
+• AskWhereToSave: false
+• FileDestinationPath: Smart Calendar Reminder/Future Alarms.txt
+
+〔1170〕 End If
+
+〔1171〕 End If　▵1143
+
+〔1172〕 End Repeat with Each　▵838
+
+〔1173〕 End If　▵837
+
+〔1174〕 Get File at Path Smart Calendar Reminder/Future Alarms.txt from Folder　» 1175 1176
+• FileErrorIfNotFound: false
+
+〔1175〕 If 〔1174 File’s File Size〕 has any value
+
+〔1176〕 Split Text 〔1174 File〕 by New Lines　»
+
+〔1177〕 Repeat with Each in 〔1176 Split Text〕
+
+〔1178〕 Get Dictionary from 〔Repeat Item〕　» 1179 1180 1190 1201
+
+〔1179〕 If 〔1178 Dictionary〕 has any value
+
+〔1180〕 Get Dates from 〔1178 Dictionary.AlarmTime〕　» 1181 1182 1201
+
+〔1181〕 If 〔1180 Dates〕 is today
+
+〔1182〕 Find Alarm 〔1180 Dates〕　» 1183 1184
+• ContentItemFilter: {  "Value": {
+      "WFActionParameterFilterPrefix": 1,
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
+   },
+   "WFSerializationType": "WFContentPredicateTableTemplate"
+}
+
+〔1183〕 If 〔1182 Alarms〕 has any value
+
+〔1184〕 Repeat[2] with Each in 〔1182 Alarms〕
+
+〔1185〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ Alarm_Label_Dictionary　» 1186 1188 1196
+
+〔1186〕 Get Dictionary Value for From in 〔1185 Alarm_Label_Dictionary〕　»
+
+〔1187〕 Get Dates from 〔1186 Dictionary Value〕 　➔ From_Date　» 1196
+
+〔1188〕 Get Dictionary Value for To in 〔1185 Alarm_Label_Dictionary〕　»
+
+〔1189〕 Get Dates from 〔1188 Dictionary Value〕 　➔ To_Date　» 1196
+
+〔1190〕 Get Dictionary from 〔1178 Dictionary.Event〕 　➔ FutureAlarmLabelDictionary　» 1191 1192 1194
+
+〔1191〕 Get Dictionary Value for Event in 〔1190 FutureAlarmLabelDictionary〕 　➔ Event　» 1196
+
+〔1192〕 Get Dictionary Value for From in 〔1190 FutureAlarmLabelDictionary〕 　➔ From　»
+
+〔1193〕 Get Dates from 〔1192 From〕 　➔ FromDate　» 1196
+
+〔1194〕 Get Dictionary Value for To in 〔1190 FutureAlarmLabelDictionary〕 　➔ To　»
+
+〔1195〕 Get Dates from 〔1194 To〕 　➔ ToDate　»
+
+〔1196〕 If All are true　〔1191 Event’s Name〕 is 〔1185 Alarm_Label_Dictionary.Event〕　〔1193 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔1187 From_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔1195 ToDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is 〔1189 To_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
+
+〔1197〕 Delete Alarms
+• entities: 〔Repeat Item 2〕
+
+〔1198〕 End If
+
+〔1199〕 End Repeat[2] with Each　▵1184
+
+〔1200〕 End If　▵1183
+
+〔1201〕 Add Alarm for 〔1180 Dates〕 called 〔1178 Dictionary.Event〕
+
+〔1202〕 End If　▵1181
+
+〔1203〕 End If　▵1179
+
+〔1204〕 End Repeat with Each　▵1177
+
+〔1205〕 End If　▵1175
+
+〔1206〕 End If　▵825
+
+〔1207〕 If 〔Shortcut Input as Number〕 is 6
+
+〔1208〕 Comment
 *Revolutionizing event management by integrating calendar data with intelligent automation:
 
 Voice announcements for upcoming events
@@ -3457,27 +3777,27 @@ Dynamic alarm calculation (travel + prep time)
 Calendar-driven scheduling system
 Eliminates manual reminders and ensures perfect timing synchronization*
 
-〔1056〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
+〔1209〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
 • FileErrorIfNotFound: false
 
-〔1057〕 Get Dictionary from 〔1056 File〕　» 1058 1061 1062
+〔1210〕 Get Dictionary from 〔1209 File〕　» 1211 1214 1215
 
-〔1058〕 Get Dictionary from 〔1057 Dictionary.HomeAddress〕　»
+〔1211〕 Get Dictionary from 〔1210 Dictionary.HomeAddress〕　»
 
-〔1059〕 Text　»
-〔1058 Dictionary.street〕 〔1058 Dictionary.city〕 〔1058 Dictionary.state〕 〔1058 Dictionary.postcode〕 〔1058 Dictionary.country〕\u{space}
+〔1212〕 Text　»
+〔1211 Dictionary.street〕 〔1211 Dictionary.city〕 〔1211 Dictionary.state〕 〔1211 Dictionary.postcode〕 〔1211 Dictionary.country〕\u{space}
 
-〔1060〕 Set Variable HomeAddress to 〔1059 Text〕
+〔1213〕 Set Variable HomeAddress to 〔1212 Text〕
 
-〔1061〕 Set Variable TravelMethod to 〔1057 Dictionary.TravelMethod〕
+〔1214〕 Set Variable TravelMethod to 〔1210 Dictionary.TravelMethod〕
 
-〔1062〕 Get Dictionary Value for ExtraTime in 〔1057 Dictionary〕　»
+〔1215〕 Get Dictionary Value for ExtraTime in 〔1210 Dictionary〕　»
 
-〔1063〕 Get Numbers from 〔1062 Dictionary Value〕　»
+〔1216〕 Get Numbers from 〔1215 Dictionary Value〕　»
 
-〔1064〕 Set Variable ExtraTime to 〔1063 Numbers〕
+〔1217〕 Set Variable ExtraTime to 〔1216 Numbers〕
 
-〔1065〕 Find Calendar Events All Calendar Events where　» 1066 1067
+〔1218〕 Find Calendar Events All Calendar Events where　» 1219 1220
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
@@ -3485,16 +3805,16 @@ Start Date is in the next 1 weeks
 Is Not All Day
 Canceled is {"Bool":false}
 
-〔1066〕 If 〔1065 Calendar Events〕 has any value
+〔1219〕 If 〔1218 Calendar Events〕 has any value
 
-〔1067〕 Repeat with Each in 〔1065 Calendar Events〕
+〔1220〕 Repeat with Each in 〔1218 Calendar Events〕
 
-〔1068〕 If 〔Repeat Item’s Location〕 has any value
+〔1221〕 If 〔Repeat Item’s Location〕 has any value
 
-〔1069〕 Get Current Location　» 1081 1087 1151
+〔1222〕 Get Current Location　» 1234 1240 1326
 • Accuracy: Best
 
-〔1070〕 Comment
+〔1223〕 Comment
 *To specify event-specific departure locations:
 
 1. Create calendar event notes with JSON structure:
@@ -3507,481 +3827,596 @@ Canceled is {"Bool":false}
 }
 2. System prioritizes these over default locations*
 
-〔1071〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
+〔1224〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
 
-〔1072〕 Comment
+〔1225〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
 
-〔1073〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ Notes Address Dictionary　» 1074 1075 1076 1077 1078
+〔1226〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ Notes Address Dictionary　» 1227 1228 1229 1230 1231
 
-〔1074〕 Set Variable Calendar_Notes_Street to 〔1073 Notes Address Dictionary.Street〕
+〔1227〕 Set Variable Calendar_Notes_Street to 〔1226 Notes Address Dictionary.Street〕
 
-〔1075〕 Set Variable Calendar_Notes_City to 〔1073 Notes Address Dictionary.City〕
+〔1228〕 Set Variable Calendar_Notes_City to 〔1226 Notes Address Dictionary.City〕
 
-〔1076〕 Set Variable Calendar_Notes_State to 〔1073 Notes Address Dictionary.State〕
+〔1229〕 Set Variable Calendar_Notes_State to 〔1226 Notes Address Dictionary.State〕
 
-〔1077〕 Set Variable Calendar_Notes_Region to 〔1073 Notes Address Dictionary.Country〕
+〔1230〕 Set Variable Calendar_Notes_Region to 〔1226 Notes Address Dictionary.Country〕
 
-〔1078〕 Set Variable Calendar_Notes_ZIP_Code to 〔1073 Notes Address Dictionary.Postcode〕
+〔1231〕 Set Variable Calendar_Notes_ZIP_Code to 〔1226 Notes Address Dictionary.Postcode〕
 
-〔1079〕 Text　»
+〔1232〕 Text　»
 〔Calendar_Notes_Street〕 〔Calendar_Notes_City〕 〔Calendar_Notes_State〕 〔Calendar_Notes_ZIP_Code〕 〔Calendar_Notes_Region〕
 
-〔1080〕 Set Variable NotesAddressString to 〔1079 Text〕
+〔1233〕 Set Variable NotesAddressString to 〔1232 Text〕
 
-〔1081〕 If All are true　〔1069 Current Location’s Street〕 is 〔Calendar_Notes_Street〕　〔1069 Current Location’s City〕 is 〔Calendar_Notes_City〕　〔1069 Current Location’s State〕 is 〔Calendar_Notes_State〕　〔1069 Current Location’s Country〕 is 〔Calendar_Notes_Region〕　〔1069 Current Location’s ZIP Code〕 is 〔Calendar_Notes_ZIP_Code〕
+〔1234〕 If All are true　〔1222 Current Location’s Street〕 is 〔Calendar_Notes_Street〕　〔1222 Current Location’s City〕 is 〔Calendar_Notes_City〕　〔1222 Current Location’s State〕 is 〔Calendar_Notes_State〕　〔1222 Current Location’s Country〕 is 〔Calendar_Notes_Region〕　〔1222 Current Location’s ZIP Code〕 is 〔Calendar_Notes_ZIP_Code〕
 
-〔1082〕 Comment
+〔1235〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
 
-〔1083〕 Number 0　»
+〔1236〕 Number 0　»
 
-〔1084〕 Set Variable CurrentToDeparture to 〔1083 Number〕
+〔1237〕 Set Variable CurrentToDeparture to 〔1236 Number〕
 
-〔1085〕 Otherwise
+〔1238〕 Otherwise
 
-〔1086〕 Comment
+〔1239〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔1087〕 Get 〔TravelMethod〕 Time　»
-• GetDirectionsCustomLocation: 〔1069 Current Location〕
+〔1240〕 Get 〔TravelMethod〕 Time　»
+• GetDirectionsCustomLocation: 〔1222 Current Location〕
 • Destination: 〔NotesAddressString〕
 
-〔1088〕 Set Variable TravelTimeString to 〔1087 Travel Time〕
+〔1241〕 Set Variable TravelTimeString to 〔1240 Travel Time〕
 
-〔1089〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 1090 1092 1094 1099 1106
+〔1242〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔1090〕 Count Items in 〔1089 C2DMatches〕　»
+〔1243〕 Set Variable MatchString to 〔1242 Matches〕
 
-〔1091〕 If 〔1090 Count〕 > 1
+〔1244〕 Count Items in 〔MatchString〕　»
 
-〔1092〕 Get First Item from List 〔1089 C2DMatches〕　»
+〔1245〕 If 〔1244 Count〕 is 1
 
-〔1093〕 Set Variable C2DHours to 〔1092 Item from List〕
+〔1246〕 Get First Item from List 〔MatchString〕　»
 
-〔1094〕 Get Last Item from List 〔1089 C2DMatches〕　»
+〔1247〕 Set Variable TravelDays to 〔1246 Item from List〕
 
-〔1095〕 Set Variable C2DMinutes to 〔1094 Item from List〕
+〔1248〕 Otherwise
 
-〔1096〕 Otherwise
+〔1249〕 Number 0　»
 
-〔1097〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔1250〕 Set Variable TravelDays to 〔1249 Number〕
 
-〔1098〕 If 〔1097 C2DMatches’s text〕 has any value
+〔1251〕 End If
 
-〔1099〕 Get First Item from List 〔1089 C2DMatches〕　»
+〔1252〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1100〕 Set Variable C2DHours to 〔1099 Item from List〕
+〔1253〕 Set Variable MatchString to 〔1252 Matches〕
 
-〔1101〕 Number 0　»
+〔1254〕 Count Items in 〔MatchString〕　»
 
-〔1102〕 Set Variable C2DMinutes to 〔1101 Number〕
+〔1255〕 If 〔1254 Count〕 is 1
 
-〔1103〕 Otherwise
+〔1256〕 Get First Item from List 〔MatchString〕　»
 
-〔1104〕 Number 0　»
+〔1257〕 Set Variable TravelHours to 〔1256 Item from List〕
 
-〔1105〕 Set Variable C2DHours to 〔1104 Number〕
+〔1258〕 Otherwise
 
-〔1106〕 Get First Item from List 〔1089 C2DMatches〕　»
+〔1259〕 Number 0　»
 
-〔1107〕 Set Variable C2DMinutes to 〔1106 Item from List〕
+〔1260〕 Set Variable TravelHours to 〔1259 Number〕
 
-〔1108〕 End If
+〔1261〕 End If
 
-〔1109〕 End If　▵1096
+〔1262〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1110〕 Calculate 〔C2DHours〕 × 60　»
+〔1263〕 Set Variable MatchString to 〔1262 Matches〕
 
-〔1111〕 Calculate 〔1110 Calculation Result〕 + 〔C2DMinutes〕　»
+〔1264〕 Count Items in 〔MatchString〕　»
 
-〔1112〕 Set Variable CurrentToDeparture to 〔1111 Calculation Result〕
+〔1265〕 If 〔1264 Count〕 is 1
 
-〔1113〕 End If　▵1085
+〔1266〕 Get First Item from List 〔MatchString〕　»
 
-〔1114〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+〔1267〕 Set Variable TravelMinutes to 〔1266 Item from List〕
+
+〔1268〕 Otherwise
+
+〔1269〕 Number 0　»
+
+〔1270〕 Set Variable TravelMinutes to 〔1269 Number〕
+
+〔1271〕 End If
+
+〔1272〕 Calculate 〔TravelDays〕 × 1440　» 1274
+
+〔1273〕 Calculate 〔TravelHours〕 × 60　»
+
+〔1274〕 Calculate 〔1273 Calculation Result〕 + 〔1272 Calculation Result〕　»
+
+〔1275〕 Calculate 〔1274 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔1276〕 Set Variable CurrentToDeparture to 〔1275 Calculation Result〕
+
+〔1277〕 End If　▵1238
+
+〔1278〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
 • GetDirectionsCustomLocation: 〔NotesAddressString〕
 • Destination: 〔Repeat Item’s Location〕
 
-〔1115〕 Set Variable TravelTimeString to 〔1114 DepartureToDestination〕
+〔1279〕 Set Variable TravelTimeString to 〔1278 DepartureToDestination〕
 
-〔1116〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 1117 1119 1121 1126 1133
+〔1280〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔1117〕 Count Items in 〔1116 C2DMatches〕　»
+〔1281〕 Set Variable MatchString to 〔1280 Matches〕
 
-〔1118〕 If 〔1117 Count〕 > 1
+〔1282〕 Count Items in 〔MatchString〕　»
 
-〔1119〕 Get First Item from List 〔1116 C2DMatches〕　»
+〔1283〕 If 〔1282 Count〕 is 1
 
-〔1120〕 Set Variable C2DHours to 〔1119 Item from List〕
+〔1284〕 Get First Item from List 〔MatchString〕　»
 
-〔1121〕 Get Last Item from List 〔1116 C2DMatches〕　»
+〔1285〕 Set Variable TravelDays to 〔1284 Item from List〕
 
-〔1122〕 Set Variable C2DMinutes to 〔1121 Item from List〕
+〔1286〕 Otherwise
 
-〔1123〕 Otherwise
+〔1287〕 Number 0　»
 
-〔1124〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔1288〕 Set Variable TravelDays to 〔1287 Number〕
 
-〔1125〕 If 〔1124 C2DMatches’s text〕 has any value
+〔1289〕 End If
 
-〔1126〕 Get First Item from List 〔1116 C2DMatches〕　»
+〔1290〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1127〕 Set Variable C2DHours to 〔1126 Item from List〕
+〔1291〕 Set Variable MatchString to 〔1290 Matches〕
 
-〔1128〕 Number 0　»
+〔1292〕 Count Items in 〔MatchString〕　»
 
-〔1129〕 Set Variable C2DMinutes to 〔1128 Number〕
+〔1293〕 If 〔1292 Count〕 is 1
 
-〔1130〕 Otherwise
+〔1294〕 Get First Item from List 〔MatchString〕　»
 
-〔1131〕 Number 0　»
+〔1295〕 Set Variable TravelHours to 〔1294 Item from List〕
 
-〔1132〕 Set Variable C2DHours to 〔1131 Number〕
+〔1296〕 Otherwise
 
-〔1133〕 Get First Item from List 〔1116 C2DMatches〕　»
+〔1297〕 Number 0　»
 
-〔1134〕 Set Variable C2DMinutes to 〔1133 Item from List〕
+〔1298〕 Set Variable TravelHours to 〔1297 Number〕
 
-〔1135〕 End If
+〔1299〕 End If
 
-〔1136〕 End If　▵1123
+〔1300〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1137〕 Calculate 〔C2DHours〕 × 60　»
+〔1301〕 Set Variable MatchString to 〔1300 Matches〕
 
-〔1138〕 Calculate 〔1137 Calculation Result〕 + 〔C2DMinutes〕　»
+〔1302〕 Count Items in 〔MatchString〕　»
 
-〔1139〕 Calculate 〔1138 Calculation Result〕 + 〔CurrentToDeparture〕　»
+〔1303〕 If 〔1302 Count〕 is 1
 
-〔1140〕 Set Variable TravelTime to 〔1139 Calculation Result〕
+〔1304〕 Get First Item from List 〔MatchString〕　»
 
-〔1141〕 Otherwise　▵1071
+〔1305〕 Set Variable TravelMinutes to 〔1304 Item from List〕
 
-〔1142〕 Comment
+〔1306〕 Otherwise
+
+〔1307〕 Number 0　»
+
+〔1308〕 Set Variable TravelMinutes to 〔1307 Number〕
+
+〔1309〕 End If
+
+〔1310〕 Calculate 〔TravelDays〕 × 1440　» 1312
+
+〔1311〕 Calculate 〔TravelHours〕 × 60　»
+
+〔1312〕 Calculate 〔1311 Calculation Result〕 + 〔1310 Calculation Result〕　»
+
+〔1313〕 Calculate 〔1312 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔1314〕 Calculate 〔1313 Calculation Result〕 + 〔CurrentToDeparture〕　»
+
+〔1315〕 Set Variable TravelTime to 〔1314 Calculation Result〕
+
+〔1316〕 Otherwise　▵1224
+
+〔1317〕 Comment
 CALENDER EVENT NOTES IS BLANK
 
-〔1143〕 Get Dictionary from 〔HomeAddress〕 　➔ Home Address Dictionary　» 1144 1145 1146 1147 1148
+〔1318〕 Get Dictionary from 〔HomeAddress〕 　➔ Home Address Dictionary　» 1319 1320 1321 1322 1323
 
-〔1144〕 Get Dictionary Value for street in 〔1143 Home Address Dictionary〕 　➔ home_Street　» 1149 1151
+〔1319〕 Get Dictionary Value for street in 〔1318 Home Address Dictionary〕 　➔ home_Street　» 1324 1326
 
-〔1145〕 Get Dictionary Value for city in 〔1143 Home Address Dictionary〕 　➔ home_City　» 1149 1151
+〔1320〕 Get Dictionary Value for city in 〔1318 Home Address Dictionary〕 　➔ home_City　» 1324 1326
 
-〔1146〕 Get Dictionary Value for state in 〔1143 Home Address Dictionary〕 　➔ home_State　» 1149 1151
+〔1321〕 Get Dictionary Value for state in 〔1318 Home Address Dictionary〕 　➔ home_State　» 1324 1326
 
-〔1147〕 Get Dictionary Value for country in 〔1143 Home Address Dictionary〕 　➔ home_Country　» 1149 1151
+〔1322〕 Get Dictionary Value for country in 〔1318 Home Address Dictionary〕 　➔ home_Country　» 1324 1326
 
-〔1148〕 Get Dictionary Value for postcode in 〔1143 Home Address Dictionary〕 　➔ home_Postcode　» 1149 1151
+〔1323〕 Get Dictionary Value for postcode in 〔1318 Home Address Dictionary〕 　➔ home_Postcode　» 1324 1326
 
-〔1149〕 If All are true　〔1144 home_Street〕 has any value　〔1145 home_City〕 has any value　〔1146 home_State〕 has any value　〔1147 home_Country〕 has any value　〔1148 home_Postcode〕 has any value
+〔1324〕 If All are true　〔1319 home_Street〕 has any value　〔1320 home_City〕 has any value　〔1321 home_State〕 has any value　〔1322 home_Country〕 has any value　〔1323 home_Postcode〕 has any value
 
-〔1150〕 Comment
+〔1325〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
 
-〔1151〕 If All are true　〔1069 Current Location’s Street〕 is 〔1144 home_Street〕　〔1069 Current Location’s City〕 is 〔1145 home_City〕　〔1069 Current Location’s State〕 is 〔1146 home_State〕　〔1069 Current Location’s Country〕 is 〔1147 home_Country〕　〔1069 Current Location’s ZIP Code〕 is 〔1148 home_Postcode〕
+〔1326〕 If All are true　〔1222 Current Location’s Street〕 is 〔1319 home_Street〕　〔1222 Current Location’s City〕 is 〔1320 home_City〕　〔1222 Current Location’s State〕 is 〔1321 home_State〕　〔1222 Current Location’s Country〕 is 〔1322 home_Country〕　〔1222 Current Location’s ZIP Code〕 is 〔1323 home_Postcode〕
 
-〔1152〕 Comment
+〔1327〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
 
-〔1153〕 Number 0　»
+〔1328〕 Number 0　»
 
-〔1154〕 Set Variable CurrentToDeparture to 〔1153 Number〕
+〔1329〕 Set Variable CurrentToDeparture to 〔1328 Number〕
 
-〔1155〕 Otherwise
+〔1330〕 Otherwise
 
-〔1156〕 Comment
+〔1331〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔1157〕 Get 〔TravelMethod〕 Time　»
+〔1332〕 Get 〔TravelMethod〕 Time　»
 • Destination: 〔HomeAddress〕
 
-〔1158〕 Set Variable TravelTimeString to 〔1157 Travel Time〕
+〔1333〕 Set Variable TravelTimeString to 〔1332 Travel Time〕
 
-〔1159〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 1160 1162 1164 1169 1176
+〔1334〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔1160〕 Count Items in 〔1159 C2DMatches〕　»
+〔1335〕 Set Variable MatchString to 〔1334 Matches〕
 
-〔1161〕 If 〔1160 Count〕 > 1
+〔1336〕 Count Items in 〔MatchString〕　»
 
-〔1162〕 Get First Item from List 〔1159 C2DMatches〕　»
+〔1337〕 If 〔1336 Count〕 is 1
 
-〔1163〕 Set Variable C2DHours to 〔1162 Item from List〕
+〔1338〕 Get First Item from List 〔MatchString〕　»
 
-〔1164〕 Get Last Item from List 〔1159 C2DMatches〕　»
+〔1339〕 Set Variable TravelDays to 〔1338 Item from List〕
 
-〔1165〕 Set Variable C2DMinutes to 〔1164 Item from List〕
+〔1340〕 Otherwise
 
-〔1166〕 Otherwise
+〔1341〕 Number 0　»
 
-〔1167〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔1342〕 Set Variable TravelDays to 〔1341 Number〕
 
-〔1168〕 If 〔1167 C2DMatches’s text〕 has any value
+〔1343〕 End If
 
-〔1169〕 Get First Item from List 〔1159 C2DMatches〕　»
+〔1344〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1170〕 Set Variable C2DHours to 〔1169 Item from List〕
+〔1345〕 Set Variable MatchString to 〔1344 Matches〕
 
-〔1171〕 Number 0　»
+〔1346〕 Count Items in 〔MatchString〕　»
 
-〔1172〕 Set Variable C2DMinutes to 〔1171 Number〕
+〔1347〕 If 〔1346 Count〕 is 1
 
-〔1173〕 Otherwise
+〔1348〕 Get First Item from List 〔MatchString〕　»
 
-〔1174〕 Number 0　»
+〔1349〕 Set Variable TravelHours to 〔1348 Item from List〕
 
-〔1175〕 Set Variable C2DHours to 〔1174 Number〕
+〔1350〕 Otherwise
 
-〔1176〕 Get First Item from List 〔1159 C2DMatches〕　»
+〔1351〕 Number 0　»
 
-〔1177〕 Set Variable C2DMinutes to 〔1176 Item from List〕
+〔1352〕 Set Variable TravelHours to 〔1351 Number〕
 
-〔1178〕 End If
+〔1353〕 End If
 
-〔1179〕 End If　▵1166
+〔1354〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1180〕 Calculate 〔C2DHours〕 × 60　»
+〔1355〕 Set Variable MatchString to 〔1354 Matches〕
 
-〔1181〕 Calculate 〔1180 Calculation Result〕 + 〔C2DMinutes〕　»
+〔1356〕 Count Items in 〔MatchString〕　»
 
-〔1182〕 Set Variable CurrentToDeparture to 〔1181 Calculation Result〕
+〔1357〕 If 〔1356 Count〕 is 1
 
-〔1183〕 End If　▵1155
+〔1358〕 Get First Item from List 〔MatchString〕　»
 
-〔1184〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+〔1359〕 Set Variable TravelMinutes to 〔1358 Item from List〕
+
+〔1360〕 Otherwise
+
+〔1361〕 Number 0　»
+
+〔1362〕 Set Variable TravelMinutes to 〔1361 Number〕
+
+〔1363〕 End If
+
+〔1364〕 Calculate 〔TravelDays〕 × 1440　» 1366
+
+〔1365〕 Calculate 〔TravelHours〕 × 60　»
+
+〔1366〕 Calculate 〔1365 Calculation Result〕 + 〔1364 Calculation Result〕　»
+
+〔1367〕 Calculate 〔1366 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔1368〕 Set Variable CurrentToDeparture to 〔1367 Calculation Result〕
+
+〔1369〕 End If　▵1330
+
+〔1370〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
 • GetDirectionsCustomLocation: 〔HomeAddress〕
 • Destination: 〔Repeat Item’s Location〕
 
-〔1185〕 Set Variable TravelTimeString to 〔1184 DepartureToDestination〕
+〔1371〕 Set Variable TravelTimeString to 〔1370 DepartureToDestination〕
 
-〔1186〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 1187 1189 1191 1196 1203
+〔1372〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔1187〕 Count Items in 〔1186 C2DMatches〕　»
+〔1373〕 Set Variable MatchString to 〔1372 Matches〕
 
-〔1188〕 If 〔1187 Count〕 > 1
+〔1374〕 Count Items in 〔MatchString〕　»
 
-〔1189〕 Get First Item from List 〔1186 C2DMatches〕　»
+〔1375〕 If 〔1374 Count〕 is 1
 
-〔1190〕 Set Variable C2DHours to 〔1189 Item from List〕
+〔1376〕 Get First Item from List 〔MatchString〕　»
 
-〔1191〕 Get Last Item from List 〔1186 C2DMatches〕　»
+〔1377〕 Set Variable TravelDays to 〔1376 Item from List〕
 
-〔1192〕 Set Variable C2DMinutes to 〔1191 Item from List〕
+〔1378〕 Otherwise
 
-〔1193〕 Otherwise
+〔1379〕 Number 0　»
 
-〔1194〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔1380〕 Set Variable TravelDays to 〔1379 Number〕
 
-〔1195〕 If 〔1194 C2DMatches’s text〕 has any value
+〔1381〕 End If
 
-〔1196〕 Get First Item from List 〔1186 C2DMatches〕　»
+〔1382〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1197〕 Set Variable C2DHours to 〔1196 Item from List〕
+〔1383〕 Set Variable MatchString to 〔1382 Matches〕
 
-〔1198〕 Number 0　»
+〔1384〕 Count Items in 〔MatchString〕　»
 
-〔1199〕 Set Variable C2DMinutes to 〔1198 Number〕
+〔1385〕 If 〔1384 Count〕 is 1
 
-〔1200〕 Otherwise
+〔1386〕 Get First Item from List 〔MatchString〕　»
 
-〔1201〕 Number 0　»
+〔1387〕 Set Variable TravelHours to 〔1386 Item from List〕
 
-〔1202〕 Set Variable C2DHours to 〔1201 Number〕
+〔1388〕 Otherwise
 
-〔1203〕 Get First Item from List 〔1186 C2DMatches〕　»
+〔1389〕 Number 0　»
 
-〔1204〕 Set Variable C2DMinutes to 〔1203 Item from List〕
+〔1390〕 Set Variable TravelHours to 〔1389 Number〕
 
-〔1205〕 End If
+〔1391〕 End If
 
-〔1206〕 End If　▵1193
+〔1392〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1207〕 Calculate 〔C2DHours〕 × 60　»
+〔1393〕 Set Variable MatchString to 〔1392 Matches〕
 
-〔1208〕 Calculate 〔1207 Calculation Result〕 + 〔C2DMinutes〕　»
+〔1394〕 Count Items in 〔MatchString〕　»
 
-〔1209〕 Calculate 〔1208 Calculation Result〕 + 〔CurrentToDeparture〕　»
+〔1395〕 If 〔1394 Count〕 is 1
 
-〔1210〕 Set Variable TravelTime to 〔1209 Calculation Result〕
+〔1396〕 Get First Item from List 〔MatchString〕　»
 
-〔1211〕 Otherwise　▵1149
+〔1397〕 Set Variable TravelMinutes to 〔1396 Item from List〕
 
-〔1212〕 Text
+〔1398〕 Otherwise
+
+〔1399〕 Number 0　»
+
+〔1400〕 Set Variable TravelMinutes to 〔1399 Number〕
+
+〔1401〕 End If
+
+〔1402〕 Calculate 〔TravelDays〕 × 1440　» 1404
+
+〔1403〕 Calculate 〔TravelHours〕 × 60　»
+
+〔1404〕 Calculate 〔1403 Calculation Result〕 + 〔1402 Calculation Result〕　»
+
+〔1405〕 Calculate 〔1404 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔1406〕 Calculate 〔1405 Calculation Result〕 + 〔CurrentToDeparture〕　»
+
+〔1407〕 Set Variable TravelTime to 〔1406 Calculation Result〕
+
+〔1408〕 Otherwise　▵1324
+
+〔1409〕 Text
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 
-〔1213〕 Get 〔TravelMethod〕 Time　»
+〔1410〕 Get 〔TravelMethod〕 Time　»
 • Destination: 〔Repeat Item’s Location〕
 
-〔1214〕 Set Variable TravelTimeString to 〔1213 Travel Time〕
+〔1411〕 Set Variable TravelTimeString to 〔1410 Travel Time〕
 
-〔1215〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 1216 1218 1220 1225 1232
+〔1412〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔1216〕 Count Items in 〔1215 C2DMatches〕　»
+〔1413〕 Set Variable MatchString to 〔1412 Matches〕
 
-〔1217〕 If 〔1216 Count〕 > 1
+〔1414〕 Count Items in 〔MatchString〕　»
 
-〔1218〕 Get First Item from List 〔1215 C2DMatches〕　»
+〔1415〕 If 〔1414 Count〕 is 1
 
-〔1219〕 Set Variable C2DHours to 〔1218 Item from List〕
+〔1416〕 Get First Item from List 〔MatchString〕　»
 
-〔1220〕 Get Last Item from List 〔1215 C2DMatches〕　»
+〔1417〕 Set Variable TravelDays to 〔1416 Item from List〕
 
-〔1221〕 Set Variable C2DMinutes to 〔1220 Item from List〕
+〔1418〕 Otherwise
 
-〔1222〕 Otherwise
+〔1419〕 Number 0　»
 
-〔1223〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔1420〕 Set Variable TravelDays to 〔1419 Number〕
 
-〔1224〕 If 〔1223 C2DMatches’s text〕 has any value
+〔1421〕 End If
 
-〔1225〕 Get First Item from List 〔1215 C2DMatches〕　»
+〔1422〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1226〕 Set Variable C2DHours to 〔1225 Item from List〕
+〔1423〕 Set Variable MatchString to 〔1422 Matches〕
 
-〔1227〕 Number 0　»
+〔1424〕 Count Items in 〔MatchString〕　»
 
-〔1228〕 Set Variable C2DMinutes to 〔1227 Number〕
+〔1425〕 If 〔1424 Count〕 is 1
 
-〔1229〕 Otherwise
+〔1426〕 Get First Item from List 〔MatchString〕　»
 
-〔1230〕 Number 0　»
+〔1427〕 Set Variable TravelHours to 〔1426 Item from List〕
 
-〔1231〕 Set Variable C2DHours to 〔1230 Number〕
+〔1428〕 Otherwise
 
-〔1232〕 Get First Item from List 〔1215 C2DMatches〕　»
+〔1429〕 Number 0　»
 
-〔1233〕 Set Variable C2DMinutes to 〔1232 Item from List〕
+〔1430〕 Set Variable TravelHours to 〔1429 Number〕
 
-〔1234〕 End If
+〔1431〕 End If
 
-〔1235〕 End If　▵1222
+〔1432〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1236〕 Calculate 〔C2DHours〕 × 60　»
+〔1433〕 Set Variable MatchString to 〔1432 Matches〕
 
-〔1237〕 Calculate 〔1236 Calculation Result〕 + 〔C2DMinutes〕　»
+〔1434〕 Count Items in 〔MatchString〕　»
 
-〔1238〕 Set Variable TravelTime to 〔1237 Calculation Result〕
+〔1435〕 If 〔1434 Count〕 is 1
 
-〔1239〕 End If　▵1211
+〔1436〕 Get First Item from List 〔MatchString〕　»
 
-〔1240〕 End If　▵1141
+〔1437〕 Set Variable TravelMinutes to 〔1436 Item from List〕
 
-〔1241〕 Otherwise　▵1068
+〔1438〕 Otherwise
 
-〔1242〕 Number 0　»
+〔1439〕 Number 0　»
 
-〔1243〕 Set Variable TravelTime to 〔1242 Number〕
+〔1440〕 Set Variable TravelMinutes to 〔1439 Number〕
 
-〔1244〕 End If
+〔1441〕 End If
 
-〔1245〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
+〔1442〕 Calculate 〔TravelDays〕 × 1440　» 1444
 
-〔1246〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed Alarm Time　» 1247 1250 1253 1256 1263 1279 1281 1282 1300 1305 1308
-• Duration: 〔1245 Calculation Result〕 min
+〔1443〕 Calculate 〔TravelHours〕 × 60　»
 
-〔1247〕 Dictionary 　➔ Alarm Label Dictionary　» 1279 1284 1300
+〔1444〕 Calculate 〔1443 Calculation Result〕 + 〔1442 Calculation Result〕　»
+
+〔1445〕 Calculate 〔1444 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔1446〕 Set Variable TravelTime to 〔1445 Calculation Result〕
+
+〔1447〕 End If　▵1408
+
+〔1448〕 End If　▵1316
+
+〔1449〕 Otherwise　▵1221
+
+〔1450〕 Number 0　»
+
+〔1451〕 Set Variable TravelTime to 〔1450 Number〕
+
+〔1452〕 End If
+
+〔1453〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
+
+〔1454〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed Alarm Time　» 1455 1458 1461 1464 1471 1487 1489 1490 1508 1513 1516
+• Duration: 〔1453 Calculation Result〕 min
+
+〔1455〕 Dictionary 　➔ Alarm Label Dictionary　» 1487 1492 1508
 {  "Event": "〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
    "Location": "〔Repeat Item’s Location〕",
-   "AlarmTime": "〔1246 Supposed Alarm Time〕"
+   "AlarmTime": "〔1454 Supposed Alarm Time〕"
 }
 
-〔1248〕 Date Current Date 　➔ Current Date　» 1249 1250 1281
+〔1456〕 Date Current Date 　➔ Current Date　» 1457 1458 1489
 
-〔1249〕 Adjust Add Date 〔1248 Current Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM yyyy"}〕 　➔ 1 day after　» 1263 1264 1282 1286
+〔1457〕 Adjust Add Date 〔1456 Current Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM yyyy"}〕 　➔ 1 day after　» 1471 1472 1490 1494
 • Duration: "1" days
 
-〔1250〕 If 〔1246 Supposed Alarm Time〕 is 〔1248 Current Date〕
+〔1458〕 If 〔1454 Supposed Alarm Time〕 is 〔1456 Current Date〕
 
-〔1251〕 Comment
+〔1459〕 Comment
 supposed alarm time is exactly 12:00am
 
-〔1252〕 If 〔Repeat Item’s Location〕 has any value
+〔1460〕 If 〔Repeat Item’s Location〕 has any value
 
-〔1253〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕 which  was supposed to get ready at 〔1246 Supposed Alarm Time〕. Please check.
+〔1461〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕 which  was supposed to get ready at 〔1454 Supposed Alarm Time〕. Please check.
 
-〔1254〕 Set Variable Text to 〔1253 Text〕
+〔1462〕 Set Variable Text to 〔1461 Text〕
 
-〔1255〕 Otherwise
+〔1463〕 Otherwise
 
-〔1256〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔1246 Supposed Alarm Time〕. Please check.
+〔1464〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔1454 Supposed Alarm Time〕. Please check.
 
-〔1257〕 Set Variable Text to 〔1256 Text〕
+〔1465〕 Set Variable Text to 〔1464 Text〕
 
-〔1258〕 End If
+〔1466〕 End If
 
-〔1259〕 Show Alert 〔Text〕
+〔1467〕 Show Alert 〔Text〕
 
-〔1260〕 Show Notification 〔Text〕
+〔1468〕 Show Notification 〔Text〕
 
-〔1261〕 Speak Text
+〔1469〕 Speak Text
 • Text: 〔Text〕
 
-〔1262〕 Otherwise　▵1250
+〔1470〕 Otherwise　▵1458
 
-〔1263〕 If 〔1246 Supposed Alarm Time〕 is 〔1249 1 day after〕
+〔1471〕 If 〔1454 Supposed Alarm Time〕 is 〔1457 1 day after〕
 
-〔1264〕 Find Alarm 〔1249 1 day after〕　» 1265 1266
+〔1472〕 Find Alarm 〔1457 1 day after〕　» 1473 1474
 
-〔1265〕 If 〔1264 Alarms〕 has any value
+〔1473〕 If 〔1472 Alarms〕 has any value
 
-〔1266〕 Repeat[2] with Each in 〔1264 Alarms〕
+〔1474〕 Repeat[2] with Each in 〔1472 Alarms〕
 
-〔1267〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 1268 1269 1271
+〔1475〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 1476 1477 1479
 
-〔1268〕 Get Dictionary Value for Event in 〔1267 AlarmLabelDictionary〕 　➔ Event　» 1273
+〔1476〕 Get Dictionary Value for Event in 〔1475 AlarmLabelDictionary〕 　➔ Event　» 1481
 
-〔1269〕 Get Dictionary Value for From in 〔1267 AlarmLabelDictionary〕 　➔ From　»
+〔1477〕 Get Dictionary Value for From in 〔1475 AlarmLabelDictionary〕 　➔ From　»
 
-〔1270〕 Get Dates from 〔1269 From〕 　➔ FromDate　» 1273
+〔1478〕 Get Dates from 〔1477 From〕 　➔ FromDate　» 1481
 
-〔1271〕 Get Dictionary Value for To in 〔1267 AlarmLabelDictionary〕 　➔ To　»
+〔1479〕 Get Dictionary Value for To in 〔1475 AlarmLabelDictionary〕 　➔ To　»
 
-〔1272〕 Get Dates from 〔1271 To〕 　➔ ToDate　»
+〔1480〕 Get Dates from 〔1479 To〕 　➔ ToDate　»
 
-〔1273〕 If All are true　〔1268 Event’s Name〕 is 〔Repeat Item〕　〔1270 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕　〔1272 ToDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is • ConditionalActionString
+〔1481〕 If All are true　〔1476 Event’s Name〕 is 〔Repeat Item〕　〔1478 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕　〔1480 ToDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is • ConditionalActionString
 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕• Date
 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
 
-〔1274〕 Delete Alarms
+〔1482〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔1275〕 End If
+〔1483〕 End If
 
-〔1276〕 End Repeat[2] with Each　▵1266
+〔1484〕 End Repeat[2] with Each　▵1474
 
-〔1277〕 End If　▵1265
+〔1485〕 End If　▵1473
 
-〔1278〕 Comment
+〔1486〕 Comment
 since this will be triggered at 12:00 am each day, when the supposed alarm time is 12:00 am in the next day, you can set alarm now
 
-〔1279〕 Add Alarm for 〔1246 Supposed Alarm Time〕 called 〔1247 Alarm Label Dictionary〕
+〔1487〕 Add Alarm for 〔1454 Supposed Alarm Time〕 called 〔1455 Alarm Label Dictionary〕
 
-〔1280〕 Otherwise　▵1263
+〔1488〕 Otherwise　▵1471
 
-〔1281〕 If 〔1246 Supposed Alarm Time〕 > 〔1248 Current Date〕
+〔1489〕 If 〔1454 Supposed Alarm Time〕 > 〔1456 Current Date〕
 
-〔1282〕 If 〔1246 Supposed Alarm Time〕 > 〔1249 1 day after〕
+〔1490〕 If 〔1454 Supposed Alarm Time〕 > 〔1457 1 day after〕
 
-〔1283〕 Comment
+〔1491〕 Comment
 when the time is other than 12:00 am of then next day, you cannot set alarm yet. If set, it will be today. For example, triggering time 2025-4-8 12:00 am, the supposed alarm time is 2025-4-9 08:00 am, if you set an alarm at 08:00 at 2025-4-8 12:00 am, it will alarm at 2025-4-8 08:00 am instead. So we need to record the supposed alarm time and trigger next day.
 
-〔1284〕 Set Variable Event to 〔1247 Alarm Label Dictionary〕
+〔1492〕 Set Variable Event to 〔1455 Alarm Label Dictionary〕
 
-〔1285〕 Otherwise
+〔1493〕 Otherwise
 
-〔1286〕 Find Alarm 〔1249 1 day after〕　» 1287 1288
+〔1494〕 Find Alarm 〔1457 1 day after〕　» 1495 1496
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
       "WFContentPredicateBoundedDate": false,
@@ -3990,151 +4425,151 @@ when the time is other than 12:00 am of then next day, you cannot set alarm yet.
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔1287〕 If 〔1286 Alarms〕 has any value
+〔1495〕 If 〔1494 Alarms〕 has any value
 
-〔1288〕 Repeat[2] with Each in 〔1286 Alarms〕
+〔1496〕 Repeat[2] with Each in 〔1494 Alarms〕
 
-〔1289〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 1290 1291 1293
+〔1497〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 1498 1499 1501
 
-〔1290〕 Get Dictionary Value for Event in 〔1289 AlarmLabelDictionary〕 　➔ Event　» 1295
+〔1498〕 Get Dictionary Value for Event in 〔1497 AlarmLabelDictionary〕 　➔ Event　» 1503
 
-〔1291〕 Get Dictionary Value for From in 〔1289 AlarmLabelDictionary〕 　➔ From　»
+〔1499〕 Get Dictionary Value for From in 〔1497 AlarmLabelDictionary〕 　➔ From　»
 
-〔1292〕 Get Dates from 〔1291 From〕 　➔ FromDate　» 1295
+〔1500〕 Get Dates from 〔1499 From〕 　➔ FromDate　» 1503
 
-〔1293〕 Get Dictionary Value for To in 〔1289 AlarmLabelDictionary〕 　➔ To　»
+〔1501〕 Get Dictionary Value for To in 〔1497 AlarmLabelDictionary〕 　➔ To　»
 
-〔1294〕 Get Dates from 〔1293 To〕 　➔ ToDate　»
+〔1502〕 Get Dates from 〔1501 To〕 　➔ ToDate　»
 
-〔1295〕 If All are true　〔1290 Event’s Name〕 is 〔Repeat Item〕　〔1292 FromDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔1294 ToDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
+〔1503〕 If All are true　〔1498 Event’s Name〕 is 〔Repeat Item〕　〔1500 FromDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔1502 ToDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
 
-〔1296〕 Delete Alarms
+〔1504〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔1297〕 End If
+〔1505〕 End If
 
-〔1298〕 End Repeat[2] with Each　▵1288
+〔1506〕 End Repeat[2] with Each　▵1496
 
-〔1299〕 End If　▵1287
+〔1507〕 End If　▵1495
 
-〔1300〕 Add Alarm for 〔1246 Supposed Alarm Time〕 called 〔1247 Alarm Label Dictionary〕
+〔1508〕 Add Alarm for 〔1454 Supposed Alarm Time〕 called 〔1455 Alarm Label Dictionary〕
 
-〔1301〕 End If　▵1285
+〔1509〕 End If　▵1493
 
-〔1302〕 Otherwise　▵1281
+〔1510〕 Otherwise　▵1489
 
-〔1303〕 Comment
+〔1511〕 Comment
 the supposed alarm time passed
 
-〔1304〕 If 〔Repeat Item’s Location〕 has any value
+〔1512〕 If 〔Repeat Item’s Location〕 has any value
 
-〔1305〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕 which  was supposed to get ready at 〔1246 Supposed Alarm Time〕. Please check.
+〔1513〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕 which  was supposed to get ready at 〔1454 Supposed Alarm Time〕. Please check.
 
-〔1306〕 Set Variable Text to 〔1305 Text〕
+〔1514〕 Set Variable Text to 〔1513 Text〕
 
-〔1307〕 Otherwise
+〔1515〕 Otherwise
 
-〔1308〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔1246 Supposed Alarm Time〕. Please check.
+〔1516〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔1454 Supposed Alarm Time〕. Please check.
 
-〔1309〕 Set Variable Text to 〔1308 Text〕
+〔1517〕 Set Variable Text to 〔1516 Text〕
 
-〔1310〕 End If
+〔1518〕 End If
 
-〔1311〕 Show Alert 〔Text〕
+〔1519〕 Show Alert 〔Text〕
 
-〔1312〕 Show Notification 〔Text〕
+〔1520〕 Show Notification 〔Text〕
 
-〔1313〕 Speak Text
+〔1521〕 Speak Text
 • Text: 〔Text〕
 
-〔1314〕 End If　▵1302
+〔1522〕 End If　▵1510
 
-〔1315〕 End If　▵1280
+〔1523〕 End If　▵1488
 
-〔1316〕 End If　▵1262
+〔1524〕 End If　▵1470
 
-〔1317〕 If 〔Event〕 has any value
+〔1525〕 If 〔Event〕 has any value
 
-〔1318〕 Get Dictionary from 〔Event〕　» 1331
+〔1526〕 Get Dictionary from 〔Event〕　» 1539
 
-〔1319〕 Text　»
+〔1527〕 Text　»
 
-〔1320〕 Set Variable TextList to 〔1319 Text〕
+〔1528〕 Set Variable TextList to 〔1527 Text〕
 
-〔1321〕 Add 〔Event〕 to Variable TextList
+〔1529〕 Add 〔Event〕 to Variable TextList
 
-〔1322〕 Get File at Path Smart Calendar Reminder/Future Alarms.txt from Folder　» 1323 1324
+〔1530〕 Get File at Path Smart Calendar Reminder/Future Alarms.txt from Folder　» 1531 1532
 • FileErrorIfNotFound: false
 
-〔1323〕 If 〔1322 File’s File Size〕 has any value
+〔1531〕 If 〔1530 File’s File Size〕 has any value
 
-〔1324〕 Split Text 〔1322 File〕 by New Lines　»
+〔1532〕 Split Text 〔1530 File〕 by New Lines　»
 
-〔1325〕 Repeat[2] with Each in 〔1324 Split Text〕
+〔1533〕 Repeat[2] with Each in 〔1532 Split Text〕
 
-〔1326〕 Get Dictionary from 〔Repeat Item 2〕　» 1327 1328 1329 1330
+〔1534〕 Get Dictionary from 〔Repeat Item 2〕　» 1535 1536 1537 1538
 
-〔1327〕 Get Dictionary Value for Event in 〔1326 Dictionary〕 　➔ Event　» 1331
+〔1535〕 Get Dictionary Value for Event in 〔1534 Dictionary〕 　➔ Event　» 1539
 
-〔1328〕 Get Dictionary Value for From in 〔1326 Dictionary〕 　➔ From　» 1331
+〔1536〕 Get Dictionary Value for From in 〔1534 Dictionary〕 　➔ From　» 1539
 
-〔1329〕 Get Dictionary Value for To in 〔1326 Dictionary〕 　➔ To　» 1331
+〔1537〕 Get Dictionary Value for To in 〔1534 Dictionary〕 　➔ To　» 1539
 
-〔1330〕 Get Dictionary Value for Location in 〔1326 Dictionary〕 　➔ Location　»
+〔1538〕 Get Dictionary Value for Location in 〔1534 Dictionary〕 　➔ Location　»
 
-〔1331〕 If Any are true　〔1327 Event’s Name〕 is not 〔1318 Dictionary.Event〕　〔1328 From’s Name〕 is not 〔1318 Dictionary.From〕　〔1329 To’s Name〕 is not 〔1318 Dictionary.To〕　〔1330 Location’s Name〕 is not 〔1318 Dictionary.Location〕
+〔1539〕 If Any are true　〔1535 Event’s Name〕 is not 〔1526 Dictionary.Event〕　〔1536 From’s Name〕 is not 〔1526 Dictionary.From〕　〔1537 To’s Name〕 is not 〔1526 Dictionary.To〕　〔1538 Location’s Name〕 is not 〔1526 Dictionary.Location〕
 
-〔1332〕 Add 〔Repeat Item 2〕 to Variable TextList
+〔1540〕 Add 〔Repeat Item 2〕 to Variable TextList
 
-〔1333〕 End If
+〔1541〕 End If
 
-〔1334〕 End Repeat[2] with Each　▵1325
+〔1542〕 End Repeat[2] with Each　▵1533
 
-〔1335〕 Combine Text 〔TextList〕 with New Lines　»
+〔1543〕 Combine Text 〔TextList〕 with New Lines　»
 
-〔1336〕 Save File 〔1335 Combined Text〕
+〔1544〕 Save File 〔1543 Combined Text〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: Smart Calendar Reminder/Future Alarms.txt
 
-〔1337〕 Otherwise　▵1323
+〔1545〕 Otherwise　▵1531
 
-〔1338〕 Text　»
+〔1546〕 Text　»
 
 〔Event〕
 
-〔1339〕 Save File 〔1338 Text〕
+〔1547〕 Save File 〔1546 Text〕
 • AskWhereToSave: false
 • FileDestinationPath: Smart Calendar Reminder/Future Alarms.txt
 
-〔1340〕 End If
+〔1548〕 End If
 
-〔1341〕 End If　▵1317
+〔1549〕 End If　▵1525
 
-〔1342〕 End Repeat with Each　▵1067
+〔1550〕 End Repeat with Each　▵1220
 
-〔1343〕 End If　▵1066
+〔1551〕 End If　▵1219
 
-〔1344〕 Get File at Path Smart Calendar Reminder/Future Alarms.txt from Folder　» 1345 1346
+〔1552〕 Get File at Path Smart Calendar Reminder/Future Alarms.txt from Folder　» 1553 1554
 • FileErrorIfNotFound: false
 
-〔1345〕 If 〔1344 File’s File Size〕 has any value
+〔1553〕 If 〔1552 File’s File Size〕 has any value
 
-〔1346〕 Split Text 〔1344 File〕 by New Lines　»
+〔1554〕 Split Text 〔1552 File〕 by New Lines　»
 
-〔1347〕 Repeat with Each in 〔1346 Split Text〕
+〔1555〕 Repeat with Each in 〔1554 Split Text〕
 
-〔1348〕 Get Dictionary from 〔Repeat Item〕　» 1349 1350 1360 1371
+〔1556〕 Get Dictionary from 〔Repeat Item〕　» 1557 1558 1568 1579
 
-〔1349〕 If 〔1348 Dictionary〕 has any value
+〔1557〕 If 〔1556 Dictionary〕 has any value
 
-〔1350〕 Get Dates from 〔1348 Dictionary.AlarmTime〕　» 1351 1352 1371
+〔1558〕 Get Dates from 〔1556 Dictionary.AlarmTime〕　» 1559 1560 1579
 
-〔1351〕 If 〔1350 Dates〕 is today
+〔1559〕 If 〔1558 Dates〕 is today
 
-〔1352〕 Find Alarm 〔1350 Dates〕　» 1353 1354
+〔1560〕 Find Alarm 〔1558 Dates〕　» 1561 1562
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
       "WFContentPredicateBoundedDate": false,
@@ -4143,58 +4578,58 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔1353〕 If 〔1352 Alarms〕 has any value
+〔1561〕 If 〔1560 Alarms〕 has any value
 
-〔1354〕 Repeat[2] with Each in 〔1352 Alarms〕
+〔1562〕 Repeat[2] with Each in 〔1560 Alarms〕
 
-〔1355〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ Alarm_Label_Dictionary　» 1356 1358 1366
+〔1563〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ Alarm_Label_Dictionary　» 1564 1566 1574
 
-〔1356〕 Get Dictionary Value for From in 〔1355 Alarm_Label_Dictionary〕　»
+〔1564〕 Get Dictionary Value for From in 〔1563 Alarm_Label_Dictionary〕　»
 
-〔1357〕 Get Dates from 〔1356 Dictionary Value〕 　➔ From_Date　» 1366
+〔1565〕 Get Dates from 〔1564 Dictionary Value〕 　➔ From_Date　» 1574
 
-〔1358〕 Get Dictionary Value for To in 〔1355 Alarm_Label_Dictionary〕　»
+〔1566〕 Get Dictionary Value for To in 〔1563 Alarm_Label_Dictionary〕　»
 
-〔1359〕 Get Dates from 〔1358 Dictionary Value〕 　➔ To_Date　» 1366
+〔1567〕 Get Dates from 〔1566 Dictionary Value〕 　➔ To_Date　» 1574
 
-〔1360〕 Get Dictionary from 〔1348 Dictionary.Event〕 　➔ FutureAlarmLabelDictionary　» 1361 1362 1364
+〔1568〕 Get Dictionary from 〔1556 Dictionary.Event〕 　➔ FutureAlarmLabelDictionary　» 1569 1570 1572
 
-〔1361〕 Get Dictionary Value for Event in 〔1360 FutureAlarmLabelDictionary〕 　➔ Event　» 1366
+〔1569〕 Get Dictionary Value for Event in 〔1568 FutureAlarmLabelDictionary〕 　➔ Event　» 1574
 
-〔1362〕 Get Dictionary Value for From in 〔1360 FutureAlarmLabelDictionary〕 　➔ From　»
+〔1570〕 Get Dictionary Value for From in 〔1568 FutureAlarmLabelDictionary〕 　➔ From　»
 
-〔1363〕 Get Dates from 〔1362 From〕 　➔ FromDate　» 1366
+〔1571〕 Get Dates from 〔1570 From〕 　➔ FromDate　» 1574
 
-〔1364〕 Get Dictionary Value for To in 〔1360 FutureAlarmLabelDictionary〕 　➔ To　»
+〔1572〕 Get Dictionary Value for To in 〔1568 FutureAlarmLabelDictionary〕 　➔ To　»
 
-〔1365〕 Get Dates from 〔1364 To〕 　➔ ToDate　»
+〔1573〕 Get Dates from 〔1572 To〕 　➔ ToDate　»
 
-〔1366〕 If All are true　〔1361 Event’s Name〕 is 〔1355 Alarm_Label_Dictionary.Event〕　〔1363 FromDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is 〔1357 From_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔1365 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔1359 To_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
+〔1574〕 If All are true　〔1569 Event’s Name〕 is 〔1563 Alarm_Label_Dictionary.Event〕　〔1571 FromDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is 〔1565 From_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔1573 ToDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔1567 To_Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
 
-〔1367〕 Delete Alarms
+〔1575〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔1368〕 End If
+〔1576〕 End If
 
-〔1369〕 End Repeat[2] with Each　▵1354
+〔1577〕 End Repeat[2] with Each　▵1562
 
-〔1370〕 End If　▵1353
+〔1578〕 End If　▵1561
 
-〔1371〕 Add Alarm for 〔1350 Dates〕 called 〔1348 Dictionary.Event〕
+〔1579〕 Add Alarm for 〔1558 Dates〕 called 〔1556 Dictionary.Event〕
 
-〔1372〕 End If　▵1351
+〔1580〕 End If　▵1559
 
-〔1373〕 End If　▵1349
+〔1581〕 End If　▵1557
 
-〔1374〕 End Repeat with Each　▵1347
+〔1582〕 End Repeat with Each　▵1555
 
-〔1375〕 End If　▵1345
+〔1583〕 End If　▵1553
 
-〔1376〕 End If　▵1054
+〔1584〕 End If　▵1207
 
-〔1377〕 If 〔Shortcut Input as Number〕 is 7
+〔1585〕 If 〔Shortcut Input as Number〕 is 7
 
-〔1378〕 Comment
+〔1586〕 Comment
 1-Hour Event Processor
 *Real-time event handler for immediate notifications:
 
@@ -4204,27 +4639,27 @@ Provides most accurate travel estimates
 
 Recommended for hourly automation*
 
-〔1379〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
+〔1587〕 Get File at Path Smart Calendar Reminder/aboutme.txt from Folder　»
 • FileErrorIfNotFound: false
 
-〔1380〕 Get Dictionary from 〔1379 File〕　» 1381 1384 1385
+〔1588〕 Get Dictionary from 〔1587 File〕　» 1589 1592 1593
 
-〔1381〕 Get Dictionary from 〔1380 Dictionary.HomeAddress〕　»
+〔1589〕 Get Dictionary from 〔1588 Dictionary.HomeAddress〕　»
 
-〔1382〕 Text　»
-〔1381 Dictionary.street〕 〔1381 Dictionary.city〕 〔1381 Dictionary.state〕 〔1381 Dictionary.postcode〕 〔1381 Dictionary.country〕
+〔1590〕 Text　»
+〔1589 Dictionary.street〕 〔1589 Dictionary.city〕 〔1589 Dictionary.state〕 〔1589 Dictionary.postcode〕 〔1589 Dictionary.country〕
 
-〔1383〕 Set Variable Home_Address to 〔1382 Text〕
+〔1591〕 Set Variable Home_Address to 〔1590 Text〕
 
-〔1384〕 Set Variable Travel_Method to 〔1380 Dictionary.TravelMethod〕
+〔1592〕 Set Variable Travel_Method to 〔1588 Dictionary.TravelMethod〕
 
-〔1385〕 Get Dictionary Value for ExtraTime in 〔1380 Dictionary〕　»
+〔1593〕 Get Dictionary Value for ExtraTime in 〔1588 Dictionary〕　»
 
-〔1386〕 Get Numbers from 〔1385 Dictionary Value〕　»
+〔1594〕 Get Numbers from 〔1593 Dictionary Value〕　»
 
-〔1387〕 Set Variable Extra_Time to 〔1386 Numbers〕
+〔1595〕 Set Variable Extra_Time to 〔1594 Numbers〕
 
-〔1388〕 Find Calendar Events All Calendar Events where　» 1389 1390 1391 1603
+〔1596〕 Find Calendar Events All Calendar Events where　» 1597 1598 1599 1866
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
@@ -4232,393 +4667,508 @@ Start Date is in the next 30 minutes
 Is Not All Day
 Canceled is {"Bool":false}
 
-〔1389〕 If 〔1388 Calendar Events〕 has any value
+〔1597〕 If 〔1596 Calendar Events〕 has any value
 
-〔1390〕 Count Items in 〔1388 Calendar Events〕　» 1607 1615
+〔1598〕 Count Items in 〔1596 Calendar Events〕　» 1870 1878
 
-〔1391〕 Repeat with Each in 〔1388 Calendar Events〕
+〔1599〕 Repeat with Each in 〔1596 Calendar Events〕
 
-〔1392〕 If 〔Repeat Item’s Location〕 has any value
+〔1600〕 If 〔Repeat Item’s Location〕 has any value
 
-〔1393〕 Get Current Location　» 1404 1410 1474
+〔1601〕 Get Current Location　» 1612 1618 1704
 • Accuracy: Best
 
-〔1394〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
+〔1602〕 If All are true　〔Repeat Item’s Notes〕 has any value　〔Repeat Item’s Notes〕 begins with {　〔Repeat Item’s Notes〕 ends with }
 
-〔1395〕 Comment
+〔1603〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
 
-〔1396〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ NotesAddressDictionary　» 1397 1398 1399 1400 1401
+〔1604〕 Get Dictionary from 〔Repeat Item’s Notes〕 　➔ NotesAddressDictionary　» 1605 1606 1607 1608 1609
 
-〔1397〕 Set Variable CalendarNotesStreet to 〔1396 NotesAddressDictionary.Street〕
+〔1605〕 Set Variable CalendarNotesStreet to 〔1604 NotesAddressDictionary.Street〕
 
-〔1398〕 Set Variable CalendarNotesCity to 〔1396 NotesAddressDictionary.City〕
+〔1606〕 Set Variable CalendarNotesCity to 〔1604 NotesAddressDictionary.City〕
 
-〔1399〕 Set Variable CalendarNotesState to 〔1396 NotesAddressDictionary.State〕
+〔1607〕 Set Variable CalendarNotesState to 〔1604 NotesAddressDictionary.State〕
 
-〔1400〕 Set Variable CalendarNotesRegion to 〔1396 NotesAddressDictionary.Country〕
+〔1608〕 Set Variable CalendarNotesRegion to 〔1604 NotesAddressDictionary.Country〕
 
-〔1401〕 Set Variable CalendarNotesZIPCode to 〔1396 NotesAddressDictionary.Postcode〕
+〔1609〕 Set Variable CalendarNotesZIPCode to 〔1604 NotesAddressDictionary.Postcode〕
 
-〔1402〕 Text　»
+〔1610〕 Text　»
 〔CalendarNotesStreet〕 〔CalendarNotesCity〕 〔CalendarNotesState〕 〔CalendarNotesZIPCode〕 〔CalendarNotesRegion〕
 
-〔1403〕 Set Variable NotesAddressString to 〔1402 Text〕
+〔1611〕 Set Variable NotesAddressString to 〔1610 Text〕
 
-〔1404〕 If All are true　〔1393 Current Location’s Street〕 is 〔CalendarNotesStreet〕　〔1393 Current Location’s City〕 is 〔CalendarNotesCity〕　〔1393 Current Location’s State〕 is 〔CalendarNotesState〕　〔1393 Current Location’s Country〕 is 〔CalendarNotesRegion〕　〔1393 Current Location’s ZIP Code〕 is 〔CalendarNotesZIPCode〕
+〔1612〕 If All are true　〔1601 Current Location’s Street〕 is 〔CalendarNotesStreet〕　〔1601 Current Location’s City〕 is 〔CalendarNotesCity〕　〔1601 Current Location’s State〕 is 〔CalendarNotesState〕　〔1601 Current Location’s Country〕 is 〔CalendarNotesRegion〕　〔1601 Current Location’s ZIP Code〕 is 〔CalendarNotesZIPCode〕
 
-〔1405〕 Comment
+〔1613〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
 
-〔1406〕 Number 0　»
+〔1614〕 Number 0　»
 
-〔1407〕 Set Variable CurrentToDeparture to 〔1406 Number〕
+〔1615〕 Set Variable CurrentToDeparture to 〔1614 Number〕
 
-〔1408〕 Otherwise
+〔1616〕 Otherwise
 
-〔1409〕 Comment
+〔1617〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔1410〕 Get 〔TravelMethod〕 Time　»
-• GetDirectionsCustomLocation: 〔1393 Current Location〕
+〔1618〕 Get 〔TravelMethod〕 Time　»
+• GetDirectionsCustomLocation: 〔1601 Current Location〕
 • Destination: 〔NotesAddressString〕
 
-〔1411〕 Set Variable TravelTimeString to 〔1410 Travel Time〕
+〔1619〕 Set Variable TravelTimeString to 〔1618 Travel Time〕
 
-〔1412〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 1413 1415 1417 1422 1429
+〔1620〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔1413〕 Count Items in 〔1412 C2DMatches〕　»
+〔1621〕 Set Variable MatchString to 〔1620 Matches〕
 
-〔1414〕 If 〔1413 Count〕 > 1
+〔1622〕 Count Items in 〔MatchString〕　»
 
-〔1415〕 Get First Item from List 〔1412 C2DMatches〕　»
+〔1623〕 If 〔1622 Count〕 is 1
 
-〔1416〕 Set Variable C2DHours to 〔1415 Item from List〕
+〔1624〕 Get First Item from List 〔MatchString〕　»
 
-〔1417〕 Get Last Item from List 〔1412 C2DMatches〕　»
+〔1625〕 Set Variable TravelDays to 〔1624 Item from List〕
 
-〔1418〕 Set Variable C2DMinutes to 〔1417 Item from List〕
+〔1626〕 Otherwise
 
-〔1419〕 Otherwise
+〔1627〕 Number 0　»
 
-〔1420〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔1628〕 Set Variable TravelDays to 〔1627 Number〕
 
-〔1421〕 If 〔1420 C2DMatches’s text〕 has any value
+〔1629〕 End If
 
-〔1422〕 Get First Item from List 〔1412 C2DMatches〕　»
+〔1630〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1423〕 Set Variable C2DHours to 〔1422 Item from List〕
+〔1631〕 Set Variable MatchString to 〔1630 Matches〕
 
-〔1424〕 Number 0　»
+〔1632〕 Count Items in 〔MatchString〕　»
 
-〔1425〕 Set Variable C2DMinutes to 〔1424 Number〕
+〔1633〕 If 〔1632 Count〕 is 1
 
-〔1426〕 Otherwise
+〔1634〕 Get First Item from List 〔MatchString〕　»
 
-〔1427〕 Number 0　»
+〔1635〕 Set Variable TravelHours to 〔1634 Item from List〕
 
-〔1428〕 Set Variable C2DHours to 〔1427 Number〕
+〔1636〕 Otherwise
 
-〔1429〕 Get First Item from List 〔1412 C2DMatches〕　»
+〔1637〕 Number 0　»
 
-〔1430〕 Set Variable C2DMinutes to 〔1429 Item from List〕
+〔1638〕 Set Variable TravelHours to 〔1637 Number〕
 
-〔1431〕 End If
+〔1639〕 End If
 
-〔1432〕 End If　▵1419
+〔1640〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1433〕 Calculate 〔C2DHours〕 × 60　»
+〔1641〕 Set Variable MatchString to 〔1640 Matches〕
 
-〔1434〕 Calculate 〔1433 Calculation Result〕 + 〔C2DMinutes〕　»
+〔1642〕 Count Items in 〔MatchString〕　»
 
-〔1435〕 Set Variable CurrentToDeparture to 〔1434 Calculation Result〕
+〔1643〕 If 〔1642 Count〕 is 1
 
-〔1436〕 End If　▵1408
+〔1644〕 Get First Item from List 〔MatchString〕　»
 
-〔1437〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+〔1645〕 Set Variable TravelMinutes to 〔1644 Item from List〕
+
+〔1646〕 Otherwise
+
+〔1647〕 Number 0　»
+
+〔1648〕 Set Variable TravelMinutes to 〔1647 Number〕
+
+〔1649〕 End If
+
+〔1650〕 Calculate 〔TravelDays〕 × 1440　» 1652
+
+〔1651〕 Calculate 〔TravelHours〕 × 60　»
+
+〔1652〕 Calculate 〔1651 Calculation Result〕 + 〔1650 Calculation Result〕　»
+
+〔1653〕 Calculate 〔1652 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔1654〕 Set Variable CurrentToDeparture to 〔1653 Calculation Result〕
+
+〔1655〕 End If　▵1616
+
+〔1656〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
 • GetDirectionsCustomLocation: 〔NotesAddressString〕
 • Destination: 〔Repeat Item’s Location〕
 
-〔1438〕 Set Variable TravelTimeString to 〔1437 DepartureToDestination〕
+〔1657〕 Set Variable TravelTimeString to 〔1656 DepartureToDestination〕
 
-〔1439〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 1440 1442 1444 1449 1456
+〔1658〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔1440〕 Count Items in 〔1439 C2DMatches〕　»
+〔1659〕 Set Variable MatchString to 〔1658 Matches〕
 
-〔1441〕 If 〔1440 Count〕 > 1
+〔1660〕 Count Items in 〔MatchString〕　»
 
-〔1442〕 Get First Item from List 〔1439 C2DMatches〕　»
+〔1661〕 If 〔1660 Count〕 is 1
 
-〔1443〕 Set Variable C2DHours to 〔1442 Item from List〕
+〔1662〕 Get First Item from List 〔MatchString〕　»
 
-〔1444〕 Get Last Item from List 〔1439 C2DMatches〕　»
+〔1663〕 Set Variable TravelDays to 〔1662 Item from List〕
 
-〔1445〕 Set Variable C2DMinutes to 〔1444 Item from List〕
+〔1664〕 Otherwise
 
-〔1446〕 Otherwise
+〔1665〕 Number 0　»
 
-〔1447〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔1666〕 Set Variable TravelDays to 〔1665 Number〕
 
-〔1448〕 If 〔1447 C2DMatches’s text〕 has any value
+〔1667〕 End If
 
-〔1449〕 Get First Item from List 〔1439 C2DMatches〕　»
+〔1668〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1450〕 Set Variable C2DHours to 〔1449 Item from List〕
+〔1669〕 Set Variable MatchString to 〔1668 Matches〕
 
-〔1451〕 Number 0　»
+〔1670〕 Count Items in 〔MatchString〕　»
 
-〔1452〕 Set Variable C2DMinutes to 〔1451 Number〕
+〔1671〕 If 〔1670 Count〕 is 1
 
-〔1453〕 Otherwise
+〔1672〕 Get First Item from List 〔MatchString〕　»
 
-〔1454〕 Number 0　»
+〔1673〕 Set Variable TravelHours to 〔1672 Item from List〕
 
-〔1455〕 Set Variable C2DHours to 〔1454 Number〕
+〔1674〕 Otherwise
 
-〔1456〕 Get First Item from List 〔1439 C2DMatches〕　»
+〔1675〕 Number 0　»
 
-〔1457〕 Set Variable C2DMinutes to 〔1456 Item from List〕
+〔1676〕 Set Variable TravelHours to 〔1675 Number〕
 
-〔1458〕 End If
+〔1677〕 End If
 
-〔1459〕 End If　▵1446
+〔1678〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1460〕 Calculate 〔C2DHours〕 × 60　»
+〔1679〕 Set Variable MatchString to 〔1678 Matches〕
 
-〔1461〕 Calculate 〔1460 Calculation Result〕 + 〔C2DMinutes〕　»
+〔1680〕 Count Items in 〔MatchString〕　»
 
-〔1462〕 Calculate 〔1461 Calculation Result〕 + 〔CurrentToDeparture〕　»
+〔1681〕 If 〔1680 Count〕 is 1
 
-〔1463〕 Set Variable TravelTime to 〔1462 Calculation Result〕
+〔1682〕 Get First Item from List 〔MatchString〕　»
 
-〔1464〕 Otherwise　▵1394
+〔1683〕 Set Variable TravelMinutes to 〔1682 Item from List〕
 
-〔1465〕 Comment
+〔1684〕 Otherwise
+
+〔1685〕 Number 0　»
+
+〔1686〕 Set Variable TravelMinutes to 〔1685 Number〕
+
+〔1687〕 End If
+
+〔1688〕 Calculate 〔TravelDays〕 × 1440　» 1690
+
+〔1689〕 Calculate 〔TravelHours〕 × 60　»
+
+〔1690〕 Calculate 〔1689 Calculation Result〕 + 〔1688 Calculation Result〕　»
+
+〔1691〕 Calculate 〔1690 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔1692〕 Calculate 〔1691 Calculation Result〕 + 〔CurrentToDeparture〕　»
+
+〔1693〕 Set Variable TravelTime to 〔1692 Calculation Result〕
+
+〔1694〕 Otherwise　▵1602
+
+〔1695〕 Comment
 CALENDER EVENT NOTES IS BLANK
 
-〔1466〕 Get Dictionary from 〔HomeAddress〕 　➔ home_address_dictionary　» 1467 1468 1469 1470 1471
+〔1696〕 Get Dictionary from 〔HomeAddress〕 　➔ home_address_dictionary　» 1697 1698 1699 1700 1701
 
-〔1467〕 Get Dictionary Value for street in 〔1466 home_address_dictionary〕 　➔ HomeStreet　» 1472 1474
+〔1697〕 Get Dictionary Value for street in 〔1696 home_address_dictionary〕 　➔ HomeStreet　» 1702 1704
 
-〔1468〕 Get Dictionary Value for city in 〔1466 home_address_dictionary〕 　➔ HomeCity　» 1472 1474
+〔1698〕 Get Dictionary Value for city in 〔1696 home_address_dictionary〕 　➔ HomeCity　» 1702 1704
 
-〔1469〕 Get Dictionary Value for state in 〔1466 home_address_dictionary〕 　➔ HomeState　» 1472 1474
+〔1699〕 Get Dictionary Value for state in 〔1696 home_address_dictionary〕 　➔ HomeState　» 1702 1704
 
-〔1470〕 Get Dictionary Value for country in 〔1466 home_address_dictionary〕 　➔ HomeCountry　» 1472 1474
+〔1700〕 Get Dictionary Value for country in 〔1696 home_address_dictionary〕 　➔ HomeCountry　» 1702 1704
 
-〔1471〕 Get Dictionary Value for postcode in 〔1466 home_address_dictionary〕 　➔ HomePostcode　» 1472 1474
+〔1701〕 Get Dictionary Value for postcode in 〔1696 home_address_dictionary〕 　➔ HomePostcode　» 1702 1704
 
-〔1472〕 If All are true　〔1467 HomeStreet〕 has any value　〔1468 HomeCity〕 has any value　〔1469 HomeState〕 has any value　〔1470 HomeCountry〕 has any value　〔1471 HomePostcode〕 has any value
+〔1702〕 If All are true　〔1697 HomeStreet〕 has any value　〔1698 HomeCity〕 has any value　〔1699 HomeState〕 has any value　〔1700 HomeCountry〕 has any value　〔1701 HomePostcode〕 has any value
 
-〔1473〕 Comment
+〔1703〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
 
-〔1474〕 If All are true　〔1393 Current Location’s Street〕 is 〔1467 HomeStreet〕　〔1393 Current Location’s City〕 is 〔1468 HomeCity〕　〔1393 Current Location’s State〕 is 〔1469 HomeState〕　〔1393 Current Location’s Country〕 is 〔1470 HomeCountry〕　〔1393 Current Location’s ZIP Code〕 is 〔1471 HomePostcode〕
+〔1704〕 If All are true　〔1601 Current Location’s Street〕 is 〔1697 HomeStreet〕　〔1601 Current Location’s City〕 is 〔1698 HomeCity〕　〔1601 Current Location’s State〕 is 〔1699 HomeState〕　〔1601 Current Location’s Country〕 is 〔1700 HomeCountry〕　〔1601 Current Location’s ZIP Code〕 is 〔1701 HomePostcode〕
 
-〔1475〕 Comment
+〔1705〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
 
-〔1476〕 Number 0　»
+〔1706〕 Number 0　»
 
-〔1477〕 Set Variable CurrentToDeparture to 〔1476 Number〕
+〔1707〕 Set Variable CurrentToDeparture to 〔1706 Number〕
 
-〔1478〕 Otherwise
+〔1708〕 Otherwise
 
-〔1479〕 Comment
+〔1709〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔1480〕 Get 〔TravelMethod〕 Time　»
+〔1710〕 Get 〔TravelMethod〕 Time　»
 • Destination: 〔HomeAddress〕
 
-〔1481〕 Set Variable TravelTimeString to 〔1480 Travel Time〕
+〔1711〕 Set Variable TravelTimeString to 〔1710 Travel Time〕
 
-〔1482〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 1483 1485 1487 1492 1499
+〔1712〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔1483〕 Count Items in 〔1482 C2DMatches〕　»
+〔1713〕 Set Variable MatchString to 〔1712 Matches〕
 
-〔1484〕 If 〔1483 Count〕 > 1
+〔1714〕 Count Items in 〔MatchString〕　»
 
-〔1485〕 Get First Item from List 〔1482 C2DMatches〕　»
+〔1715〕 If 〔1714 Count〕 is 1
 
-〔1486〕 Set Variable C2DHours to 〔1485 Item from List〕
+〔1716〕 Get First Item from List 〔MatchString〕　»
 
-〔1487〕 Get Last Item from List 〔1482 C2DMatches〕　»
+〔1717〕 Set Variable TravelDays to 〔1716 Item from List〕
 
-〔1488〕 Set Variable C2DMinutes to 〔1487 Item from List〕
+〔1718〕 Otherwise
 
-〔1489〕 Otherwise
+〔1719〕 Number 0　»
 
-〔1490〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔1720〕 Set Variable TravelDays to 〔1719 Number〕
 
-〔1491〕 If 〔1490 C2DMatches’s text〕 has any value
+〔1721〕 End If
 
-〔1492〕 Get First Item from List 〔1482 C2DMatches〕　»
+〔1722〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1493〕 Set Variable C2DHours to 〔1492 Item from List〕
+〔1723〕 Set Variable MatchString to 〔1722 Matches〕
 
-〔1494〕 Number 0　»
+〔1724〕 Count Items in 〔MatchString〕　»
 
-〔1495〕 Set Variable C2DMinutes to 〔1494 Number〕
+〔1725〕 If 〔1724 Count〕 is 1
 
-〔1496〕 Otherwise
+〔1726〕 Get First Item from List 〔MatchString〕　»
 
-〔1497〕 Number 0　»
+〔1727〕 Set Variable TravelHours to 〔1726 Item from List〕
 
-〔1498〕 Set Variable C2DHours to 〔1497 Number〕
+〔1728〕 Otherwise
 
-〔1499〕 Get First Item from List 〔1482 C2DMatches〕　»
+〔1729〕 Number 0　»
 
-〔1500〕 Set Variable C2DMinutes to 〔1499 Item from List〕
+〔1730〕 Set Variable TravelHours to 〔1729 Number〕
 
-〔1501〕 End If
+〔1731〕 End If
 
-〔1502〕 End If　▵1489
+〔1732〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1503〕 Calculate 〔C2DHours〕 × 60　»
+〔1733〕 Set Variable MatchString to 〔1732 Matches〕
 
-〔1504〕 Calculate 〔1503 Calculation Result〕 + 〔C2DMinutes〕　»
+〔1734〕 Count Items in 〔MatchString〕　»
 
-〔1505〕 Set Variable CurrentToDeparture to 〔1504 Calculation Result〕
+〔1735〕 If 〔1734 Count〕 is 1
 
-〔1506〕 End If　▵1478
+〔1736〕 Get First Item from List 〔MatchString〕　»
 
-〔1507〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　» 1508 1509
+〔1737〕 Set Variable TravelMinutes to 〔1736 Item from List〕
+
+〔1738〕 Otherwise
+
+〔1739〕 Number 0　»
+
+〔1740〕 Set Variable TravelMinutes to 〔1739 Number〕
+
+〔1741〕 End If
+
+〔1742〕 Calculate 〔TravelDays〕 × 1440　» 1744
+
+〔1743〕 Calculate 〔TravelHours〕 × 60　»
+
+〔1744〕 Calculate 〔1743 Calculation Result〕 + 〔1742 Calculation Result〕　»
+
+〔1745〕 Calculate 〔1744 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔1746〕 Set Variable CurrentToDeparture to 〔1745 Calculation Result〕
+
+〔1747〕 End If　▵1708
+
+〔1748〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
 • GetDirectionsCustomLocation: 〔HomeAddress〕
 • Destination: 〔Repeat Item’s Location〕
 
-〔1508〕 Set Variable TravelTimeString to 〔1507 DepartureToDestination〕
+〔1749〕 Set Variable TravelTimeString to 〔1748 DepartureToDestination〕
 
-〔1509〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔1507 DepartureToDestination〕 　➔ C2DMatches　» 1510 1512 1514 1519 1526
+〔1750〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔1510〕 Count Items in 〔1509 C2DMatches〕　»
+〔1751〕 Set Variable MatchString to 〔1750 Matches〕
 
-〔1511〕 If 〔1510 Count〕 > 1
+〔1752〕 Count Items in 〔MatchString〕　»
 
-〔1512〕 Get First Item from List 〔1509 C2DMatches〕　»
+〔1753〕 If 〔1752 Count〕 is 1
 
-〔1513〕 Set Variable C2DHours to 〔1512 Item from List〕
+〔1754〕 Get First Item from List 〔MatchString〕　»
 
-〔1514〕 Get Last Item from List 〔1509 C2DMatches〕　»
+〔1755〕 Set Variable TravelDays to 〔1754 Item from List〕
 
-〔1515〕 Set Variable C2DMinutes to 〔1514 Item from List〕
+〔1756〕 Otherwise
 
-〔1516〕 Otherwise
+〔1757〕 Number 0　»
 
-〔1517〕 Match Text hour(?:s)? in 〔163 DepartureToDestination〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔1758〕 Set Variable TravelDays to 〔1757 Number〕
 
-〔1518〕 If 〔1517 C2DMatches’s text〕 has any value
+〔1759〕 End If
 
-〔1519〕 Get First Item from List 〔1509 C2DMatches〕　»
+〔1760〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1520〕 Set Variable C2DHours to 〔1519 Item from List〕
+〔1761〕 Set Variable MatchString to 〔1760 Matches〕
 
-〔1521〕 Number 0　»
+〔1762〕 Count Items in 〔MatchString〕　»
 
-〔1522〕 Set Variable C2DMinutes to 〔1521 Number〕
+〔1763〕 If 〔1762 Count〕 is 1
 
-〔1523〕 Otherwise
+〔1764〕 Get First Item from List 〔MatchString〕　»
 
-〔1524〕 Number 0　»
+〔1765〕 Set Variable TravelHours to 〔1764 Item from List〕
 
-〔1525〕 Set Variable C2DHours to 〔1524 Number〕
+〔1766〕 Otherwise
 
-〔1526〕 Get First Item from List 〔1509 C2DMatches〕　»
+〔1767〕 Number 0　»
 
-〔1527〕 Set Variable C2DMinutes to 〔1526 Item from List〕
+〔1768〕 Set Variable TravelHours to 〔1767 Number〕
 
-〔1528〕 End If
+〔1769〕 End If
 
-〔1529〕 End If　▵1516
+〔1770〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1530〕 Calculate 〔C2DHours〕 × 60　»
+〔1771〕 Set Variable MatchString to 〔1770 Matches〕
 
-〔1531〕 Calculate 〔1530 Calculation Result〕 + 〔C2DMinutes〕　»
+〔1772〕 Count Items in 〔MatchString〕　»
 
-〔1532〕 Calculate 〔1531 Calculation Result〕 + 〔CurrentToDeparture〕　»
+〔1773〕 If 〔1772 Count〕 is 1
 
-〔1533〕 Set Variable TravelTime to 〔1532 Calculation Result〕
+〔1774〕 Get First Item from List 〔MatchString〕　»
 
-〔1534〕 Otherwise　▵1472
+〔1775〕 Set Variable TravelMinutes to 〔1774 Item from List〕
 
-〔1535〕 Text
+〔1776〕 Otherwise
+
+〔1777〕 Number 0　»
+
+〔1778〕 Set Variable TravelMinutes to 〔1777 Number〕
+
+〔1779〕 End If
+
+〔1780〕 Calculate 〔TravelDays〕 × 1440　» 1782
+
+〔1781〕 Calculate 〔TravelHours〕 × 60　»
+
+〔1782〕 Calculate 〔1781 Calculation Result〕 + 〔1780 Calculation Result〕　»
+
+〔1783〕 Calculate 〔1782 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔1784〕 Calculate 〔1783 Calculation Result〕 + 〔CurrentToDeparture〕　»
+
+〔1785〕 Set Variable TravelTime to 〔1784 Calculation Result〕
+
+〔1786〕 Otherwise　▵1702
+
+〔1787〕 Text
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 
-〔1536〕 Get 〔TravelMethod〕 Time　»
+〔1788〕 Get 〔TravelMethod〕 Time　»
 • Destination: 〔Repeat Item’s Location〕
 
-〔1537〕 Set Variable TravelTimeString to 〔1536 Travel Time〕
+〔1789〕 Set Variable TravelTimeString to 〔1788 Travel Time〕
 
-〔1538〕 Match Text (\d+)\s*hour(?:s)?(?:\s*(\d+)\s*minute(?:s)?)?|(\d+)\s*minute(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　» 1539 1541 1543 1548 1555
+〔1790〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔1539〕 Count Items in 〔1538 C2DMatches〕　»
+〔1791〕 Set Variable MatchString to 〔1790 Matches〕
 
-〔1540〕 If 〔1539 Count〕 > 1
+〔1792〕 Count Items in 〔MatchString〕　»
 
-〔1541〕 Get First Item from List 〔1538 C2DMatches〕　»
+〔1793〕 If 〔1792 Count〕 is 1
 
-〔1542〕 Set Variable C2DHours to 〔1541 Item from List〕
+〔1794〕 Get First Item from List 〔MatchString〕　»
 
-〔1543〕 Get Last Item from List 〔1538 C2DMatches〕　»
+〔1795〕 Set Variable TravelDays to 〔1794 Item from List〕
 
-〔1544〕 Set Variable C2DMinutes to 〔1543 Item from List〕
+〔1796〕 Otherwise
 
-〔1545〕 Otherwise
+〔1797〕 Number 0　»
 
-〔1546〕 Match Text hour(?:s)? in 〔TravelTimeString〕 　➔ C2DMatches　»
-• MatchTextCaseSensitive: true
+〔1798〕 Set Variable TravelDays to 〔1797 Number〕
 
-〔1547〕 If 〔1546 C2DMatches’s text〕 has any value
+〔1799〕 End If
 
-〔1548〕 Get First Item from List 〔1538 C2DMatches〕　»
+〔1800〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1549〕 Set Variable C2DHours to 〔1548 Item from List〕
+〔1801〕 Set Variable MatchString to 〔1800 Matches〕
 
-〔1550〕 Number 0　»
+〔1802〕 Count Items in 〔MatchString〕　»
 
-〔1551〕 Set Variable C2DMinutes to 〔1550 Number〕
+〔1803〕 If 〔1802 Count〕 is 1
 
-〔1552〕 Otherwise
+〔1804〕 Get First Item from List 〔MatchString〕　»
 
-〔1553〕 Number 0　»
+〔1805〕 Set Variable TravelHours to 〔1804 Item from List〕
 
-〔1554〕 Set Variable C2DHours to 〔1553 Number〕
+〔1806〕 Otherwise
 
-〔1555〕 Get First Item from List 〔1538 C2DMatches〕　»
+〔1807〕 Number 0　»
 
-〔1556〕 Set Variable C2DMinutes to 〔1555 Item from List〕
+〔1808〕 Set Variable TravelHours to 〔1807 Number〕
 
-〔1557〕 End If
+〔1809〕 End If
 
-〔1558〕 End If　▵1545
+〔1810〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+• MatchTextCaseSensitive: false
 
-〔1559〕 Calculate 〔C2DHours〕 × 60　»
+〔1811〕 Set Variable MatchString to 〔1810 Matches〕
 
-〔1560〕 Calculate 〔1559 Calculation Result〕 + 〔C2DMinutes〕　»
+〔1812〕 Count Items in 〔MatchString〕　»
 
-〔1561〕 Set Variable TravelTime to 〔1560 Calculation Result〕
+〔1813〕 If 〔1812 Count〕 is 1
 
-〔1562〕 End If　▵1534
+〔1814〕 Get First Item from List 〔MatchString〕　»
 
-〔1563〕 End If　▵1464
+〔1815〕 Set Variable TravelMinutes to 〔1814 Item from List〕
 
-〔1564〕 Otherwise　▵1392
+〔1816〕 Otherwise
 
-〔1565〕 Number 0　»
+〔1817〕 Number 0　»
 
-〔1566〕 Set Variable TravelTime to 〔1565 Number〕
+〔1818〕 Set Variable TravelMinutes to 〔1817 Number〕
 
-〔1567〕 End If
+〔1819〕 End If
 
-〔1568〕 Find Alarm All Alarm　» 1569 1570
+〔1820〕 Calculate 〔TravelDays〕 × 1440　» 1822
+
+〔1821〕 Calculate 〔TravelHours〕 × 60　»
+
+〔1822〕 Calculate 〔1821 Calculation Result〕 + 〔1820 Calculation Result〕　»
+
+〔1823〕 Calculate 〔1822 Calculation Result〕 + 〔TravelMinutes〕　»
+
+〔1824〕 Set Variable TravelTime to 〔1823 Calculation Result〕
+
+〔1825〕 End If　▵1786
+
+〔1826〕 End If　▵1694
+
+〔1827〕 Otherwise　▵1600
+
+〔1828〕 Number 0　»
+
+〔1829〕 Set Variable TravelTime to 〔1828 Number〕
+
+〔1830〕 End If
+
+〔1831〕 Find Alarm All Alarm　» 1832 1833
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
       "WFActionParameterFilterTemplates": [],
@@ -4627,142 +5177,142 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔1569〕 If 〔1568 Alarms〕 has any value
+〔1832〕 If 〔1831 Alarms〕 has any value
 
-〔1570〕 Repeat[2] with Each in 〔1568 Alarms〕
+〔1833〕 Repeat[2] with Each in 〔1831 Alarms〕
 
-〔1571〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 1572 1573 1575
+〔1834〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ AlarmLabelDictionary　» 1835 1836 1838
 
-〔1572〕 Get Dictionary Value for Event in 〔1571 AlarmLabelDictionary〕 　➔ Event　» 1577
+〔1835〕 Get Dictionary Value for Event in 〔1834 AlarmLabelDictionary〕 　➔ Event　» 1840
 
-〔1573〕 Get Dictionary Value for From in 〔1571 AlarmLabelDictionary〕 　➔ From　»
+〔1836〕 Get Dictionary Value for From in 〔1834 AlarmLabelDictionary〕 　➔ From　»
 
-〔1574〕 Get Dates from 〔1573 From〕 　➔ FromDate　» 1577
+〔1837〕 Get Dates from 〔1836 From〕 　➔ FromDate　» 1840
 
-〔1575〕 Get Dictionary Value for To in 〔1571 AlarmLabelDictionary〕 　➔ To　»
+〔1838〕 Get Dictionary Value for To in 〔1834 AlarmLabelDictionary〕 　➔ To　»
 
-〔1576〕 Get Dates from 〔1575 To〕 　➔ ToDate　»
+〔1839〕 Get Dates from 〔1838 To〕 　➔ ToDate　»
 
-〔1577〕 If All are true　〔1572 Event’s Name〕 is 〔Repeat Item〕　〔1574 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔1576 ToDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is 〔Repeat Item’s End Date{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕
+〔1840〕 If All are true　〔1835 Event’s Name〕 is 〔Repeat Item〕　〔1837 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔Repeat Item’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔1839 ToDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is 〔Repeat Item’s End Date{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕
 
-〔1578〕 Delete Alarms
+〔1841〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔1579〕 End If
+〔1842〕 End If
 
-〔1580〕 End Repeat[2] with Each　▵1570
+〔1843〕 End Repeat[2] with Each　▵1833
 
-〔1581〕 End If　▵1569
+〔1844〕 End If　▵1832
 
-〔1582〕 Calculate 〔TravelTime〕 + 〔Extra_Time〕　»
+〔1845〕 Calculate 〔TravelTime〕 + 〔Extra_Time〕　»
 
-〔1583〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed_Alarm_Time　» 1585 1587 1590 1597 1598
-• Duration: 〔1582 Calculation Result〕 min
+〔1846〕 Adjust Subtract Date 〔Repeat Item’s Start Date〕 　➔ Supposed_Alarm_Time　» 1848 1850 1853 1860 1861
+• Duration: 〔1845 Calculation Result〕 min
 
-〔1584〕 Date Current Date　»
+〔1847〕 Date Current Date　»
 
-〔1585〕 If Any are true　〔1583 Supposed_Alarm_Time〕 < 〔1584 Date〕　〔1583 Supposed_Alarm_Time〕 is 〔1584 Date〕
+〔1848〕 If Any are true　〔1846 Supposed_Alarm_Time〕 < 〔1847 Date〕　〔1846 Supposed_Alarm_Time〕 is 〔1847 Date〕
 
-〔1586〕 If 〔Repeat Item’s Location〕 has any value
+〔1849〕 If 〔Repeat Item’s Location〕 has any value
 
-〔1587〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕  which  was supposed to get ready at 〔1583 Supposed_Alarm_Time〕. Please check.
+〔1850〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 at 〔Repeat Item’s Location〕  which  was supposed to get ready at 〔1846 Supposed_Alarm_Time〕. Please check.
 
-〔1588〕 Set Variable Text to 〔1587 Text〕
+〔1851〕 Set Variable Text to 〔1850 Text〕
 
-〔1589〕 Otherwise
+〔1852〕 Otherwise
 
-〔1590〕 Text　»
-Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔1583 Supposed_Alarm_Time〕. Please check.
+〔1853〕 Text　»
+Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item’s End Date〕 which  was supposed to get ready at 〔1846 Supposed_Alarm_Time〕. Please check.
 
-〔1591〕 Set Variable Text to 〔1590 Text〕
+〔1854〕 Set Variable Text to 〔1853 Text〕
 
-〔1592〕 End If
+〔1855〕 End If
 
-〔1593〕 Show Alert 〔Text〕
+〔1856〕 Show Alert 〔Text〕
 
-〔1594〕 Show Notification 〔Text〕
+〔1857〕 Show Notification 〔Text〕
 
-〔1595〕 Speak Text
+〔1858〕 Speak Text
 • Text: 〔Text〕
 
-〔1596〕 Otherwise　▵1585
+〔1859〕 Otherwise　▵1848
 
-〔1597〕 Dictionary　»
+〔1860〕 Dictionary　»
 {  "Event": "〔Repeat Item〕",
    "From": "〔Repeat Item’s Start Date〕",
    "To": "〔Repeat Item’s End Date〕",
    "Location": "〔Repeat Item’s Location〕",
-   "AlarmTime": "〔1583 Supposed_Alarm_Time〕"
+   "AlarmTime": "〔1846 Supposed_Alarm_Time〕"
 }
 
-〔1598〕 Add Alarm for 〔1583 Supposed_Alarm_Time〕 called 〔1597 Dictionary〕
+〔1861〕 Add Alarm for 〔1846 Supposed_Alarm_Time〕 called 〔1860 Dictionary〕
 
-〔1599〕 End If
+〔1862〕 End If
 
-〔1600〕 End Repeat with Each　▵1391
+〔1863〕 End Repeat with Each　▵1599
 
-〔1601〕 Number 3　»
+〔1864〕 Number 3　»
 
-〔1602〕 Repeat 〔1601 Number〕 Times
+〔1865〕 Repeat 〔1864 Number〕 Times
 
-〔1603〕 Repeat[2] with Each in 〔1388 Calendar Events〕
+〔1866〕 Repeat[2] with Each in 〔1596 Calendar Events〕
 
-〔1604〕 Format Date 〔Repeat Item 2’s Start Date〕　» 1608 1611 1616 1619
+〔1867〕 Format Date 〔Repeat Item 2’s Start Date〕　» 1871 1874 1879 1882
 • DateFormatStyle: None
 
-〔1605〕 Format Date 〔Repeat Item 2’s End Date〕　» 1608 1611 1616 1619
+〔1868〕 Format Date 〔Repeat Item 2’s End Date〕　» 1871 1874 1879 1882
 • DateFormatStyle: None
 
-〔1606〕 If 〔Repeat Item 2’s Location〕 has any value
+〔1869〕 If 〔Repeat Item 2’s Location〕 has any value
 
-〔1607〕 If 〔1390 Count〕 > 1
+〔1870〕 If 〔1598 Count〕 > 1
 
-〔1608〕 Text　»
-Event 〔Repeat Index 2〕 〔Repeat Item 2〕 from 〔1604 Formatted Date〕 to 〔1605 Formatted Date〕 at 〔Repeat Item 2’s Location〕
+〔1871〕 Text　»
+Event 〔Repeat Index 2〕 〔Repeat Item 2〕 from 〔1867 Formatted Date〕 to 〔1868 Formatted Date〕 at 〔Repeat Item 2’s Location〕
 
-〔1609〕 Set Variable Text to 〔1608 Text〕
+〔1872〕 Set Variable Text to 〔1871 Text〕
 
-〔1610〕 Otherwise
+〔1873〕 Otherwise
 
-〔1611〕 Text　»
-Event  〔Repeat Item 2〕 from 〔1604 Formatted Date〕 to 〔1605 Formatted Date〕 at 〔Repeat Item 2’s Location〕
+〔1874〕 Text　»
+Event  〔Repeat Item 2〕 from 〔1867 Formatted Date〕 to 〔1868 Formatted Date〕 at 〔Repeat Item 2’s Location〕
 
-〔1612〕 Set Variable Text to 〔1611 Text〕
+〔1875〕 Set Variable Text to 〔1874 Text〕
 
-〔1613〕 End If
+〔1876〕 End If
 
-〔1614〕 Otherwise　▵1606
+〔1877〕 Otherwise　▵1869
 
-〔1615〕 If 〔1390 Count〕 > 1
+〔1878〕 If 〔1598 Count〕 > 1
 
-〔1616〕 Text　»
-Event 〔Repeat Index 2〕 〔Repeat Item 2〕 from 〔1604 Formatted Date〕 to 〔1605 Formatted Date〕
+〔1879〕 Text　»
+Event 〔Repeat Index 2〕 〔Repeat Item 2〕 from 〔1867 Formatted Date〕 to 〔1868 Formatted Date〕
 
-〔1617〕 Set Variable Text to 〔1616 Text〕
+〔1880〕 Set Variable Text to 〔1879 Text〕
 
-〔1618〕 Otherwise
+〔1881〕 Otherwise
 
-〔1619〕 Text　»
-Event  〔Repeat Item 2〕 from 〔1604 Formatted Date〕 to 〔1605 Formatted Date〕
+〔1882〕 Text　»
+Event  〔Repeat Item 2〕 from 〔1867 Formatted Date〕 to 〔1868 Formatted Date〕
 
-〔1620〕 Set Variable Text to 〔1619 Text〕
+〔1883〕 Set Variable Text to 〔1882 Text〕
 
-〔1621〕 End If
+〔1884〕 End If
 
-〔1622〕 End If　▵1614
+〔1885〕 End If　▵1877
 
-〔1623〕 Speak Text
+〔1886〕 Speak Text
 • Text: 〔Text〕
 
-〔1624〕 Wait 1 seconds
+〔1887〕 Wait 1 seconds
 
-〔1625〕 End Repeat[2] with Each　▵1603
+〔1888〕 End Repeat[2] with Each　▵1866
 
-〔1626〕 End Repeat Times　▵1602
+〔1889〕 End Repeat Times　▵1865
 
-〔1627〕 End If　▵1389
+〔1890〕 End If　▵1597
 
-〔1628〕 End If　▵1377
+〔1891〕 End If　▵1585
 
-〔1629〕 End If　▵91
+〔1892〕 End If　▵91
