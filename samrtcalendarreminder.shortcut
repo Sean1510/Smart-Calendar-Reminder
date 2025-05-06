@@ -1961,13 +1961,13 @@ Event 〔Repeat Item〕 from 〔Repeat Item’s Start Date〕 to 〔Repeat Item�
 
 〔419〕 Get Dictionary from 〔Repeat Item 2〕　» 420 421 422 423
 
-〔420〕 Get Dictionary Value for Event in 〔419 Dictionary〕 　➔ Event　» 424
+〔420〕 Get Dictionary Value for Event in 〔419 Dictionary〕 　➔ Event　» 424 #change to get text from input
 
-〔421〕 Get Dictionary Value for From in 〔419 Dictionary〕 　➔ From　» 424
+〔421〕 Get Dictionary Value for From in 〔419 Dictionary〕 　➔ From　» 424 #change to get date from input
 
-〔422〕 Get Dictionary Value for To in 〔419 Dictionary〕 　➔ To　» 424
+〔422〕 Get Dictionary Value for To in 〔419 Dictionary〕 　➔ To　» 424 #change to get date from input
 
-〔423〕 Get Dictionary Value for Location in 〔419 Dictionary〕 　➔ Location　»
+〔423〕 Get Dictionary Value for Location in 〔419 Dictionary〕 　➔ Location　» #change to get text from input
 
 〔424〕 If Any are true　〔420 Event’s Name〕 is not 〔411 Dictionary.Event〕　〔421 From’s Name〕 is not 〔411 Dictionary.From〕　〔422 To’s Name〕 is not 〔411 Dictionary.To〕　〔423 Location’s Name〕 is not 〔411 Dictionary.Location〕
 
