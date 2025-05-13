@@ -16,7 +16,7 @@ Smart Calendar Reminder V4 (584 actions, 243 KB)
 
 
 〔0〕 Text　»
-Smart Calendar Reminder 1
+Smart Calendar Reminder
 
 〔1〕 Set Variable Folder to 〔0 Text〕
 
@@ -2314,7 +2314,7 @@ Event 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date
 
 〔488〕 Otherwise　▵480
 
-〔489〕 If 〔140 Count〕 > 1
+〔489〕 If 〔140 Count〕 is 1
 
 〔490〕 Text　»
 Event 〔Repeat Index 3〕 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date〕
@@ -2446,8 +2446,8 @@ Triggered by alarm events - manages notification flow
 〔544〕 Find Alarm All Alarm　» 545 554
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
