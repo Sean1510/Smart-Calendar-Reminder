@@ -1,4 +1,4 @@
-Smart Calendar Reminder V4 (584 actions, 243 KB)
+Smart Calendar Reminder V5 (584 actions, 236 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -1274,7 +1274,7 @@ Customize]
             <div class="form-group">
                 <label>Years</label>
                 <div class="number-input">
-                    <button type="button" onclick="adjustValue('years', -1)">−</button>
+                    <button type="button" onclick="adjustValue('years', -1)">-</button>
                     <input type="number" id="years" value="0" min="0">
                     <button type="button" onclick="adjustValue('years', 1)">+</button>
                 </div>
@@ -1283,7 +1283,7 @@ Customize]
             <div class="form-group">
                 <label>Months</label>
                 <div class="number-input">
-                    <button type="button" onclick="adjustValue('months', -1)">−</button>
+                    <button type="button" onclick="adjustValue('months', -1)">-</button>
                     <input type="number" id="months" value="0" min="0">
                     <button type="button" onclick="adjustValue('months', 1)">+</button>
                 </div>
@@ -1292,7 +1292,7 @@ Customize]
             <div class="form-group">
                 <label>Weeks</label>
                 <div class="number-input">
-                    <button type="button" onclick="adjustValue('weeks', -1)">−</button>
+                    <button type="button" onclick="adjustValue('weeks', -1)">-</button>
                     <input type="number" id="weeks" value="0" min="0">
                     <button type="button" onclick="adjustValue('weeks', 1)">+</button>
                 </div>
@@ -1301,7 +1301,7 @@ Customize]
             <div class="form-group">
                 <label>Days</label>
                 <div class="number-input">
-                    <button type="button" onclick="adjustValue('days', -1)">−</button>
+                    <button type="button" onclick="adjustValue('days', -1)">-</button>
                     <input type="number" id="days" value="0" min="0">
                     <button type="button" onclick="adjustValue('days', 1)">+</button>
                 </div>
@@ -1310,7 +1310,7 @@ Customize]
             <div class="form-group">
                 <label>Hours</label>
                 <div class="number-input">
-                    <button type="button" onclick="adjustValue('hours', -1)">−</button>
+                    <button type="button" onclick="adjustValue('hours', -1)">-</button>
                     <input type="number" id="hours" value="0" min="0">
                     <button type="button" onclick="adjustValue('hours', 1)">+</button>
                 </div>
@@ -1319,7 +1319,7 @@ Customize]
             <div class="form-group">
                 <label>Minutes</label>
                 <div class="number-input">
-                    <button type="button" onclick="adjustValue('minutes', -1)">−</button>
+                    <button type="button" onclick="adjustValue('minutes', -1)">-</button>
                     <input type="number" id="minutes" value="0" min="0">
                     <button type="button" onclick="adjustValue('minutes', 1)">+</button>
                 </div>
@@ -2373,8 +2373,8 @@ Event 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date
 〔515〕 Find Alarm All Alarm　» 516 517
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -2446,8 +2446,8 @@ Triggered by alarm events - manages notification flow
 〔544〕 Find Alarm All Alarm　» 545 554
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
