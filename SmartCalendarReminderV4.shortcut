@@ -2228,7 +2228,6 @@ Event 〔CalendarRepeatItem〕 from 〔CalendarRepeatItem’s Start Date〕 to �
 
 〔453〕 Get File at Path 〔FutureAlarmsPath〕 from Folder　» 454 455
 • FileErrorIfNotFound: false
-• File: 〔TextList〕
 
 〔454〕 If 〔453 File’s File Size〕 has any value
 
@@ -2447,8 +2446,8 @@ Triggered by alarm events - manages notification flow
 〔544〕 Find Alarm All Alarm　» 545 554
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
