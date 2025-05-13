@@ -2314,7 +2314,7 @@ Event 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date
 
 〔488〕 Otherwise　▵480
 
-〔489〕 If 〔140 Count〕 is 1
+〔489〕 If 〔140 Count〕 > 1
 
 〔490〕 Text　»
 Event 〔Repeat Index 3〕 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date〕
