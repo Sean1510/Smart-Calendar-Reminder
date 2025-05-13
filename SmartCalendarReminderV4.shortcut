@@ -2447,8 +2447,8 @@ Triggered by alarm events - manages notification flow
 〔544〕 Find Alarm All Alarm　» 545 554
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -2459,7 +2459,7 @@ Triggered by alarm events - manages notification flow
 
 〔547〕 Repeat 〔546 Number〕 Times
 
-〔548〕 Get File at Path Smart Calendar Reminder/stopflag.txt from Folder　»
+〔548〕 Get File at Path 〔StopFlagPath〕 from Folder　»
 • FileErrorIfNotFound: false
 
 〔549〕 Get Dictionary from 〔548 File〕　»
