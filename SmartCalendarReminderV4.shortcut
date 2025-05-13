@@ -2053,7 +2053,7 @@ CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 
 〔377〕 Dictionary 　➔ Alarm Label Dictionary　» 408 413 428
 {  "Event": "〔CalendarRepeatItem〕",
-   "From": "〔CalendarRepeatItem’s Calendar〕",
+   "From": "〔CalendarRepeatItem’s Start Date〕",
    "To": "〔CalendarRepeatItem’s End Date〕",
    "Location": "〔CalendarRepeatItem’s Location〕",
    "AlarmTime": "〔376 Supposed Alarm Time〕"
@@ -2373,8 +2373,8 @@ Event 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date
 〔515〕 Find Alarm All Alarm　» 516 517
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -2446,8 +2446,8 @@ Triggered by alarm events - manages notification flow
 〔544〕 Find Alarm All Alarm　» 545 554
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
