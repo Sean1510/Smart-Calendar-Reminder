@@ -1146,7 +1146,7 @@ Besides travel time, how many Extra Minutes Needed (e.g., '15 mins buffer')
 〔82〕 Text　»
 Set Time Granularity to search up Calendar Events
 
-Default: 1 hour -> 1 day -> 1 week -> 1 month
+Default: 1 hour -> 1 day -> 1 week
 
 Customize based on your own needs.
 
@@ -1158,7 +1158,7 @@ Customize]
 〔84〕 Menu Item Default
 
 〔85〕 Text　»
-60, 1440, 10080, 43200
+60, 1440, 10080
 
 〔86〕 Set Variable Granularity to 〔85 Text〕
 
@@ -2373,8 +2373,8 @@ Event 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date
 〔515〕 Find Alarm All Alarm　» 516 517
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFContentPredicateBoundedDate": false,
-      "WFActionParameterFilterTemplates": []
+      "WFActionParameterFilterTemplates": [],
+      "WFContentPredicateBoundedDate": false
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
