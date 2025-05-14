@@ -1,4 +1,4 @@
-Smart Calendar Reminder V4 (584 actions, 236 KB)
+Smart Calendar Reminder V5 (626 actions, 255 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -16,7 +16,7 @@ Smart Calendar Reminder V4 (584 actions, 236 KB)
 
 
 〔0〕 Text　»
-Smart Calendar Reminder
+Smart Calendar Reminder 1
 
 〔1〕 Set Variable Folder to 〔0 Text〕
 
@@ -913,7 +913,7 @@ END:VCARD
 
 〔55〕 Get Contacts from 〔54 Renamed Item〕　»
 
-〔56〕 Choose from List 〔55 Contacts〕　» 57 102 108
+〔56〕 Choose from List 〔55 Contacts〕　» 57 104 110
 • ChooseFromListActionPrompt: ☀️Welcome to Smart Calendar Reminder☀️
 
 〔57〕 If 〔56 Selected Item’s Name〕 is Setup
@@ -1146,7 +1146,7 @@ Besides travel time, how many Extra Minutes Needed (e.g., '15 mins buffer')
 〔82〕 Text　»
 Set Time Granularity to search up Calendar Events
 
-Default: 1 hour -> 1 day -> 1 week
+Default: 1 hour -> 1 day -> 1 week -> 1 month
 
 Customize based on your own needs.
 
@@ -1157,244 +1157,300 @@ Customize]
 
 〔84〕 Menu Item Default
 
-〔85〕 Text　»
-60, 1440, 10080
+〔85〕 Dictionary　»
+{  "month": "1",
+   "week": "1",
+   "day": "1",
+   "hour": "1"
+}
 
-〔86〕 Set Variable Granularity to 〔85 Text〕
+〔86〕 Text　»
+〔85 Dictionary〕
 
-〔87〕 Menu Item Customize
+〔87〕 Set Variable Granularity to 〔86 Text〕
 
-〔88〕 Text　»
+〔88〕 Menu Item Customize
+
+〔89〕 Text　»
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Time Granularity Collector</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* Previous styling remains the same */
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 20px;
-            min-height: 100vh;
-        }
+ \u00A0\u00A0 <title>Time Unit Collector</title>
+ \u00A0\u00A0 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ \u00A0\u00A0 <style>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 /* Previous styling remains unchanged */
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 body {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 font-family: 'Segoe UI', sans-serif;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 padding: 20px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 min-height: 100vh;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
 
-        .form-container {
-            max-width: 500px;
-            margin: 20px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
 
-        h2 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 25px;
-        }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 .form-container {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 max-width: 500px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 margin: 20px auto;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 background: white;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 padding: 25px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 border-radius: 15px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #34495e;
-            font-weight: 500;
-        }
 
-        button {
-            background: #3498db;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.3s ease;
-        }
 
-        button:hover {
-            background: #2980b9;
-        }
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 h2 {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 color: #2c3e50;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 text-align: center;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 margin-bottom: 25px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
 
-        .success-message {
-            display: none;
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: center;
-        }
 
-        .success-message.show {
-            display: block;
-        }
 
-        .number-input {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 .form-group {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 margin-bottom: 20px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
 
-        .number-input button {
-            width: 40px;
-            height: 40px;
-            padding: 0;
-            border-radius: 50%;
-            background: #f0f0f0;
-            color: #3498db;
-            font-size: 20px;
-            line-height: 40px;
-        }
 
-        .number-input button:hover {
-            background: #e0e0e0;
-        }
 
-        .number-input input {
-            width: 80px;
-            padding: 8px;
-            text-align: center;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-    </style>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 label {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 display: block;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 margin-bottom: 8px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 color: #34495e;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 font-weight: 500;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
+
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 button {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 background: #3498db;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 color: white;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 padding: 15px 30px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 border: none;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 border-radius: 8px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 font-size: 16px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 cursor: pointer;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 width: 100%;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 transition: background 0.3s ease;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
+
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 button:hover {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 background: #2980b9;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
+
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 .success-message {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 display: none;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 background: #e8f5e9;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 color: #2e7d32;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 padding: 20px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 border-radius: 8px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 margin-top: 20px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 text-align: center;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
+
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 .success-message.show {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 display: block;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
+
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 .number-input {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 display: flex;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 align-items: center;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 gap: 10px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
+
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 .number-input button {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 width: 40px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 height: 40px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 padding: 0;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 border-radius: 50%;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 background: #f0f0f0;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 color: #3498db;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 font-size: 20px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 line-height: 40px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
+
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 .number-input button:hover {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 background: #e0e0e0;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
+
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 .number-input input {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 width: 80px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 padding: 8px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 text-align: center;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 border: 2px solid #e0e0e0;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 border-radius: 8px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 font-size: 16px;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
+ \u00A0\u00A0 </style>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Time Granularity Settings</h2>
-        <form id="timeForm">
-            <!-- Input groups remain the same -->
-            <div class="form-group">
-                <label>Years</label>
-                <div class="number-input">
-                    <button type="button" onclick="adjustValue('years', -1)">-</button>
-                    <input type="number" id="years" value="0" min="0">
-                    <button type="button" onclick="adjustValue('years', 1)">+</button>
-                </div>
-            </div>
+ \u00A0\u00A0 <div class="form-container">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <h2>Time Unit Settings</h2>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <form id="timeForm">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="form-group">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <label>Years</label>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="number-input">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="adjustValue('years', -1)">-</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <input type="number" id="years" value="0" min="0">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="adjustValue('years', 1)">+</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
 
-            <div class="form-group">
-                <label>Months</label>
-                <div class="number-input">
-                    <button type="button" onclick="adjustValue('months', -1)">-</button>
-                    <input type="number" id="months" value="0" min="0">
-                    <button type="button" onclick="adjustValue('months', 1)">+</button>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label>Weeks</label>
-                <div class="number-input">
-                    <button type="button" onclick="adjustValue('weeks', -1)">-</button>
-                    <input type="number" id="weeks" value="0" min="0">
-                    <button type="button" onclick="adjustValue('weeks', 1)">+</button>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label>Days</label>
-                <div class="number-input">
-                    <button type="button" onclick="adjustValue('days', -1)">-</button>
-                    <input type="number" id="days" value="0" min="0">
-                    <button type="button" onclick="adjustValue('days', 1)">+</button>
-                </div>
-            </div>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="form-group">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <label>Months</label>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="number-input">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="adjustValue('months', -1)">-</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <input type="number" id="months" value="0" min="0">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="adjustValue('months', 1)">+</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
 
-            <div class="form-group">
-                <label>Hours</label>
-                <div class="number-input">
-                    <button type="button" onclick="adjustValue('hours', -1)">-</button>
-                    <input type="number" id="hours" value="0" min="0">
-                    <button type="button" onclick="adjustValue('hours', 1)">+</button>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label>Minutes</label>
-                <div class="number-input">
-                    <button type="button" onclick="adjustValue('minutes', -1)">-</button>
-                    <input type="number" id="minutes" value="0" min="0">
-                    <button type="button" onclick="adjustValue('minutes', 1)">+</button>
-                </div>
-            </div>
 
-            <button type="button" onclick="convertToMinutes()">Generate Time Values</button>
-        </form>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="form-group">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <label>Weeks</label>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="number-input">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="adjustValue('weeks', -1)">-</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <input type="number" id="weeks" value="0" min="0">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="adjustValue('weeks', 1)">+</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
 
-        <div class="success-message" id="successMessage">
-            <p>Time values copied to clipboard!</p>
-        </div>
-    </div>
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="form-group">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <label>Days</label>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="number-input">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="adjustValue('days', -1)">-</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <input type="number" id="days" value="0" min="0">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="adjustValue('days', 1)">+</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
+
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="form-group">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <label>Hours</label>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="number-input">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="adjustValue('hours', -1)">-</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <input type="number" id="hours" value="0" min="0">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="adjustValue('hours', 1)">+</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
+
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="form-group">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <label>Minutes</label>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="number-input">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="adjustValue('minutes', -1)">-</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <input type="number" id="minutes" value="0" min="0">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="adjustValue('minutes', 1)">+</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
+
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <button type="button" onclick="collectTimeData()">Generate Time Dictionary</button>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </form>
+
+
+
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <div class="success-message" id="successMessage">
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 <p>Time dictionary copied to clipboard!</p>
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 </div>
+ \u00A0\u00A0 </div>
+
+
 
 <script>
 function adjustValue(field, change) {
-    const input = document.getElementById(field);
-    let value = parseInt(input.value) + change;
-    input.value = value < 0 ? 0 : value;
+ \u00A0\u00A0 const input = document.getElementById(field);
+ \u00A0\u00A0 let value = parseInt(input.value) + change;
+ \u00A0\u00A0 input.value = value < 0 ? 0 : value;
 }
 
-function convertToMinutes() {
-    // Conversion rates to minutes
-    const conversions = {
-        years: 365 * 24 * 60,
-        months: 30 * 24 * 60,
-        weeks: 7 * 24 * 60,
-        days: 24 * 60,
-        hours: 60,
-        minutes: 1
-    };
 
-    // Convert all values to minutes
-    const minutesValues = Object.keys(conversions).map(field => {
-        const value = parseInt(document.getElementById(field).value);
-        return value * conversions[field];
-    });
 
-    // Filter out zeros, sort, and format as comma-separated string
-    const finalString = minutesValues
-        .filter(m => m > 0)
-        .sort((a, b) => a - b)
-        .join(', ');
+function collectTimeData() {
+ \u00A0\u00A0 const singularMap = {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 years: 'year',
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 months: 'month',
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 weeks: 'week',
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 days: 'day',
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 hours: 'hour',
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 minutes: 'minute'
+ \u00A0\u00A0 };
 
-    // Copy to clipboard
-    navigator.clipboard.writeText(finalString);
 
-    // Show success message
-    document.getElementById('timeForm').style.display = 'none';
-    document.getElementById('successMessage').classList.add('show');
+
+ \u00A0\u00A0 const timeDict = {};
+ \u00A0\u00A0\u{space}
+ \u00A0\u00A0 Object.keys(singularMap).forEach(field => {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 const value = document.getElementById(field).value;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 if (value > 0) {
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 const numericValue = parseInt(value);
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 const baseKey = singularMap[field];
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 const key = numericValue === 1 ? baseKey : `${baseKey}s`;
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 timeDict[key] = value.toString();
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 }
+ \u00A0\u00A0 });
+
+
+
+ \u00A0\u00A0 const outputString = `{${Object.entries(timeDict)
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 .map(([key, value]) => `"${key}": "${value}"`)
+ \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 .join(', ')}}`;
+
+
+
+ \u00A0\u00A0 navigator.clipboard.writeText(outputString);
+ \u00A0\u00A0 document.getElementById('timeForm').style.display = 'none';
+ \u00A0\u00A0 document.getElementById('successMessage').classList.add('show');
 }
 </script>
 </body>
 </html>
 
-〔89〕 Set Name of 〔88 Text〕 to Granularity.html　»
+〔90〕 Set Name of 〔89 Text〕 to Granularity.html　»
 
-〔90〕 Show Web View at 〔89 Renamed Item〕
+〔91〕 Show Web View at 〔90 Renamed Item〕
 
-〔91〕 Get Clipboard　»
+〔92〕 Get Clipboard　»
 
-〔92〕 Set Variable Granularity to 〔91 Clipboard〕
+〔93〕 Get Dictionary from 〔92 Clipboard〕　»
 
-〔93〕 End Menu　▵87
+〔94〕 Set Variable Granularity to 〔93 Dictionary〕
 
-〔94〕 Dictionary　»
+〔95〕 End Menu　▵88
+
+〔96〕 Dictionary　»
 {  "HomeAddress": "〔HomeAddress as Dictionary〕",
    "TravelMethod": "〔TravelMethod〕",
    "ExtraTime": "〔ExtraTime〕",
    "Granularity": "〔Granularity〕"
 }
 
-〔95〕 Text　»
-〔94 Dictionary〕
+〔97〕 Text　»
+〔96 Dictionary〕
 
-〔96〕 Save File 〔95 Text〕
+〔98〕 Save File 〔97 Text〕
 • Folder: {  "fileLocation": {
       "crossDeviceItemID": "docs.icloud.com:iCloud.is.workflow.my.workflows/documents/e51c720424ec90d3260ccd6f241343baea15b7f3",
       "fileProviderDomainID": "com.apple.CloudDocs.iCloudDriveFileProvider/46CA22EA-49CD-4A1D-9512-F48B36AA64B5",
@@ -1409,67 +1465,67 @@ function convertToMinutes() {
 • SaveFileOverwrite: true
 • FileDestinationPath: 〔AboutMePath〕
 
-〔97〕 Otherwise　▵59
+〔99〕 Otherwise　▵59
 
-〔98〕 Show Alert You have set up. If you want to modify, please tap [Change] instead.
+〔100〕 Show Alert You have set up. If you want to modify, please tap [Change] instead.
 • AlertActionCancelButtonShown: false
 
-〔99〕 Run Shortcut Smart Calendar Reminder
+〔101〕 Run Shortcut Smart Calendar Reminder
 • Workflow: {  "workflowIdentifier": "5A2BC55E-C195-4C6C-93E9-725F782CDD1B",
    "isSelf": true,
    "workflowName": "Smart Calendar Reminder"
 }
 
-〔100〕 End If
+〔102〕 End If
 
-〔101〕 End If　▵57
+〔103〕 End If　▵57
 
-〔102〕 If 〔56 Selected Item’s Name〕 is Change
+〔104〕 If 〔56 Selected Item’s Name〕 is Change
 
-〔103〕 Get File at Path 〔AboutMePath〕 from Folder　»
+〔105〕 Get File at Path 〔AboutMePath〕 from Folder　»
 
-〔104〕 Delete Files 〔103 File〕
+〔106〕 Delete Files 〔105 File〕
 • DeleteImmediatelyDelete: true
 
-〔105〕 Show Alert Your preferences are deleted. Please choose [Setup] from main menu to set up again.
+〔107〕 Show Alert Your preferences are deleted. Please choose [Setup] from main menu to set up again.
 • AlertActionCancelButtonShown: false
 
-〔106〕 Run Shortcut Smart Calendar Reminder
+〔108〕 Run Shortcut Smart Calendar Reminder
 • Workflow: {  "workflowIdentifier": "5A2BC55E-C195-4C6C-93E9-725F782CDD1B",
    "isSelf": true,
    "workflowName": "Smart Calendar Reminder"
 }
 
-〔107〕 End If
+〔109〕 End If
 
-〔108〕 If 〔56 Selected Item’s Name〕 is View
+〔110〕 If 〔56 Selected Item’s Name〕 is View
 
-〔109〕 Choose from Menu
+〔111〕 Choose from Menu
 • MenuPrompt: Which one?
 • MenuItems: [Automations Setup Instructions,
 Personal Preferences]
 
-〔110〕 Menu Item Automations Setup Instructions
+〔112〕 Menu Item Automations Setup Instructions
 
-〔111〕 Get File at Path 〔WelcomePath〕 from Folder　»
+〔113〕 Get File at Path 〔WelcomePath〕 from Folder　»
 
-〔112〕 Open File 〔111 File〕
+〔114〕 Open File 〔113 File〕
 
-〔113〕 Menu Item Personal Preferences
+〔115〕 Menu Item Personal Preferences
 
-〔114〕 Get File at Path 〔AboutMePath〕 from Folder　»
+〔116〕 Get File at Path 〔AboutMePath〕 from Folder　»
 
-〔115〕 Open File 〔114 File〕
+〔117〕 Open File 〔116 File〕
 
-〔116〕 End Menu
+〔118〕 End Menu
 
-〔117〕 End If　▵108
+〔119〕 End If　▵110
 
-〔118〕 Otherwise　▵12
+〔120〕 Otherwise　▵12
 
-〔119〕 If 〔Shortcut Input as Number〕 is 1
+〔121〕 If 〔Shortcut Input as Number〕 is 1
 
-〔120〕 Comment
+〔122〕 Comment
 *Revolutionizing event management by integrating calendar data with intelligent automation:
 
 Voice announcements for upcoming events
@@ -1479,71 +1535,190 @@ Dynamic alarm calculation (travel + prep time)
 Calendar-driven scheduling system
 Eliminates manual reminders and ensures perfect timing synchronization*
 
-〔121〕 Get File at Path 〔AboutMePath〕 from Folder　»
+〔123〕 Get File at Path 〔AboutMePath〕 from Folder　»
 • FileErrorIfNotFound: false
 
-〔122〕 Get Dictionary from 〔121 File〕　» 123 126 127 129
+〔124〕 Get Dictionary from 〔123 File〕　» 125 128 129 131
 
-〔123〕 Get Dictionary from 〔122 Dictionary.HomeAddress〕　»
+〔125〕 Get Dictionary from 〔124 Dictionary.HomeAddress〕　»
 
-〔124〕 Text　»
-〔123 Dictionary.street〕 〔123 Dictionary.city〕 〔123 Dictionary.state〕 〔123 Dictionary.postcode〕 〔123 Dictionary.country〕\u{space}
+〔126〕 Text　»
+〔125 Dictionary.street〕 〔125 Dictionary.city〕 〔125 Dictionary.state〕 〔125 Dictionary.postcode〕 〔125 Dictionary.country〕\u{space}
 
-〔125〕 Set Variable HomeAddress to 〔124 Text〕
+〔127〕 Set Variable HomeAddress to 〔126 Text〕
 
-〔126〕 Set Variable TravelMethod to 〔122 Dictionary.TravelMethod〕
+〔128〕 Set Variable TravelMethod to 〔124 Dictionary.TravelMethod〕
 
-〔127〕 Get Numbers from 〔122 Dictionary.ExtraTime〕　»
+〔129〕 Get Numbers from 〔124 Dictionary.ExtraTime〕　»
 
-〔128〕 Set Variable ExtraTime to 〔127 Numbers〕
+〔130〕 Set Variable ExtraTime to 〔129 Numbers〕
 
-〔129〕 Split Text 〔122 Dictionary.Granularity〕 by Custom　»
-• TextCustomSeparator: ,
+〔131〕 Get Dictionary from 〔124 Dictionary.Granularity〕　» 132 136 148
 
-〔130〕 Repeat with Each in 〔129 Split Text〕
+〔132〕 Get Dictionary All Keys in 〔131 Dictionary〕　» 135 146
 
-〔131〕 Set Variable GranularityRepeatItem to 〔Repeat Item〕
+〔133〕 Set Variable MinMinute to  
 
-〔132〕 Get Numbers from 〔GranularityRepeatItem〕　» 474
+〔134〕 Dictionary　» 139 151
+{  "year": 525600,
+   "month": 43200,
+   "week": 10080,
+   "day": 1440,
+   "hour": 60,
+   "minute": 1
+}
 
-〔133〕 If 〔Repeat Index〕 is 1
+〔135〕 Repeat with Each in 〔132 Dictionary Value〕
 
-〔134〕 Date Current Date　»
+〔136〕 Get Dictionary Value for 〔Repeat Item〕 in 〔131 Dictionary〕　»
 
-〔135〕 Adjust Add Date 〔134 Date〕　»
+〔137〕 Get Numbers from 〔136 Dictionary Value〕　» 140
+
+〔138〕 Replace Text s$ with   in 〔Repeat Item〕　»
+• ReplaceTextRegularExpression: true
+
+〔139〕 Get Dictionary Value for 〔138 Updated Text〕 in 〔134 Dictionary〕　»
+
+〔140〕 Calculate 〔139 Dictionary Value〕 × 〔137 Numbers〕　» 141 142
+
+〔141〕 If Any are true　〔MinMinute〕 does not have any value　〔140 Calculation Result〕 < 〔MinMinute〕
+
+〔142〕 Set Variable MinMinute to 〔140 Calculation Result〕
+
+〔143〕 End If
+
+〔144〕 Show Result
+〔MinMinute〕
+
+〔145〕 End Repeat with Each　▵135
+
+〔146〕 Repeat with Each in 〔132 Dictionary Value〕
+
+〔147〕 Date Current Date　» 155 158 161 164 167
+
+〔148〕 Get Dictionary Value for 〔Repeat Item〕 in 〔131 Dictionary〕　» 149 152 159 162 165 168 171 174
+
+〔149〕 Get Numbers from 〔148 Dictionary Value〕
+
+〔150〕 Replace Text s$ with   in 〔Repeat Item〕　» 151 158 161 164 167 170 173
+• ReplaceTextRegularExpression: true
+
+〔151〕 Get Dictionary Value for 〔150 Updated Text〕 in 〔134 Dictionary〕　»
+
+〔152〕 Calculate 〔151 Dictionary Value〕 × 〔148 Dictionary Value〕　»
+
+〔153〕 Set Variable GranularityRepeatItem to 〔152 Calculation Result〕
+
+〔154〕 If 〔GranularityRepeatItem〕 is 〔MinMinute〕
+
+〔155〕 Adjust Add Date 〔147 Date〕　»
 • Duration: 〔GranularityRepeatItem〕 min
 
-〔136〕 Turn Focus On
+〔156〕 Turn Focus On
 • AssertionType: Time
 • FocusModes: {  "Identifier": "com.apple.donotdisturb.mode.bookmarkfill",
    "DisplayString": "Timer"
 }
-• Time: 〔135 Adjusted Date〕
+• Time: 〔155 Adjusted Date〕
 
-〔137〕 End If
+〔157〕 End If　» 159 162 165 168 171 174
 
-〔138〕 Find Calendar Events All Calendar Events where　» 139 140 141 477
+〔158〕 If All are true　〔150 Updated Text〕 is year　〔147 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM"}〕 is 01 Jan　〔147 Date’s Time〕 is 2025-05-14, 12:00:12 AM
+
+〔159〕 Find Calendar Events 〔157 If Result〕 where
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
-Start Date is in the next 〔GranularityRepeatItem〕 minutes
+Start Date is in the next 〔148 Dictionary Value〕 undefined
 Is Not All Day
 Canceled is {"Bool":false}
 
-〔139〕 If 〔138 Calendar Events〕 has any value
+〔160〕 Otherwise
 
-〔140〕 Count Items in 〔138 Calendar Events〕　» 481 489
+〔161〕 If All are true　〔150 Updated Text〕 is month　〔147 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd"}〕 is 01　〔147 Date’s Time〕 is 2025-05-14, 12:00:39 AM
 
-〔141〕 Repeat[2] with Each in 〔138 Calendar Events〕
+〔162〕 Find Calendar Events 〔157 If Result〕 where
+• ContentItemSortProperty: Start Date
+• ContentItemSortOrder: Oldest First
+• ContentItemFilter: • All the following are true
+Start Date is in the next 〔148 Dictionary Value〕 undefined
+Is Not All Day
+Canceled is {"Bool":false}
 
-〔142〕 Set Variable CalendarRepeatItem to 〔Repeat Item 2〕
+〔163〕 Otherwise
 
-〔143〕 If 〔CalendarRepeatItem’s Location〕 has any value
+〔164〕 If All are true　〔150 Updated Text〕 is week　〔147 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"EEE"}〕 is Sun　〔147 Date’s Time〕 is 2025-05-14, 12:00:08 AM
 
-〔144〕 Get Current Location　» 156 162 248
+〔165〕 Find Calendar Events 〔157 If Result〕 where
+• ContentItemSortProperty: Start Date
+• ContentItemSortOrder: Oldest First
+• ContentItemFilter: • All the following are true
+Start Date is in the next 〔148 Dictionary Value〕 undefined
+Is Not All Day
+Canceled is {"Bool":false}
+
+〔166〕 Otherwise
+
+〔167〕 If All are true　〔150 Updated Text〕 is day　〔147 Date’s Time〕 is 2025-05-14, 12:00:21 AM
+
+〔168〕 Find Calendar Events 〔157 If Result〕 where
+• ContentItemSortProperty: Start Date
+• ContentItemSortOrder: Oldest First
+• ContentItemFilter: • All the following are true
+Start Date is in the next 〔148 Dictionary Value〕 undefined
+Is Not All Day
+Canceled is {"Bool":false}
+
+〔169〕 Otherwise
+
+〔170〕 If 〔150 Updated Text〕 is hour
+
+〔171〕 Find Calendar Events 〔157 If Result〕 where
+• ContentItemSortProperty: Start Date
+• ContentItemSortOrder: Oldest First
+• ContentItemFilter: • All the following are true
+Start Date is in the next 〔148 Dictionary Value〕 undefined
+Is Not All Day
+Canceled is {"Bool":false}
+
+〔172〕 Otherwise
+
+〔173〕 If 〔150 Updated Text〕 is minute
+
+〔174〕 Find Calendar Events 〔157 If Result〕 where
+• ContentItemSortProperty: Start Date
+• ContentItemSortOrder: Oldest First
+• ContentItemFilter: • All the following are true
+Start Date is in the next 〔148 Dictionary Value〕 undefined
+Is Not All Day
+Canceled is {"Bool":false}
+
+〔175〕 End If
+
+〔176〕 End If
+
+〔177〕 End If　▵169
+
+〔178〕 End If　▵166
+
+〔179〕 End If　▵163
+
+〔180〕 End If　▵160　» 181 182 183 519
+
+〔181〕 If 〔180 If Result〕 has any value
+
+〔182〕 Count Items in 〔180 If Result〕　» 523 531
+
+〔183〕 Repeat[2] with Each in 〔180 If Result〕
+
+〔184〕 Set Variable CalendarRepeatItem to 〔Repeat Item 2〕
+
+〔185〕 If 〔CalendarRepeatItem’s Location〕 has any value
+
+〔186〕 Get Current Location　» 198 204 290
 • Accuracy: Best
 
-〔145〕 Comment
+〔187〕 Comment
 *To specify event-specific departure locations:
 
 1. Create calendar event notes with JSON structure:
@@ -1556,821 +1731,821 @@ Canceled is {"Bool":false}
 }
 2. System prioritizes these over default locations*
 
-〔146〕 If All are true　〔CalendarRepeatItem’s Notes〕 has any value　〔CalendarRepeatItem’s Notes〕 begins with {　〔CalendarRepeatItem’s Notes〕 ends with }
+〔188〕 If All are true　〔CalendarRepeatItem’s Notes〕 has any value　〔CalendarRepeatItem’s Notes〕 begins with {　〔CalendarRepeatItem’s Notes〕 ends with }
 
-〔147〕 Comment
+〔189〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY
 
-〔148〕 Get Dictionary from 〔CalendarRepeatItem’s Notes〕 　➔ Notes Address Dictionary　» 149 150 151 152 153
+〔190〕 Get Dictionary from 〔CalendarRepeatItem’s Notes〕 　➔ Notes Address Dictionary　» 191 192 193 194 195
 
-〔149〕 Set Variable Calendar_Notes_Street to 〔148 Notes Address Dictionary.Street〕
+〔191〕 Set Variable Calendar_Notes_Street to 〔190 Notes Address Dictionary.Street〕
 
-〔150〕 Set Variable Calendar_Notes_City to 〔148 Notes Address Dictionary.City〕
+〔192〕 Set Variable Calendar_Notes_City to 〔190 Notes Address Dictionary.City〕
 
-〔151〕 Set Variable Calendar_Notes_State to 〔148 Notes Address Dictionary.State〕
+〔193〕 Set Variable Calendar_Notes_State to 〔190 Notes Address Dictionary.State〕
 
-〔152〕 Set Variable Calendar_Notes_Region to 〔148 Notes Address Dictionary.Country〕
+〔194〕 Set Variable Calendar_Notes_Region to 〔190 Notes Address Dictionary.Country〕
 
-〔153〕 Set Variable Calendar_Notes_ZIP_Code to 〔148 Notes Address Dictionary.Postcode〕
+〔195〕 Set Variable Calendar_Notes_ZIP_Code to 〔190 Notes Address Dictionary.Postcode〕
 
-〔154〕 Text　»
+〔196〕 Text　»
 〔Calendar_Notes_Street〕 〔Calendar_Notes_City〕 〔Calendar_Notes_State〕 〔Calendar_Notes_ZIP_Code〕 〔Calendar_Notes_Region〕
 
-〔155〕 Set Variable NotesAddressString to 〔154 Text〕
+〔197〕 Set Variable NotesAddressString to 〔196 Text〕
 
-〔156〕 If All are true　〔144 Current Location’s Street〕 is 〔Calendar_Notes_Street〕　〔144 Current Location’s City〕 is 〔Calendar_Notes_City〕　〔144 Current Location’s State〕 is 〔Calendar_Notes_State〕　〔144 Current Location’s Country〕 is 〔Calendar_Notes_Region〕　〔144 Current Location’s ZIP Code〕 is 〔Calendar_Notes_ZIP_Code〕
+〔198〕 If All are true　〔186 Current Location’s Street〕 is 〔Calendar_Notes_Street〕　〔186 Current Location’s City〕 is 〔Calendar_Notes_City〕　〔186 Current Location’s State〕 is 〔Calendar_Notes_State〕　〔186 Current Location’s Country〕 is 〔Calendar_Notes_Region〕　〔186 Current Location’s ZIP Code〕 is 〔Calendar_Notes_ZIP_Code〕
 
-〔157〕 Comment
+〔199〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS THE SAME WITH CURRENT LOCATION
 
-〔158〕 Number 0　»
+〔200〕 Number 0　»
 
-〔159〕 Set Variable CurrentToDeparture to 〔158 Number〕
+〔201〕 Set Variable CurrentToDeparture to 〔200 Number〕
 
-〔160〕 Otherwise
+〔202〕 Otherwise
 
-〔161〕 Comment
+〔203〕 Comment
 CALENDAR EVENT NOTES IS NOT BLANK AND IT’S A DICTIONARY -> CALENDAR EVENT ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔162〕 Get 〔TravelMethod〕 Time　»
-• GetDirectionsCustomLocation: 〔144 Current Location〕
+〔204〕 Get 〔TravelMethod〕 Time　»
+• GetDirectionsCustomLocation: 〔186 Current Location〕
 • Destination: 〔NotesAddressString〕
 
-〔163〕 Set Variable TravelTimeString to 〔162 Travel Time〕
+〔205〕 Set Variable TravelTimeString to 〔204 Travel Time〕
 
-〔164〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
+〔206〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔165〕 Set Variable MatchString to 〔164 Matches〕
+〔207〕 Set Variable MatchString to 〔206 Matches〕
 
-〔166〕 Count Items in 〔MatchString〕　»
+〔208〕 Count Items in 〔MatchString〕　»
 
-〔167〕 If 〔166 Count〕 is 1
+〔209〕 If 〔208 Count〕 is 1
 
-〔168〕 Get First Item from List 〔MatchString〕　»
+〔210〕 Get First Item from List 〔MatchString〕　»
 
-〔169〕 Set Variable TravelDays to 〔168 Item from List〕
+〔211〕 Set Variable TravelDays to 〔210 Item from List〕
 
-〔170〕 Otherwise
+〔212〕 Otherwise
 
-〔171〕 Number 0　»
+〔213〕 Number 0　»
 
-〔172〕 Set Variable TravelDays to 〔171 Number〕
+〔214〕 Set Variable TravelDays to 〔213 Number〕
 
-〔173〕 End If
+〔215〕 End If
 
-〔174〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+〔216〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔175〕 Set Variable MatchString to 〔174 Matches〕
+〔217〕 Set Variable MatchString to 〔216 Matches〕
 
-〔176〕 Count Items in 〔MatchString〕　»
+〔218〕 Count Items in 〔MatchString〕　»
 
-〔177〕 If 〔176 Count〕 is 1
+〔219〕 If 〔218 Count〕 is 1
 
-〔178〕 Get First Item from List 〔MatchString〕　»
+〔220〕 Get First Item from List 〔MatchString〕　»
 
-〔179〕 Set Variable TravelHours to 〔178 Item from List〕
+〔221〕 Set Variable TravelHours to 〔220 Item from List〕
 
-〔180〕 Otherwise
+〔222〕 Otherwise
 
-〔181〕 Number 0　»
+〔223〕 Number 0　»
 
-〔182〕 Set Variable TravelHours to 〔181 Number〕
+〔224〕 Set Variable TravelHours to 〔223 Number〕
 
-〔183〕 End If
+〔225〕 End If
 
-〔184〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+〔226〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔185〕 Set Variable MatchString to 〔184 Matches〕
+〔227〕 Set Variable MatchString to 〔226 Matches〕
 
-〔186〕 Count Items in 〔MatchString〕　»
+〔228〕 Count Items in 〔MatchString〕　»
 
-〔187〕 If 〔186 Count〕 is 1
+〔229〕 If 〔228 Count〕 is 1
 
-〔188〕 Get First Item from List 〔MatchString〕　»
+〔230〕 Get First Item from List 〔MatchString〕　»
 
-〔189〕 Set Variable TravelMinutes to 〔188 Item from List〕
+〔231〕 Set Variable TravelMinutes to 〔230 Item from List〕
 
-〔190〕 Otherwise
+〔232〕 Otherwise
 
-〔191〕 Number 0　»
+〔233〕 Number 0　»
 
-〔192〕 Set Variable TravelMinutes to 〔191 Number〕
+〔234〕 Set Variable TravelMinutes to 〔233 Number〕
 
-〔193〕 End If
+〔235〕 End If
 
-〔194〕 Calculate 〔TravelDays〕 × 1440　» 196
+〔236〕 Calculate 〔TravelDays〕 × 1440　» 238
 
-〔195〕 Calculate 〔TravelHours〕 × 60　»
+〔237〕 Calculate 〔TravelHours〕 × 60　»
 
-〔196〕 Calculate 〔195 Calculation Result〕 + 〔194 Calculation Result〕　»
+〔238〕 Calculate 〔237 Calculation Result〕 + 〔236 Calculation Result〕　»
 
-〔197〕 Calculate 〔196 Calculation Result〕 + 〔TravelMinutes〕　»
+〔239〕 Calculate 〔238 Calculation Result〕 + 〔TravelMinutes〕　»
 
-〔198〕 Set Variable CurrentToDeparture to 〔197 Calculation Result〕
+〔240〕 Set Variable CurrentToDeparture to 〔239 Calculation Result〕
 
-〔199〕 End If　▵160
+〔241〕 End If　▵202
 
-〔200〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+〔242〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
 • GetDirectionsCustomLocation: 〔NotesAddressString〕
 • Destination: 〔CalendarRepeatItem’s Location〕
 
-〔201〕 Set Variable TravelTimeString to 〔200 DepartureToDestination〕
+〔243〕 Set Variable TravelTimeString to 〔242 DepartureToDestination〕
 
-〔202〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
+〔244〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔203〕 Set Variable MatchString to 〔202 Matches〕
+〔245〕 Set Variable MatchString to 〔244 Matches〕
 
-〔204〕 Count Items in 〔MatchString〕　»
+〔246〕 Count Items in 〔MatchString〕　»
 
-〔205〕 If 〔204 Count〕 is 1
+〔247〕 If 〔246 Count〕 is 1
 
-〔206〕 Get First Item from List 〔MatchString〕　»
+〔248〕 Get First Item from List 〔MatchString〕　»
 
-〔207〕 Set Variable TravelDays to 〔206 Item from List〕
+〔249〕 Set Variable TravelDays to 〔248 Item from List〕
 
-〔208〕 Otherwise
+〔250〕 Otherwise
 
-〔209〕 Number 0　»
+〔251〕 Number 0　»
 
-〔210〕 Set Variable TravelDays to 〔209 Number〕
+〔252〕 Set Variable TravelDays to 〔251 Number〕
 
-〔211〕 End If
+〔253〕 End If
 
-〔212〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+〔254〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔213〕 Set Variable MatchString to 〔212 Matches〕
+〔255〕 Set Variable MatchString to 〔254 Matches〕
 
-〔214〕 Count Items in 〔MatchString〕　»
+〔256〕 Count Items in 〔MatchString〕　»
 
-〔215〕 If 〔214 Count〕 is 1
+〔257〕 If 〔256 Count〕 is 1
 
-〔216〕 Get First Item from List 〔MatchString〕　»
+〔258〕 Get First Item from List 〔MatchString〕　»
 
-〔217〕 Set Variable TravelHours to 〔216 Item from List〕
+〔259〕 Set Variable TravelHours to 〔258 Item from List〕
 
-〔218〕 Otherwise
+〔260〕 Otherwise
 
-〔219〕 Number 0　»
+〔261〕 Number 0　»
 
-〔220〕 Set Variable TravelHours to 〔219 Number〕
+〔262〕 Set Variable TravelHours to 〔261 Number〕
 
-〔221〕 End If
+〔263〕 End If
 
-〔222〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+〔264〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔223〕 Set Variable MatchString to 〔222 Matches〕
+〔265〕 Set Variable MatchString to 〔264 Matches〕
 
-〔224〕 Count Items in 〔MatchString〕　»
+〔266〕 Count Items in 〔MatchString〕　»
 
-〔225〕 If 〔224 Count〕 is 1
+〔267〕 If 〔266 Count〕 is 1
 
-〔226〕 Get First Item from List 〔MatchString〕　»
+〔268〕 Get First Item from List 〔MatchString〕　»
 
-〔227〕 Set Variable TravelMinutes to 〔226 Item from List〕
+〔269〕 Set Variable TravelMinutes to 〔268 Item from List〕
 
-〔228〕 Otherwise
+〔270〕 Otherwise
 
-〔229〕 Number 0　»
+〔271〕 Number 0　»
 
-〔230〕 Set Variable TravelMinutes to 〔229 Number〕
+〔272〕 Set Variable TravelMinutes to 〔271 Number〕
 
-〔231〕 End If
+〔273〕 End If
 
-〔232〕 Calculate 〔TravelDays〕 × 1440　» 234
+〔274〕 Calculate 〔TravelDays〕 × 1440　» 276
 
-〔233〕 Calculate 〔TravelHours〕 × 60　»
+〔275〕 Calculate 〔TravelHours〕 × 60　»
 
-〔234〕 Calculate 〔233 Calculation Result〕 + 〔232 Calculation Result〕　»
+〔276〕 Calculate 〔275 Calculation Result〕 + 〔274 Calculation Result〕　»
 
-〔235〕 Calculate 〔234 Calculation Result〕 + 〔TravelMinutes〕　»
+〔277〕 Calculate 〔276 Calculation Result〕 + 〔TravelMinutes〕　»
 
-〔236〕 Calculate 〔235 Calculation Result〕 + 〔CurrentToDeparture〕　»
+〔278〕 Calculate 〔277 Calculation Result〕 + 〔CurrentToDeparture〕　»
 
-〔237〕 Set Variable TravelTime to 〔236 Calculation Result〕
+〔279〕 Set Variable TravelTime to 〔278 Calculation Result〕
 
-〔238〕 Otherwise　▵146
+〔280〕 Otherwise　▵188
 
-〔239〕 Comment
+〔281〕 Comment
 CALENDER EVENT NOTES IS BLANK
 
-〔240〕 Get Dictionary from 〔HomeAddress〕 　➔ Home Address Dictionary　» 241 242 243 244 245
+〔282〕 Get Dictionary from 〔HomeAddress〕 　➔ Home Address Dictionary　» 283 284 285 286 287
 
-〔241〕 Get Dictionary Value for street in 〔240 Home Address Dictionary〕 　➔ home_Street　» 246 248
+〔283〕 Get Dictionary Value for street in 〔282 Home Address Dictionary〕 　➔ home_Street　» 288 290
 
-〔242〕 Get Dictionary Value for city in 〔240 Home Address Dictionary〕 　➔ home_City　» 246 248
+〔284〕 Get Dictionary Value for city in 〔282 Home Address Dictionary〕 　➔ home_City　» 288 290
 
-〔243〕 Get Dictionary Value for state in 〔240 Home Address Dictionary〕 　➔ home_State　» 246 248
+〔285〕 Get Dictionary Value for state in 〔282 Home Address Dictionary〕 　➔ home_State　» 288 290
 
-〔244〕 Get Dictionary Value for country in 〔240 Home Address Dictionary〕 　➔ home_Country　» 246 248
+〔286〕 Get Dictionary Value for country in 〔282 Home Address Dictionary〕 　➔ home_Country　» 288 290
 
-〔245〕 Get Dictionary Value for postcode in 〔240 Home Address Dictionary〕 　➔ home_Postcode　» 246 248
+〔287〕 Get Dictionary Value for postcode in 〔282 Home Address Dictionary〕 　➔ home_Postcode　» 288 290
 
-〔246〕 If All are true　〔241 home_Street〕 has any value　〔242 home_City〕 has any value　〔243 home_State〕 has any value　〔244 home_Country〕 has any value　〔245 home_Postcode〕 has any value
+〔288〕 If All are true　〔283 home_Street〕 has any value　〔284 home_City〕 has any value　〔285 home_State〕 has any value　〔286 home_Country〕 has any value　〔287 home_Postcode〕 has any value
 
-〔247〕 Comment
+〔289〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED
 
-〔248〕 If All are true　〔144 Current Location’s Street〕 is 〔241 home_Street〕　〔144 Current Location’s City〕 is 〔242 home_City〕　〔144 Current Location’s State〕 is 〔243 home_State〕　〔144 Current Location’s Country〕 is 〔244 home_Country〕　〔144 Current Location’s ZIP Code〕 is 〔245 home_Postcode〕
+〔290〕 If All are true　〔186 Current Location’s Street〕 is 〔283 home_Street〕　〔186 Current Location’s City〕 is 〔284 home_City〕　〔186 Current Location’s State〕 is 〔285 home_State〕　〔186 Current Location’s Country〕 is 〔286 home_Country〕　〔186 Current Location’s ZIP Code〕 is 〔287 home_Postcode〕
 
-〔249〕 Comment
+〔291〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS THE SAME WITH CURRENT LOCATION
 
-〔250〕 Number 0　»
+〔292〕 Number 0　»
 
-〔251〕 Set Variable CurrentToDeparture to 〔250 Number〕
+〔293〕 Set Variable CurrentToDeparture to 〔292 Number〕
 
-〔252〕 Otherwise
+〔294〕 Otherwise
 
-〔253〕 Comment
+〔295〕 Comment
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS MAINTAINED -> HOME ADDRESS IS NOT THE SAME WITH CURRENT LOCATION
 
-〔254〕 Get 〔TravelMethod〕 Time　»
+〔296〕 Get 〔TravelMethod〕 Time　»
 • Destination: 〔HomeAddress〕
 
-〔255〕 Set Variable TravelTimeString to 〔254 Travel Time〕
+〔297〕 Set Variable TravelTimeString to 〔296 Travel Time〕
 
-〔256〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
+〔298〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔257〕 Set Variable MatchString to 〔256 Matches〕
+〔299〕 Set Variable MatchString to 〔298 Matches〕
 
-〔258〕 Count Items in 〔MatchString〕　»
+〔300〕 Count Items in 〔MatchString〕　»
 
-〔259〕 If 〔258 Count〕 is 1
+〔301〕 If 〔300 Count〕 is 1
 
-〔260〕 Get First Item from List 〔MatchString〕　»
+〔302〕 Get First Item from List 〔MatchString〕　»
 
-〔261〕 Set Variable TravelDays to 〔260 Item from List〕
+〔303〕 Set Variable TravelDays to 〔302 Item from List〕
 
-〔262〕 Otherwise
+〔304〕 Otherwise
 
-〔263〕 Number 0　»
+〔305〕 Number 0　»
 
-〔264〕 Set Variable TravelDays to 〔263 Number〕
+〔306〕 Set Variable TravelDays to 〔305 Number〕
 
-〔265〕 End If
+〔307〕 End If
 
-〔266〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+〔308〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔267〕 Set Variable MatchString to 〔266 Matches〕
+〔309〕 Set Variable MatchString to 〔308 Matches〕
 
-〔268〕 Count Items in 〔MatchString〕　»
+〔310〕 Count Items in 〔MatchString〕　»
 
-〔269〕 If 〔268 Count〕 is 1
+〔311〕 If 〔310 Count〕 is 1
 
-〔270〕 Get First Item from List 〔MatchString〕　»
+〔312〕 Get First Item from List 〔MatchString〕　»
 
-〔271〕 Set Variable TravelHours to 〔270 Item from List〕
+〔313〕 Set Variable TravelHours to 〔312 Item from List〕
 
-〔272〕 Otherwise
+〔314〕 Otherwise
 
-〔273〕 Number 0　»
+〔315〕 Number 0　»
 
-〔274〕 Set Variable TravelHours to 〔273 Number〕
+〔316〕 Set Variable TravelHours to 〔315 Number〕
 
-〔275〕 End If
+〔317〕 End If
 
-〔276〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+〔318〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔277〕 Set Variable MatchString to 〔276 Matches〕
+〔319〕 Set Variable MatchString to 〔318 Matches〕
 
-〔278〕 Count Items in 〔MatchString〕　»
+〔320〕 Count Items in 〔MatchString〕　»
 
-〔279〕 If 〔278 Count〕 is 1
+〔321〕 If 〔320 Count〕 is 1
 
-〔280〕 Get First Item from List 〔MatchString〕　»
+〔322〕 Get First Item from List 〔MatchString〕　»
 
-〔281〕 Set Variable TravelMinutes to 〔280 Item from List〕
+〔323〕 Set Variable TravelMinutes to 〔322 Item from List〕
 
-〔282〕 Otherwise
+〔324〕 Otherwise
 
-〔283〕 Number 0　»
+〔325〕 Number 0　»
 
-〔284〕 Set Variable TravelMinutes to 〔283 Number〕
+〔326〕 Set Variable TravelMinutes to 〔325 Number〕
 
-〔285〕 End If
+〔327〕 End If
 
-〔286〕 Calculate 〔TravelDays〕 × 1440　» 288
+〔328〕 Calculate 〔TravelDays〕 × 1440　» 330
 
-〔287〕 Calculate 〔TravelHours〕 × 60　»
+〔329〕 Calculate 〔TravelHours〕 × 60　»
 
-〔288〕 Calculate 〔287 Calculation Result〕 + 〔286 Calculation Result〕　»
+〔330〕 Calculate 〔329 Calculation Result〕 + 〔328 Calculation Result〕　»
 
-〔289〕 Calculate 〔288 Calculation Result〕 + 〔TravelMinutes〕　»
+〔331〕 Calculate 〔330 Calculation Result〕 + 〔TravelMinutes〕　»
 
-〔290〕 Set Variable CurrentToDeparture to 〔289 Calculation Result〕
+〔332〕 Set Variable CurrentToDeparture to 〔331 Calculation Result〕
 
-〔291〕 End If　▵252
+〔333〕 End If　▵294
 
-〔292〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
+〔334〕 Get 〔TravelMethod〕 Time 　➔ DepartureToDestination　»
 • GetDirectionsCustomLocation: 〔HomeAddress〕
 • Destination: 〔CalendarRepeatItem’s Location〕
 
-〔293〕 Set Variable TravelTimeString to 〔292 DepartureToDestination〕
+〔335〕 Set Variable TravelTimeString to 〔334 DepartureToDestination〕
 
-〔294〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
+〔336〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔295〕 Set Variable MatchString to 〔294 Matches〕
+〔337〕 Set Variable MatchString to 〔336 Matches〕
 
-〔296〕 Count Items in 〔MatchString〕　»
+〔338〕 Count Items in 〔MatchString〕　»
 
-〔297〕 If 〔296 Count〕 is 1
+〔339〕 If 〔338 Count〕 is 1
 
-〔298〕 Get First Item from List 〔MatchString〕　»
+〔340〕 Get First Item from List 〔MatchString〕　»
 
-〔299〕 Set Variable TravelDays to 〔298 Item from List〕
+〔341〕 Set Variable TravelDays to 〔340 Item from List〕
 
-〔300〕 Otherwise
+〔342〕 Otherwise
 
-〔301〕 Number 0　»
+〔343〕 Number 0　»
 
-〔302〕 Set Variable TravelDays to 〔301 Number〕
+〔344〕 Set Variable TravelDays to 〔343 Number〕
 
-〔303〕 End If
+〔345〕 End If
 
-〔304〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+〔346〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔305〕 Set Variable MatchString to 〔304 Matches〕
+〔347〕 Set Variable MatchString to 〔346 Matches〕
 
-〔306〕 Count Items in 〔MatchString〕　»
+〔348〕 Count Items in 〔MatchString〕　»
 
-〔307〕 If 〔306 Count〕 is 1
+〔349〕 If 〔348 Count〕 is 1
 
-〔308〕 Get First Item from List 〔MatchString〕　»
+〔350〕 Get First Item from List 〔MatchString〕　»
 
-〔309〕 Set Variable TravelHours to 〔308 Item from List〕
+〔351〕 Set Variable TravelHours to 〔350 Item from List〕
 
-〔310〕 Otherwise
+〔352〕 Otherwise
 
-〔311〕 Number 0　»
+〔353〕 Number 0　»
 
-〔312〕 Set Variable TravelHours to 〔311 Number〕
+〔354〕 Set Variable TravelHours to 〔353 Number〕
 
-〔313〕 End If
+〔355〕 End If
 
-〔314〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+〔356〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔315〕 Set Variable MatchString to 〔314 Matches〕
+〔357〕 Set Variable MatchString to 〔356 Matches〕
 
-〔316〕 Count Items in 〔MatchString〕　»
+〔358〕 Count Items in 〔MatchString〕　»
 
-〔317〕 If 〔316 Count〕 is 1
+〔359〕 If 〔358 Count〕 is 1
 
-〔318〕 Get First Item from List 〔MatchString〕　»
+〔360〕 Get First Item from List 〔MatchString〕　»
 
-〔319〕 Set Variable TravelMinutes to 〔318 Item from List〕
+〔361〕 Set Variable TravelMinutes to 〔360 Item from List〕
 
-〔320〕 Otherwise
+〔362〕 Otherwise
 
-〔321〕 Number 0　»
+〔363〕 Number 0　»
 
-〔322〕 Set Variable TravelMinutes to 〔321 Number〕
+〔364〕 Set Variable TravelMinutes to 〔363 Number〕
 
-〔323〕 End If
+〔365〕 End If
 
-〔324〕 Calculate 〔TravelDays〕 × 1440　» 326
+〔366〕 Calculate 〔TravelDays〕 × 1440　» 368
 
-〔325〕 Calculate 〔TravelHours〕 × 60　»
+〔367〕 Calculate 〔TravelHours〕 × 60　»
 
-〔326〕 Calculate 〔325 Calculation Result〕 + 〔324 Calculation Result〕　»
+〔368〕 Calculate 〔367 Calculation Result〕 + 〔366 Calculation Result〕　»
 
-〔327〕 Calculate 〔326 Calculation Result〕 + 〔TravelMinutes〕　»
+〔369〕 Calculate 〔368 Calculation Result〕 + 〔TravelMinutes〕　»
 
-〔328〕 Calculate 〔327 Calculation Result〕 + 〔CurrentToDeparture〕　»
+〔370〕 Calculate 〔369 Calculation Result〕 + 〔CurrentToDeparture〕　»
 
-〔329〕 Set Variable TravelTime to 〔328 Calculation Result〕
+〔371〕 Set Variable TravelTime to 〔370 Calculation Result〕
 
-〔330〕 Otherwise　▵246
+〔372〕 Otherwise　▵288
 
-〔331〕 Text
+〔373〕 Text
 CALENDER EVENT NOTES IS BLANK -> HOME ADDRESS WAS NOT MAINTAINED
 
-〔332〕 Get 〔TravelMethod〕 Time　»
+〔374〕 Get 〔TravelMethod〕 Time　»
 • Destination: 〔CalendarRepeatItem’s Location〕
 
-〔333〕 Set Variable TravelTimeString to 〔332 Travel Time〕
+〔375〕 Set Variable TravelTimeString to 〔374 Travel Time〕
 
-〔334〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
+〔376〕 Match Text (\d+)\s*day(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔335〕 Set Variable MatchString to 〔334 Matches〕
+〔377〕 Set Variable MatchString to 〔376 Matches〕
 
-〔336〕 Count Items in 〔MatchString〕　»
+〔378〕 Count Items in 〔MatchString〕　»
 
-〔337〕 If 〔336 Count〕 is 1
+〔379〕 If 〔378 Count〕 is 1
 
-〔338〕 Get First Item from List 〔MatchString〕　»
+〔380〕 Get First Item from List 〔MatchString〕　»
 
-〔339〕 Set Variable TravelDays to 〔338 Item from List〕
+〔381〕 Set Variable TravelDays to 〔380 Item from List〕
 
-〔340〕 Otherwise
+〔382〕 Otherwise
 
-〔341〕 Number 0　»
+〔383〕 Number 0　»
 
-〔342〕 Set Variable TravelDays to 〔341 Number〕
+〔384〕 Set Variable TravelDays to 〔383 Number〕
 
-〔343〕 End If
+〔385〕 End If
 
-〔344〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
+〔386〕 Match Text (\d+)\s*hour(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔345〕 Set Variable MatchString to 〔344 Matches〕
+〔387〕 Set Variable MatchString to 〔386 Matches〕
 
-〔346〕 Count Items in 〔MatchString〕　»
+〔388〕 Count Items in 〔MatchString〕　»
 
-〔347〕 If 〔346 Count〕 is 1
+〔389〕 If 〔388 Count〕 is 1
 
-〔348〕 Get First Item from List 〔MatchString〕　»
+〔390〕 Get First Item from List 〔MatchString〕　»
 
-〔349〕 Set Variable TravelHours to 〔348 Item from List〕
+〔391〕 Set Variable TravelHours to 〔390 Item from List〕
 
-〔350〕 Otherwise
+〔392〕 Otherwise
 
-〔351〕 Number 0　»
+〔393〕 Number 0　»
 
-〔352〕 Set Variable TravelHours to 〔351 Number〕
+〔394〕 Set Variable TravelHours to 〔393 Number〕
 
-〔353〕 End If
+〔395〕 End If
 
-〔354〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
+〔396〕 Match Text (\d+)\s*minute(?:s)? in 〔TravelTimeString〕　»
 • MatchTextCaseSensitive: false
 
-〔355〕 Set Variable MatchString to 〔354 Matches〕
+〔397〕 Set Variable MatchString to 〔396 Matches〕
 
-〔356〕 Count Items in 〔MatchString〕　»
+〔398〕 Count Items in 〔MatchString〕　»
 
-〔357〕 If 〔356 Count〕 is 1
+〔399〕 If 〔398 Count〕 is 1
 
-〔358〕 Get First Item from List 〔MatchString〕　»
+〔400〕 Get First Item from List 〔MatchString〕　»
 
-〔359〕 Set Variable TravelMinutes to 〔358 Item from List〕
+〔401〕 Set Variable TravelMinutes to 〔400 Item from List〕
 
-〔360〕 Otherwise
+〔402〕 Otherwise
 
-〔361〕 Number 0　»
+〔403〕 Number 0　»
 
-〔362〕 Set Variable TravelMinutes to 〔361 Number〕
+〔404〕 Set Variable TravelMinutes to 〔403 Number〕
 
-〔363〕 End If
+〔405〕 End If
 
-〔364〕 Calculate 〔TravelDays〕 × 1440　» 366
+〔406〕 Calculate 〔TravelDays〕 × 1440　» 408
 
-〔365〕 Calculate 〔TravelHours〕 × 60　»
+〔407〕 Calculate 〔TravelHours〕 × 60　»
 
-〔366〕 Calculate 〔365 Calculation Result〕 + 〔364 Calculation Result〕　»
+〔408〕 Calculate 〔407 Calculation Result〕 + 〔406 Calculation Result〕　»
 
-〔367〕 Calculate 〔366 Calculation Result〕 + 〔TravelMinutes〕　»
+〔409〕 Calculate 〔408 Calculation Result〕 + 〔TravelMinutes〕　»
 
-〔368〕 Set Variable TravelTime to 〔367 Calculation Result〕
+〔410〕 Set Variable TravelTime to 〔409 Calculation Result〕
 
-〔369〕 End If　▵330
+〔411〕 End If　▵372
 
-〔370〕 End If　▵238
+〔412〕 End If　▵280
 
-〔371〕 Otherwise　▵143
+〔413〕 Otherwise　▵185
 
-〔372〕 Number 0　»
+〔414〕 Number 0　»
 
-〔373〕 Set Variable TravelTime to 〔372 Number〕
+〔415〕 Set Variable TravelTime to 〔414 Number〕
 
-〔374〕 End If
+〔416〕 End If
 
-〔375〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
+〔417〕 Calculate 〔TravelTime〕 + 〔ExtraTime〕　»
 
-〔376〕 Adjust Subtract Date 〔CalendarRepeatItem’s Start Date〕 　➔ Supposed Alarm Time　» 377 380 383 386 393 408 410 411 428 433 436
-• Duration: 〔375 Calculation Result〕 min
+〔418〕 Adjust Subtract Date 〔CalendarRepeatItem’s Start Date〕 　➔ Supposed Alarm Time　» 419 422 425 428 435 450 452 453 470 475 478
+• Duration: 〔417 Calculation Result〕 min
 
-〔377〕 Dictionary 　➔ Alarm Label Dictionary　» 408 413 428
+〔419〕 Dictionary 　➔ Alarm Label Dictionary　» 450 455 470
 {  "Event": "〔CalendarRepeatItem〕",
    "From": "〔CalendarRepeatItem’s Start Date〕",
    "To": "〔CalendarRepeatItem’s End Date〕",
    "Location": "〔CalendarRepeatItem’s Location〕",
-   "AlarmTime": "〔376 Supposed Alarm Time〕"
+   "AlarmTime": "〔418 Supposed Alarm Time〕"
 }
 
-〔378〕 Date Current Date 　➔ Current Date　» 379 380 410
+〔420〕 Date Current Date 　➔ Current Date　» 421 422 452
 
-〔379〕 Adjust Add Date 〔378 Current Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM yyyy"}〕 　➔ 1 day after　» 393 411
+〔421〕 Adjust Add Date 〔420 Current Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM yyyy"}〕 　➔ 1 day after　» 435 453
 • Duration: "1" days
 
-〔380〕 If 〔376 Supposed Alarm Time〕 is 〔378 Current Date〕
+〔422〕 If 〔418 Supposed Alarm Time〕 is 〔420 Current Date〕
 
-〔381〕 Comment
+〔423〕 Comment
 supposed alarm time is exactly current date
 
-〔382〕 If 〔CalendarRepeatItem’s Location〕 has any value
+〔424〕 If 〔CalendarRepeatItem’s Location〕 has any value
 
-〔383〕 Text　»
-Event 〔CalendarRepeatItem〕 from 〔CalendarRepeatItem’s Start Date〕 to 〔CalendarRepeatItem’s End Date〕 at 〔CalendarRepeatItem’s Location〕 which  was supposed to get ready at 〔376 Supposed Alarm Time〕. Please check.
+〔425〕 Text　»
+Event 〔CalendarRepeatItem〕 from 〔CalendarRepeatItem’s Start Date〕 to 〔CalendarRepeatItem’s End Date〕 at 〔CalendarRepeatItem’s Location〕 which  was supposed to get ready at 〔418 Supposed Alarm Time〕. Please check.
 
-〔384〕 Set Variable Text to 〔383 Text〕
+〔426〕 Set Variable Text to 〔425 Text〕
 
-〔385〕 Otherwise
+〔427〕 Otherwise
 
-〔386〕 Text　»
-Event 〔CalendarRepeatItem〕 from 〔CalendarRepeatItem’s Start Date〕 to 〔CalendarRepeatItem’s End Date〕 which  was supposed to get ready at 〔376 Supposed Alarm Time〕. Please check.
+〔428〕 Text　»
+Event 〔CalendarRepeatItem〕 from 〔CalendarRepeatItem’s Start Date〕 to 〔CalendarRepeatItem’s End Date〕 which  was supposed to get ready at 〔418 Supposed Alarm Time〕. Please check.
 
-〔387〕 Set Variable Text to 〔386 Text〕
+〔429〕 Set Variable Text to 〔428 Text〕
 
-〔388〕 End If
+〔430〕 End If
 
-〔389〕 Show Alert 〔Text〕
+〔431〕 Show Alert 〔Text〕
 
-〔390〕 Show Notification 〔Text〕
+〔432〕 Show Notification 〔Text〕
 
-〔391〕 Speak Text
+〔433〕 Speak Text
 • Text: 〔Text〕
 
-〔392〕 Otherwise　▵380
+〔434〕 Otherwise　▵422
 
-〔393〕 If 〔376 Supposed Alarm Time〕 is 〔379 1 day after〕
+〔435〕 If 〔418 Supposed Alarm Time〕 is 〔421 1 day after〕
 
-〔394〕 Find Alarm All Alarm　» 395 396
+〔436〕 Find Alarm All Alarm　» 437 438
 
-〔395〕 If 〔394 Alarms〕 has any value
+〔437〕 If 〔436 Alarms〕 has any value
 
-〔396〕 Repeat[3] with Each in 〔394 Alarms〕
+〔438〕 Repeat[3] with Each in 〔436 Alarms〕
 
-〔397〕 Set Variable AlarmRepeatItem to 〔Repeat Item 3〕
+〔439〕 Set Variable AlarmRepeatItem to 〔Repeat Item 3〕
 
-〔398〕 Get Dictionary from 〔AlarmRepeatItem’s label〕 　➔ AlarmLabelDictionary　» 399 400 401
+〔440〕 Get Dictionary from 〔AlarmRepeatItem’s label〕 　➔ AlarmLabelDictionary　» 441 442 443
 
-〔399〕 Get Text from 〔398 AlarmLabelDictionary.Event〕　» 402
+〔441〕 Get Text from 〔440 AlarmLabelDictionary.Event〕　» 444
 
-〔400〕 Get Dates from 〔398 AlarmLabelDictionary.From〕 　➔ FromDate　» 402
+〔442〕 Get Dates from 〔440 AlarmLabelDictionary.From〕 　➔ FromDate　» 444
 
-〔401〕 Get Dates from 〔398 AlarmLabelDictionary.To〕 　➔ ToDate　»
+〔443〕 Get Dates from 〔440 AlarmLabelDictionary.To〕 　➔ ToDate　»
 
-〔402〕 If All are true　〔399 Text〕 is 〔CalendarRepeatItem〕　〔400 FromDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is 〔CalendarRepeatItem’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔401 ToDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is • ConditionalActionString
+〔444〕 If All are true　〔441 Text〕 is 〔CalendarRepeatItem〕　〔442 FromDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is 〔CalendarRepeatItem’s Start Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕　〔443 ToDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is • ConditionalActionString
 〔CalendarRepeatItem’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕• Date
 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
 
-〔403〕 Delete Alarms
+〔445〕 Delete Alarms
 • entities: 〔AlarmRepeatItem〕
 
-〔404〕 End If
+〔446〕 End If
 
-〔405〕 End Repeat[3] with Each　▵396
+〔447〕 End Repeat[3] with Each　▵438
 
-〔406〕 End If　▵395
+〔448〕 End If　▵437
 
-〔407〕 Comment
+〔449〕 Comment
 since this will be triggered at 12:00 am each day, when the supposed alarm time is 12:00 am in the next day, you can set alarm now
 
-〔408〕 Add Alarm for 〔376 Supposed Alarm Time〕 called 〔377 Alarm Label Dictionary〕
+〔450〕 Add Alarm for 〔418 Supposed Alarm Time〕 called 〔419 Alarm Label Dictionary〕
 
-〔409〕 Otherwise　▵393
+〔451〕 Otherwise　▵435
 
-〔410〕 If 〔376 Supposed Alarm Time〕 > 〔378 Current Date〕
+〔452〕 If 〔418 Supposed Alarm Time〕 > 〔420 Current Date〕
 
-〔411〕 If 〔376 Supposed Alarm Time〕 > 〔379 1 day after〕
+〔453〕 If 〔418 Supposed Alarm Time〕 > 〔421 1 day after〕
 
-〔412〕 Comment
+〔454〕 Comment
 when the time is other than 12:00 am of then next day, you cannot set alarm yet. If set, it will be today. For example, triggering time 2025-4-8 12:00 am, the supposed alarm time is 2025-4-9 08:00 am, if you set an alarm at 08:00 at 2025-4-8 12:00 am, it will alarm at 2025-4-8 08:00 am instead. So we need to record the supposed alarm time and trigger next day.
 
-〔413〕 Set Variable Event to 〔377 Alarm Label Dictionary〕
+〔455〕 Set Variable Event to 〔419 Alarm Label Dictionary〕
 
-〔414〕 Otherwise
+〔456〕 Otherwise
 
-〔415〕 Find Alarm Library　» 416 417
+〔457〕 Find Alarm Library　» 458 459
 
-〔416〕 If 〔415 Alarms〕 has any value
+〔458〕 If 〔457 Alarms〕 has any value
 
-〔417〕 Repeat[3] with Each in 〔415 Alarms〕
+〔459〕 Repeat[3] with Each in 〔457 Alarms〕
 
-〔418〕 Set Variable AlarmRepeatItem to 〔Repeat Item 3〕
+〔460〕 Set Variable AlarmRepeatItem to 〔Repeat Item 3〕
 
-〔419〕 Get Dictionary from 〔AlarmRepeatItem’s label〕 　➔ AlarmLabelDictionary　» 420 421 422
+〔461〕 Get Dictionary from 〔AlarmRepeatItem’s label〕 　➔ AlarmLabelDictionary　» 462 463 464
 
-〔420〕 Get Text from 〔419 AlarmLabelDictionary.Event〕　» 423
+〔462〕 Get Text from 〔461 AlarmLabelDictionary.Event〕　» 465
 
-〔421〕 Get Dates from 〔419 AlarmLabelDictionary.From〕 　➔ FromDate　» 423
+〔463〕 Get Dates from 〔461 AlarmLabelDictionary.From〕 　➔ FromDate　» 465
 
-〔422〕 Get Dates from 〔419 AlarmLabelDictionary.To〕 　➔ ToDate　»
+〔464〕 Get Dates from 〔461 AlarmLabelDictionary.To〕 　➔ ToDate　»
 
-〔423〕 If All are true　〔420 Text〕 is 〔CalendarRepeatItem〕　〔421 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔CalendarRepeatItem’s Start Date{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕　〔422 ToDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is • ConditionalActionString
+〔465〕 If All are true　〔462 Text〕 is 〔CalendarRepeatItem〕　〔463 FromDate{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕 is 〔CalendarRepeatItem’s Start Date{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕　〔464 ToDate{"Date Style":"Custom","WFDateFormat":"HH:mm","WFISO8601IncludeTime":false}〕 is • ConditionalActionString
 〔CalendarRepeatItem’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕• Date
 〔Repeat Item’s End Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH:mm"}〕
 
-〔424〕 Delete Alarms
+〔466〕 Delete Alarms
 • entities: 〔AlarmRepeatItem〕
 
-〔425〕 End If
+〔467〕 End If
 
-〔426〕 End Repeat[3] with Each　▵417
+〔468〕 End Repeat[3] with Each　▵459
 
-〔427〕 End If　▵416
+〔469〕 End If　▵458
 
-〔428〕 Add Alarm for 〔376 Supposed Alarm Time〕 called 〔377 Alarm Label Dictionary〕
+〔470〕 Add Alarm for 〔418 Supposed Alarm Time〕 called 〔419 Alarm Label Dictionary〕
 
-〔429〕 End If　▵414
+〔471〕 End If　▵456
 
-〔430〕 Otherwise　▵410
+〔472〕 Otherwise　▵452
 
-〔431〕 Comment
+〔473〕 Comment
 the supposed alarm time passed
 
-〔432〕 If 〔CalendarRepeatItem’s Location〕 has any value
+〔474〕 If 〔CalendarRepeatItem’s Location〕 has any value
 
-〔433〕 Text　»
-Event 〔CalendarRepeatItem〕 from 〔CalendarRepeatItem’s Start Date〕 to 〔CalendarRepeatItem’s End Date〕 at 〔CalendarRepeatItem’s Location〕 which  was supposed to get ready at 〔376 Supposed Alarm Time〕. Please check.
+〔475〕 Text　»
+Event 〔CalendarRepeatItem〕 from 〔CalendarRepeatItem’s Start Date〕 to 〔CalendarRepeatItem’s End Date〕 at 〔CalendarRepeatItem’s Location〕 which  was supposed to get ready at 〔418 Supposed Alarm Time〕. Please check.
 
-〔434〕 Set Variable Text to 〔433 Text〕
+〔476〕 Set Variable Text to 〔475 Text〕
 
-〔435〕 Otherwise
+〔477〕 Otherwise
 
-〔436〕 Text　»
-Event 〔CalendarRepeatItem〕 from 〔CalendarRepeatItem’s Start Date〕 to 〔CalendarRepeatItem’s End Date〕 which  was supposed to get ready at 〔376 Supposed Alarm Time〕. Please check.
+〔478〕 Text　»
+Event 〔CalendarRepeatItem〕 from 〔CalendarRepeatItem’s Start Date〕 to 〔CalendarRepeatItem’s End Date〕 which  was supposed to get ready at 〔418 Supposed Alarm Time〕. Please check.
 
-〔437〕 Set Variable Text to 〔436 Text〕
+〔479〕 Set Variable Text to 〔478 Text〕
 
-〔438〕 End If
+〔480〕 End If
 
-〔439〕 Show Alert 〔Text〕
+〔481〕 Show Alert 〔Text〕
 
-〔440〕 Show Notification 〔Text〕
+〔482〕 Show Notification 〔Text〕
 
-〔441〕 Speak Text
+〔483〕 Speak Text
 • Text: 〔Text〕
 
-〔442〕 End If　▵430
+〔484〕 End If　▵472
 
-〔443〕 End If　▵409
+〔485〕 End If　▵451
 
-〔444〕 End If　▵392
+〔486〕 End If　▵434
 
-〔445〕 If 〔Event as Dictionary〕 has any value
+〔487〕 If 〔Event as Dictionary〕 has any value
 
-〔446〕 Get Dictionary from 〔Event〕　» 447 448 449 462
+〔488〕 Get Dictionary from 〔Event〕　» 489 490 491 504
 
-〔447〕 Get Text from 〔446 Dictionary.Event〕　» 462
+〔489〕 Get Text from 〔488 Dictionary.Event〕　» 504
 
-〔448〕 Get Dates from 〔446 Dictionary.From〕　» 462
+〔490〕 Get Dates from 〔488 Dictionary.From〕　» 504
 
-〔449〕 Get Dates from 〔446 Dictionary.To〕　» 462
+〔491〕 Get Dates from 〔488 Dictionary.To〕　» 504
 
-〔450〕 Text　»
+〔492〕 Text　»
 
-〔451〕 Set Variable TextList to 〔450 Text〕
+〔493〕 Set Variable TextList to 〔492 Text〕
 
-〔452〕 Add 〔Event〕 to Variable TextList
+〔494〕 Add 〔Event〕 to Variable TextList
 
-〔453〕 Get File at Path 〔FutureAlarmsPath〕 from Folder　» 454 455
+〔495〕 Get File at Path 〔FutureAlarmsPath〕 from Folder　» 496 497
 • FileErrorIfNotFound: false
 
-〔454〕 If 〔453 File’s File Size〕 has any value
+〔496〕 If 〔495 File’s File Size〕 has any value
 
-〔455〕 Split Text 〔453 File〕 by New Lines　»
+〔497〕 Split Text 〔495 File〕 by New Lines　»
 
-〔456〕 Repeat[3] with Each in 〔455 Split Text〕
+〔498〕 Repeat[3] with Each in 〔497 Split Text〕
 
-〔457〕 Set Variable FutureRepeatItem to 〔Repeat Item 3〕
+〔499〕 Set Variable FutureRepeatItem to 〔Repeat Item 3〕
 
-〔458〕 Get Dictionary from 〔FutureRepeatItem〕　» 459 460 461
+〔500〕 Get Dictionary from 〔FutureRepeatItem〕　» 501 502 503
 
-〔459〕 Get Text from 〔458 Dictionary.Event〕　» 462
+〔501〕 Get Text from 〔500 Dictionary.Event〕　» 504
 
-〔460〕 Get Dates from 〔458 Dictionary.From〕　» 462
+〔502〕 Get Dates from 〔500 Dictionary.From〕　» 504
 
-〔461〕 Get Dates from 〔458 Dictionary.To〕　»
+〔503〕 Get Dates from 〔500 Dictionary.To〕　»
 
-〔462〕 If Any are true　〔459 Text〕 is not 〔447 Text〕　〔460 Dates〕 is not • ConditionalActionString
-〔446 Dictionary.From〕• Date
-〔448 Dates〕　〔461 Dates〕 is not • ConditionalActionString
-〔446 Dictionary.To〕• Date
-〔449 Dates〕
+〔504〕 If Any are true　〔501 Text〕 is not 〔489 Text〕　〔502 Dates〕 is not • ConditionalActionString
+〔488 Dictionary.From〕• Date
+〔490 Dates〕　〔503 Dates〕 is not • ConditionalActionString
+〔488 Dictionary.To〕• Date
+〔491 Dates〕
 
-〔463〕 Add 〔FutureRepeatItem〕 to Variable TextList
+〔505〕 Add 〔FutureRepeatItem〕 to Variable TextList
 
-〔464〕 End If
+〔506〕 End If
 
-〔465〕 End Repeat[3] with Each　▵456
+〔507〕 End Repeat[3] with Each　▵498
 
-〔466〕 Combine Text 〔TextList〕 with New Lines　»
+〔508〕 Combine Text 〔TextList〕 with New Lines　»
 
-〔467〕 Save File 〔466 Combined Text〕
+〔509〕 Save File 〔508 Combined Text〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: 〔FutureAlarmsPath〕
 
-〔468〕 Otherwise　▵454
+〔510〕 Otherwise　▵496
 
-〔469〕 Text　»
+〔511〕 Text　»
 
 〔Event〕
 
-〔470〕 Save File 〔469 Text〕
+〔512〕 Save File 〔511 Text〕
 • AskWhereToSave: false
 • FileDestinationPath: 〔FutureAlarmsPath〕
 
-〔471〕 End If
+〔513〕 End If
 
-〔472〕 End If　▵445
+〔514〕 End If　▵487
 
-〔473〕 End Repeat[2] with Each　▵141
+〔515〕 End Repeat[2] with Each　▵183
 
-〔474〕 If 〔132 Numbers〕 < 1440
+〔516〕 If 〔GranularityRepeatItem〕 < 1440
 
-〔475〕 Number 3　»
+〔517〕 Number 3　»
 
-〔476〕 Repeat[2] 〔475 Number〕 Times
+〔518〕 Repeat[2] 〔517 Number〕 Times
 
-〔477〕 Repeat[3] with Each in 〔138 Calendar Events〕
+〔519〕 Repeat[3] with Each in 〔180 If Result〕
 
-〔478〕 Format Date 〔Repeat Item 3’s Start Date〕　» 482 485 490 493
+〔520〕 Format Date 〔Repeat Item 3’s Start Date〕　» 524 527 532 535
 • DateFormatStyle: None
 
-〔479〕 Format Date 〔Repeat Item 3’s End Date〕　» 482 485 490 493
+〔521〕 Format Date 〔Repeat Item 3’s End Date〕　» 524 527 532 535
 • DateFormatStyle: None
 
-〔480〕 If 〔Repeat Item 3’s Location〕 has any value
+〔522〕 If 〔Repeat Item 3’s Location〕 has any value
 
-〔481〕 If 〔140 Count〕 > 1
+〔523〕 If 〔182 Count〕 > 1
 
-〔482〕 Text　»
-Event 〔Repeat Index 3〕 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date〕 at 〔Repeat Item 3’s Location〕\u{space}
+〔524〕 Text　»
+Event 〔Repeat Index 3〕 〔Repeat Item 3〕 from 〔520 Formatted Date〕 to 〔521 Formatted Date〕 at 〔Repeat Item 3’s Location〕\u{space}
 
-〔483〕 Set Variable Text to 〔482 Text〕
+〔525〕 Set Variable Text to 〔524 Text〕
 
-〔484〕 Otherwise
+〔526〕 Otherwise
 
-〔485〕 Text　»
-Event 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date〕 at 〔Repeat Item 3’s Location〕\u{space}
+〔527〕 Text　»
+Event 〔Repeat Item 3〕 from 〔520 Formatted Date〕 to 〔521 Formatted Date〕 at 〔Repeat Item 3’s Location〕\u{space}
 
-〔486〕 Set Variable Text to 〔485 Text〕
+〔528〕 Set Variable Text to 〔527 Text〕
 
-〔487〕 End If
+〔529〕 End If
 
-〔488〕 Otherwise　▵480
+〔530〕 Otherwise　▵522
 
-〔489〕 If 〔140 Count〕 > 1
+〔531〕 If 〔182 Count〕 > 1
 
-〔490〕 Text　»
-Event 〔Repeat Index 3〕 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date〕
+〔532〕 Text　»
+Event 〔Repeat Index 3〕 〔Repeat Item 3〕 from 〔520 Formatted Date〕 to 〔521 Formatted Date〕
 
-〔491〕 Set Variable Text to 〔490 Text〕
+〔533〕 Set Variable Text to 〔532 Text〕
 
-〔492〕 Otherwise
+〔534〕 Otherwise
 
-〔493〕 Text　»
-Event 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date〕
+〔535〕 Text　»
+Event 〔Repeat Item 3〕 from 〔520 Formatted Date〕 to 〔521 Formatted Date〕
 
-〔494〕 Set Variable Text to 〔493 Text〕
+〔536〕 Set Variable Text to 〔535 Text〕
 
-〔495〕 End If
+〔537〕 End If
 
-〔496〕 End If　▵488
+〔538〕 End If　▵530
 
-〔497〕 Speak Text
+〔539〕 Speak Text
 • Text: 〔Text〕
 
-〔498〕 Wait 1 seconds
+〔540〕 Wait 1 seconds
 
-〔499〕 End Repeat[3] with Each　▵477
+〔541〕 End Repeat[3] with Each　▵519
 
-〔500〕 End Repeat[2] Times　▵476
+〔542〕 End Repeat[2] Times　▵518
 
-〔501〕 End If　▵474
+〔543〕 End If　▵516
 
-〔502〕 End If　▵139
+〔544〕 End If　▵181
 
-〔503〕 End Repeat with Each　▵130
+〔545〕 End Repeat with Each　▵146
 
-〔504〕 Get File at Path 〔FutureAlarmsPath〕 from Folder　» 505 506
+〔546〕 Get File at Path 〔FutureAlarmsPath〕 from Folder　» 547 548
 • FileErrorIfNotFound: false
 
-〔505〕 If 〔504 File’s File Size〕 has any value
+〔547〕 If 〔546 File’s File Size〕 has any value
 
-〔506〕 Split Text 〔504 File〕 by New Lines　»
+〔548〕 Split Text 〔546 File〕 by New Lines　»
 
-〔507〕 Repeat with Each in 〔506 Split Text〕
+〔549〕 Repeat with Each in 〔548 Split Text〕
 
-〔508〕 Get Dictionary from 〔Repeat Item〕　» 509 510 511 512 513 526 529
+〔550〕 Get Dictionary from 〔Repeat Item〕　» 551 552 553 554 555 568 571
 
-〔509〕 Get Text from 〔508 Dictionary.Event〕　» 521
+〔551〕 Get Text from 〔550 Dictionary.Event〕　» 563
 
-〔510〕 Get Dates from 〔508 Dictionary.From〕　» 522
+〔552〕 Get Dates from 〔550 Dictionary.From〕　» 564
 
-〔511〕 Get Dates from 〔508 Dictionary.To〕　» 522
+〔553〕 Get Dates from 〔550 Dictionary.To〕　» 564
 
-〔512〕 If 〔508 Dictionary〕 has any value
+〔554〕 If 〔550 Dictionary〕 has any value
 
-〔513〕 Get Dates from 〔508 Dictionary.AlarmTime〕　» 514 526 529
+〔555〕 Get Dates from 〔550 Dictionary.AlarmTime〕　» 556 568 571
 
-〔514〕 If 〔513 Dates〕 is today
+〔556〕 If 〔555 Dates〕 is today
 
-〔515〕 Find Alarm All Alarm　» 516 517
+〔557〕 Find Alarm All Alarm　» 558 559
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
       "WFActionParameterFilterTemplates": [],
@@ -2379,71 +2554,71 @@ Event 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔516〕 If 〔515 Alarms〕 has any value
+〔558〕 If 〔557 Alarms〕 has any value
 
-〔517〕 Repeat[2] with Each in 〔515 Alarms〕
+〔559〕 Repeat[2] with Each in 〔557 Alarms〕
 
-〔518〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ Alarm_Label_Dictionary　» 519 520 521
+〔560〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ Alarm_Label_Dictionary　» 561 562 563
 
-〔519〕 Get Dates from 〔518 Alarm_Label_Dictionary.From〕 　➔ From_Date　» 522
+〔561〕 Get Dates from 〔560 Alarm_Label_Dictionary.From〕 　➔ From_Date　» 564
 
-〔520〕 Get Dates from 〔518 Alarm_Label_Dictionary.To〕 　➔ To_Date　» 522
+〔562〕 Get Dates from 〔560 Alarm_Label_Dictionary.To〕 　➔ To_Date　» 564
 
-〔521〕 If 〔509 Text〕 is 〔518 Alarm_Label_Dictionary.Event〕
+〔563〕 If 〔551 Text〕 is 〔560 Alarm_Label_Dictionary.Event〕
 
-〔522〕 If Any are true　〔510 Dates〕 is 〔519 From_Date〕　〔511 Dates〕 is 〔520 To_Date〕
+〔564〕 If Any are true　〔552 Dates〕 is 〔561 From_Date〕　〔553 Dates〕 is 〔562 To_Date〕
 
-〔523〕 Nothing
+〔565〕 Nothing
 
-〔524〕 Otherwise
+〔566〕 Otherwise
 
-〔525〕 Delete Alarms
+〔567〕 Delete Alarms
 • entities: 〔Repeat Item 2〕
 
-〔526〕 Add Alarm for 〔513 Dates〕 called 〔508 Dictionary〕
+〔568〕 Add Alarm for 〔555 Dates〕 called 〔550 Dictionary〕
 
-〔527〕 End If
+〔569〕 End If
 
-〔528〕 Otherwise　▵521
+〔570〕 Otherwise　▵563
 
-〔529〕 Add Alarm for 〔513 Dates〕 called 〔508 Dictionary〕
+〔571〕 Add Alarm for 〔555 Dates〕 called 〔550 Dictionary〕
 
-〔530〕 End If
+〔572〕 End If
 
-〔531〕 End Repeat[2] with Each　▵517
+〔573〕 End Repeat[2] with Each　▵559
 
-〔532〕 End If　▵516
+〔574〕 End If　▵558
 
-〔533〕 End If　▵514
+〔575〕 End If　▵556
 
-〔534〕 End If　▵512
+〔576〕 End If　▵554
 
-〔535〕 End Repeat with Each　▵507
+〔577〕 End Repeat with Each　▵549
 
-〔536〕 End If　▵505
+〔578〕 End If　▵547
 
-〔537〕 End If　▵119
+〔579〕 End If　▵121
 
-〔538〕 If 〔Shortcut Input as Number〕 is 3
+〔580〕 If 〔Shortcut Input as Number〕 is 3
 
-〔539〕 Comment
+〔581〕 Comment
 Alarm Activation Handler
 Triggered by alarm events - manages notification flow
 
-〔540〕 Dictionary　»
+〔582〕 Dictionary　»
 {  "stop": "no" }
 
-〔541〕 Text　»
-〔540 Dictionary〕
+〔583〕 Text　»
+〔582 Dictionary〕
 
-〔542〕 Save File 〔541 Text〕
+〔584〕 Save File 〔583 Text〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: 〔StopFlagPath〕
 
-〔543〕 Date Current Date　» 559
+〔585〕 Date Current Date　» 601
 
-〔544〕 Find Alarm All Alarm　» 545 554
+〔586〕 Find Alarm All Alarm　» 587 596
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
       "WFContentPredicateBoundedDate": false,
@@ -2452,97 +2627,97 @@ Triggered by alarm events - manages notification flow
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
 
-〔545〕 If 〔544 Alarms〕 has any value
+〔587〕 If 〔586 Alarms〕 has any value
 
-〔546〕 Number 10000　»
+〔588〕 Number 10000　»
 
-〔547〕 Repeat 〔546 Number〕 Times
+〔589〕 Repeat 〔588 Number〕 Times
 
-〔548〕 Get File at Path 〔StopFlagPath〕 from Folder　»
+〔590〕 Get File at Path 〔StopFlagPath〕 from Folder　»
 • FileErrorIfNotFound: false
 
-〔549〕 Get Dictionary from 〔548 File〕　»
+〔591〕 Get Dictionary from 〔590 File〕　»
 
-〔550〕 Get Text from 〔549 Dictionary.stop〕　»
+〔592〕 Get Text from 〔591 Dictionary.stop〕　»
 
-〔551〕 If 〔550 Text〕 is yes
+〔593〕 If 〔592 Text〕 is yes
 
-〔552〕 Stop This Shortcut
+〔594〕 Stop This Shortcut
 
-〔553〕 End If
+〔595〕 End If
 
-〔554〕 Repeat[2] with Each in 〔544 Alarms〕
+〔596〕 Repeat[2] with Each in 〔586 Alarms〕
 
-〔555〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ alarm_label_dictionary　» 556 557 558 562 565 568
+〔597〕 Get Dictionary from 〔Repeat Item 2’s label〕 　➔ alarm_label_dictionary　» 598 599 600 604 607 610
 
-〔556〕 Get Dates from 〔555 alarm_label_dictionary.From〕 　➔ From　» 560
+〔598〕 Get Dates from 〔597 alarm_label_dictionary.From〕 　➔ From　» 602
 
-〔557〕 Get Dates from 〔555 alarm_label_dictionary.To〕 　➔ To　» 561
+〔599〕 Get Dates from 〔597 alarm_label_dictionary.To〕 　➔ To　» 603
 
-〔558〕 Get Dates from 〔555 alarm_label_dictionary.AlarmTime〕 　➔ AlarmTime　»
+〔600〕 Get Dates from 〔597 alarm_label_dictionary.AlarmTime〕 　➔ AlarmTime　»
 
-〔559〕 If All are true　〔558 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕 is 〔543 Date{"Date Style":"Custom","WFDateFormat":"HH","WFISO8601IncludeTime":false}〕　〔558 AlarmTime{"Date Style":"Custom","WFDateFormat":"mm","WFISO8601IncludeTime":false}〕 is 〔543 Date{"Date Style":"Custom","WFDateFormat":"mm","WFISO8601IncludeTime":false}〕
+〔601〕 If All are true　〔600 AlarmTime{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"HH"}〕 is 〔585 Date{"Date Style":"Custom","WFDateFormat":"HH","WFISO8601IncludeTime":false}〕　〔600 AlarmTime{"Date Style":"Custom","WFDateFormat":"mm","WFISO8601IncludeTime":false}〕 is 〔585 Date{"Date Style":"Custom","WFDateFormat":"mm","WFISO8601IncludeTime":false}〕
 
-〔560〕 Format Date 〔556 From’s Time〕　» 565 568
+〔602〕 Format Date 〔598 From’s Time〕　» 607 610
 • DateFormatStyle: None
 
-〔561〕 Format Date 〔557 To’s Time〕　» 565 568
+〔603〕 Format Date 〔599 To’s Time〕　» 607 610
 • DateFormatStyle: None
 
-〔562〕 Text　»
-〔555 alarm_label_dictionary.Location〕
+〔604〕 Text　»
+〔597 alarm_label_dictionary.Location〕
 
-〔563〕 Count Characters in 〔562 Text〕　»
+〔605〕 Count Characters in 〔604 Text〕　»
 
-〔564〕 If 〔563 Count〕 > • ConditionalActionString
+〔606〕 If 〔605 Count〕 > • ConditionalActionString
 ""• NumberValue
 0
 
-〔565〕 Text　»
-Prepare for 〔555 alarm_label_dictionary.Event〕 from 〔560 Formatted Date〕 to 〔561 Formatted Date〕 at 〔555 alarm_label_dictionary.Location〕
+〔607〕 Text　»
+Prepare for 〔597 alarm_label_dictionary.Event〕 from 〔602 Formatted Date〕 to 〔603 Formatted Date〕 at 〔597 alarm_label_dictionary.Location〕
 
-〔566〕 Set Variable Text to 〔565 Text〕
+〔608〕 Set Variable Text to 〔607 Text〕
 
-〔567〕 Otherwise
+〔609〕 Otherwise
 
-〔568〕 Text　»
-Prepare for 〔555 alarm_label_dictionary.Event〕 from 〔560 Formatted Date〕 to 〔561 Formatted Date〕
+〔610〕 Text　»
+Prepare for 〔597 alarm_label_dictionary.Event〕 from 〔602 Formatted Date〕 to 〔603 Formatted Date〕
 
-〔569〕 Set Variable Text to 〔568 Text〕
+〔611〕 Set Variable Text to 〔610 Text〕
 
-〔570〕 End If
+〔612〕 End If
 
-〔571〕 Speak Text
+〔613〕 Speak Text
 • Text: 〔Text〕
 
-〔572〕 End If　▵559
+〔614〕 End If　▵601
 
-〔573〕 End Repeat[2] with Each　▵554
+〔615〕 End Repeat[2] with Each　▵596
 
-〔574〕 End Repeat Times　▵547
+〔616〕 End Repeat Times　▵589
 
-〔575〕 End If　▵545
+〔617〕 End If　▵587
 
-〔576〕 End If　▵538
+〔618〕 End If　▵580
 
-〔577〕 If 〔Shortcut Input as Number〕 is 4
+〔619〕 If 〔Shortcut Input as Number〕 is 4
 
-〔578〕 Comment
+〔620〕 Comment
 input case 4:
 Notification Interrupt System
 Stop protocol for voice announcements when any alarm is stopped.
 
-〔579〕 Dictionary　»
+〔621〕 Dictionary　»
 {  "stop": "yes" }
 
-〔580〕 Text　»
-〔579 Dictionary〕
+〔622〕 Text　»
+〔621 Dictionary〕
 
-〔581〕 Save File 〔580 Text〕
+〔623〕 Save File 〔622 Text〕
 • AskWhereToSave: false
 • SaveFileOverwrite: true
 • FileDestinationPath: 〔StopFlagPath〕
 
-〔582〕 End If
+〔624〕 End If
 
-〔583〕 End If　▵118
+〔625〕 End If　▵120
