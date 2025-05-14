@@ -1,6 +1,6 @@
-https://www.icloud.com/shortcuts/3e0086f528f04c40a18a2fcbe5844a6b
+https://www.icloud.com/shortcuts/523cd9a2136c4711bb26189614169c59
 
-Smart Calendar Reminder V5 (626 actions, 255 KB)
+Smart Calendar Reminder V6 (626 actions, 255 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -1555,13 +1555,13 @@ Eliminates manual reminders and ensures perfect timing synchronization*
 
 〔130〕 Set Variable ExtraTime to 〔129 Numbers〕
 
-〔131〕 Get Dictionary from 〔124 Dictionary.Granularity〕　» 132 136 148
+〔131〕 Get Dictionary from 〔124 Dictionary.Granularity〕　» 132 136 147
 
-〔132〕 Get Dictionary All Keys in 〔131 Dictionary〕　» 135 146
+〔132〕 Get Dictionary All Keys in 〔131 Dictionary〕　» 135 145
 
 〔133〕 Set Variable MinMinute to  
 
-〔134〕 Dictionary　» 139 151
+〔134〕 Dictionary　» 139 150
 {  "year": 525600,
    "month": 43200,
    "week": 10080,
@@ -1589,31 +1589,31 @@ Eliminates manual reminders and ensures perfect timing synchronization*
 
 〔143〕 End If
 
-〔144〕 Show Result
-〔MinMinute〕
+〔144〕 End Repeat with Each　▵135
 
-〔145〕 End Repeat with Each　▵135
+〔145〕 Repeat with Each in 〔132 Dictionary Value〕
 
-〔146〕 Repeat with Each in 〔132 Dictionary Value〕
+〔146〕 Date Current Date　» 155 158 161 164 167
 
-〔147〕 Date Current Date　» 155 158 161 164 167
+〔147〕 Get Dictionary Value for 〔Repeat Item〕 in 〔131 Dictionary〕　» 148 151 159 162 165 168 171 174
 
-〔148〕 Get Dictionary Value for 〔Repeat Item〕 in 〔131 Dictionary〕　» 149 152 159 162 165 168 171 174
+〔148〕 Get Numbers from 〔147 Dictionary Value〕
 
-〔149〕 Get Numbers from 〔148 Dictionary Value〕
-
-〔150〕 Replace Text s$ with   in 〔Repeat Item〕　» 151 158 161 164 167 170 173
+〔149〕 Replace Text s$ with   in 〔Repeat Item〕　» 150 158 161 164 167 170 173
 • ReplaceTextRegularExpression: true
 
-〔151〕 Get Dictionary Value for 〔150 Updated Text〕 in 〔134 Dictionary〕　»
+〔150〕 Get Dictionary Value for 〔149 Updated Text〕 in 〔134 Dictionary〕　»
 
-〔152〕 Calculate 〔151 Dictionary Value〕 × 〔148 Dictionary Value〕　»
+〔151〕 Calculate 〔150 Dictionary Value〕 × 〔147 Dictionary Value〕　»
 
-〔153〕 Set Variable GranularityRepeatItem to 〔152 Calculation Result〕
+〔152〕 Set Variable GranularityRepeatItem to 〔151 Calculation Result〕
+
+〔153〕 Show Result
+〔MinMinute〕
 
 〔154〕 If 〔GranularityRepeatItem〕 is 〔MinMinute〕
 
-〔155〕 Adjust Add Date 〔147 Date〕　»
+〔155〕 Adjust Add Date 〔146 Date〕　»
 • Duration: 〔GranularityRepeatItem〕 min
 
 〔156〕 Turn Focus On
@@ -1625,73 +1625,73 @@ Eliminates manual reminders and ensures perfect timing synchronization*
 
 〔157〕 End If　» 159 162 165 168 171 174
 
-〔158〕 If All are true　〔150 Updated Text〕 is year　〔147 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM"}〕 is 01 Jan　〔147 Date’s Time〕 is 2025-05-14, 12:00:12 AM
+〔158〕 If All are true　〔149 Updated Text〕 is year　〔146 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd MMM"}〕 is 01 Jan　〔146 Date’s Time〕 is 2025-05-14, 12:00:12 AM
 
 〔159〕 Find Calendar Events 〔157 If Result〕 where
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
-Start Date is in the next 〔148 Dictionary Value〕 undefined
+Start Date is in the next 〔147 Dictionary Value〕 undefined
 Is Not All Day
 Canceled is {"Bool":false}
 
 〔160〕 Otherwise
 
-〔161〕 If All are true　〔150 Updated Text〕 is month　〔147 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd"}〕 is 01　〔147 Date’s Time〕 is 2025-05-14, 12:00:39 AM
+〔161〕 If All are true　〔149 Updated Text〕 is month　〔146 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"dd"}〕 is 01　〔146 Date’s Time〕 is 2025-05-14, 12:00:39 AM
 
 〔162〕 Find Calendar Events 〔157 If Result〕 where
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
-Start Date is in the next 〔148 Dictionary Value〕 undefined
+Start Date is in the next 〔147 Dictionary Value〕 undefined
 Is Not All Day
 Canceled is {"Bool":false}
 
 〔163〕 Otherwise
 
-〔164〕 If All are true　〔150 Updated Text〕 is week　〔147 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"EEE"}〕 is Sun　〔147 Date’s Time〕 is 2025-05-14, 12:00:08 AM
+〔164〕 If All are true　〔149 Updated Text〕 is week　〔146 Date{"Date Style":"Custom","WFISO8601IncludeTime":false,"WFDateFormat":"EEE"}〕 is Sun　〔146 Date’s Time〕 is 2025-05-14, 12:00:08 AM
 
 〔165〕 Find Calendar Events 〔157 If Result〕 where
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
-Start Date is in the next 〔148 Dictionary Value〕 undefined
+Start Date is in the next 〔147 Dictionary Value〕 undefined
 Is Not All Day
 Canceled is {"Bool":false}
 
 〔166〕 Otherwise
 
-〔167〕 If All are true　〔150 Updated Text〕 is day　〔147 Date’s Time〕 is 2025-05-14, 12:00:21 AM
+〔167〕 If All are true　〔149 Updated Text〕 is day　〔146 Date’s Time〕 is 2025-05-14, 12:00:21 AM
 
 〔168〕 Find Calendar Events 〔157 If Result〕 where
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
-Start Date is in the next 〔148 Dictionary Value〕 undefined
+Start Date is in the next 〔147 Dictionary Value〕 undefined
 Is Not All Day
 Canceled is {"Bool":false}
 
 〔169〕 Otherwise
 
-〔170〕 If 〔150 Updated Text〕 is hour
+〔170〕 If 〔149 Updated Text〕 is hour
 
 〔171〕 Find Calendar Events 〔157 If Result〕 where
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
-Start Date is in the next 〔148 Dictionary Value〕 undefined
+Start Date is in the next 〔147 Dictionary Value〕 undefined
 Is Not All Day
 Canceled is {"Bool":false}
 
 〔172〕 Otherwise
 
-〔173〕 If 〔150 Updated Text〕 is minute
+〔173〕 If 〔149 Updated Text〕 is minute
 
 〔174〕 Find Calendar Events 〔157 If Result〕 where
 • ContentItemSortProperty: Start Date
 • ContentItemSortOrder: Oldest First
 • ContentItemFilter: • All the following are true
-Start Date is in the next 〔148 Dictionary Value〕 undefined
+Start Date is in the next 〔147 Dictionary Value〕 undefined
 Is Not All Day
 Canceled is {"Bool":false}
 
@@ -2522,7 +2522,7 @@ Event 〔Repeat Item 3〕 from 〔520 Formatted Date〕 to 〔521 Formatted Date
 
 〔544〕 End If　▵181
 
-〔545〕 End Repeat with Each　▵146
+〔545〕 End Repeat with Each　▵145
 
 〔546〕 Get File at Path 〔FutureAlarmsPath〕 from Folder　» 547 548
 • FileErrorIfNotFound: false
@@ -2550,8 +2550,8 @@ Event 〔Repeat Item 3〕 from 〔520 Formatted Date〕 to 〔521 Formatted Date
 〔557〕 Find Alarm All Alarm　» 558 559
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
