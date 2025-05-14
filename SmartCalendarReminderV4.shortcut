@@ -1604,12 +1604,12 @@ Eliminates manual reminders and ensures perfect timing synchronization*
 
 〔151〕 Calculate 〔150 Dictionary Value〕 × 〔147 Dictionary Value〕　»
 
-〔152〕 Set Variable GranularityRepeatItem to 〔151 Calculation Result〕
+〔152〕 Set Variable GranularityMinute to 〔151 Calculation Result〕
 
-〔153〕 If 〔GranularityRepeatItem〕 is 〔MinMinute〕
+〔153〕 If 〔GranularityMinute〕 is 〔MinMinute〕
 
 〔154〕 Adjust Add Date 〔146 Date〕　»
-• Duration: 〔GranularityRepeatItem〕 min
+• Duration: 〔GranularityMinute〕 min
 
 〔155〕 Turn Focus On
 • AssertionType: Time
@@ -2452,7 +2452,7 @@ Event 〔CalendarRepeatItem〕 from 〔CalendarRepeatItem’s Start Date〕 to �
 
 〔514〕 End Repeat[2] with Each　▵182
 
-〔515〕 If 〔GranularityRepeatItem〕 < 1440
+〔515〕 If 〔GranularityMinute〕 < 1440
 
 〔516〕 Number 3　»
 
@@ -2545,8 +2545,8 @@ Event 〔Repeat Item 3〕 from 〔519 Formatted Date〕 to 〔520 Formatted Date
 〔556〕 Find Alarm All Alarm　» 557 558
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -2563,7 +2563,7 @@ Event 〔Repeat Item 3〕 from 〔519 Formatted Date〕 to 〔520 Formatted Date
 
 〔562〕 If 〔550 Text〕 is 〔559 Alarm_Label_Dictionary.Event〕
 
-〔563〕 If Any are true　〔551 Dates〕 is 〔560 From_Date〕　〔552 Dates〕 is 〔561 To_Date〕
+〔563〕 If All are true　〔551 Dates〕 is 〔560 From_Date〕　〔552 Dates〕 is 〔561 To_Date〕　〔Repeat Item 2’s enabled〕 is true
 
 〔564〕 Nothing
 
