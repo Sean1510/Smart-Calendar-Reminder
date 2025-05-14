@@ -1,4 +1,4 @@
-Smart Calendar Reminder V5 (584 actions, 236 KB)
+Smart Calendar Reminder V4 (584 actions, 236 KB)
 "WFQuickActionSurfaces": [],
 "WFWorkflowClientVersion": "3303.0.5",
 "WFWorkflowHasOutputFallback": false,
@@ -2373,8 +2373,8 @@ Event 〔Repeat Item 3〕 from 〔478 Formatted Date〕 to 〔479 Formatted Date
 〔515〕 Find Alarm All Alarm　» 516 517
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
@@ -2446,8 +2446,8 @@ Triggered by alarm events - manages notification flow
 〔544〕 Find Alarm All Alarm　» 545 554
 • ContentItemFilter: {  "Value": {
       "WFActionParameterFilterPrefix": 1,
-      "WFActionParameterFilterTemplates": [],
-      "WFContentPredicateBoundedDate": false
+      "WFContentPredicateBoundedDate": false,
+      "WFActionParameterFilterTemplates": []
    },
    "WFSerializationType": "WFContentPredicateTableTemplate"
 }
